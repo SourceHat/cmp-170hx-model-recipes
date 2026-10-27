@@ -1,0 +1,96 @@
+{
+  "format_version": 1,
+  "captured_at": "2026-10-19T16:08:30.462810+00:00",
+  "scope": "Read-only retrieval of the saved Apex profile and retained numerical qualification receipts; no inference or qualification was rerun.",
+  "source_host": "meshify",
+  "passed": true,
+  "files": [
+    {
+      "file": "apex-1374976-load1-full.json",
+      "sha256": "59e1d893ba592eedfcedaf4ecdac0f5638537abbea7b808fcde92febbb0ff9f1",
+      "bytes": 281228,
+      "original_sha256": "cf54e28cc7939ffc71b4d7e86283bd3a862a7d2d8b1de42a60e51fc95a177c53",
+      "original_bytes": 282001
+    },
+    {
+      "file": "apex-1374976-load1-lifecycle.json",
+      "sha256": "340bc8c505aefedca0bb4e38cc1348df2bf3848bab74f21f3dc26e3592a5a697",
+      "bytes": 39136,
+      "original_sha256": "37cc6fbcb980f68c107d2580419e39f52bd8cb0abf331bf91aed9281cf0469de",
+      "original_bytes": 39691
+    },
+    {
+      "file": "apex-1374976-load2-hot-full.json",
+      "sha256": "a340869e67076678032b96ef42d7cad1aeb22c7ced36760b6837ebd75382aff1",
+      "bytes": 288470,
+      "original_sha256": "eb0ee235db14dbe9397574bc6dd3c1ceef70ed913ca672bf11a00c861171c8b9",
+      "original_bytes": 289243
+    },
+    {
+      "file": "apex-1374976-load2-hot-lifecycle.json",
+      "sha256": "4f0f053e08e3e286c251654c86f390dcedceb116c05bd0713ebe74b0e8bf0c81",
+      "bytes": 39067,
+      "original_sha256": "6ebb07ee3b1cf40acf58a3c984ff06253c46c205bd75904cebff2f92d5ac54cb",
+      "original_bytes": 39622
+    },
+    {
+      "file": "apex-1374976-load2-hot-resident.json",
+      "sha256": "568ce557ca9bbaa343ba32d53550f4533407cc02cfe4a1b1cefc826d7eac61f6",
+      "bytes": 267279,
+      "original_sha256": "687babd9a23a9de78c3d3d1de072321e84b85816478aed88671b5179978d473e",
+      "original_bytes": 268102
+    },
+    {
+      "file": "apex-1374976-r2560-2336-2848.json",
+      "sha256": "e77008342af3dde24579834f4a666946b5a297d30bbf4c081f9b1df9b6ab047d",
+      "bytes": 3478,
+      "original_sha256": "ea1d6d91a62fafcfbb3927dfed1e594a1d5a8251ad617e3bd62609ce714fcd10",
+      "original_bytes": 3781
+    },
+    {
+      "file": "apex-original-refreshed-baseline.json",
+      "sha256": "1ec1820f2f5858aaeb809ba2b365477471f1661ad33a3dcd62b71222ef0a0e89",
+      "bytes": 228557,
+      "original_sha256": "bd04bf75daf0567ccc71c277eedfcbfabfe5e970ec5b67cbbb38f9a4bb6b47e7",
+      "original_bytes": 229330
+    },
+    {
+      "file": "baseline-profile.json",
+      "sha256": "82cf1ca6f03a002fc707393c29715d44ae96bc6b39db4f9cb20c82fd68e686f8",
+      "bytes": 3148,
+      "original_sha256": "8164a5c73a03471fce6be0de17b910e749bf16445aae21ad6ea2e09aaf587fcd",
+      "original_bytes": 3376
+    },
+    {
+      "file": "qualification-report.json",
+      "sha256": "73c031d34143bc426aaa2a9739f8d473ea80d8b451c1c03d56e7a35b69c96165",
+      "bytes": 8871,
+      "original_sha256": "e22e0ddb4ee01cf23fac6a264c4c1af5904ccc6fe3888d4b60f875498c741fc5",
+      "original_bytes": 9749
+    },
+    {
+      "file": "saved-profile.json",
+      "sha256": "796135fd02668c4a00fbe382ae3f03d23b851a4f6decc1e9bafdb945fac31fbb",
+      "bytes": 4439,
+      "original_sha256": "f66ba02b68157070b7dc55242a70142c4f861779c7b31f8c9a23c9204e77d6d6",
+      "original_bytes": 4844
+    }
+  ],
+  "physical_sample_archives": "The supplied qualification report retains closed archive digests and per-load physical-memory minima; this readback does not rescan those sample streams.",
+  "harnesses": [
+    {
+      "file": "qualify-e56908b5fd6528e4830c9d7da5b50faaeced5f950f9da68f50627c77bbbaec0b.py",
+      "sha256": "e56908b5fd6528e4830c9d7da5b50faaeced5f950f9da68f50627c77bbbaec0b"
+    },
+    {
+      "file": "qualify-dc9c51af5cb6254c29cc5a410b5bb6cab2b0ffa4121523773a26496cd4f2625c.py",
+      "sha256": "dc9c51af5cb6254c29cc5a410b5bb6cab2b0ffa4121523773a26496cd4f2625c"
+    },
+    {
+      "file": "qualify-696cbea2b4b82b2c92e42ee133dad4eb556a0ce2f1c6b50fea55e02d84056818.py",
+      "sha256": "696cbea2b4b82b2c92e42ee133dad4eb556a0ce2f1c6b50fea55e02d84056818"
+    }
+  ],
+  "model_input_output_retained": false,
+  "projection": "Host filesystem paths, GPU identities, LAN addresses and listener-port metadata are redacted. All measurement values and original receipt digests are preserved."
+}

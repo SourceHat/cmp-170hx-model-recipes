@@ -1,0 +1,185 @@
+{
+  "format_version": 6,
+  "new_gpu_experiments": true,
+  "cpu_tests_passed": 139,
+  "full_repository_validation_passed": true,
+  "source_value_verification": {
+    "passed": true,
+    "verified": {
+      "source_pointers": 7539,
+      "configuration_versions": 1220,
+      "decode_window_receipts": 439,
+      "complete_request_arrays": 383,
+      "quoted_rates": 68,
+      "bounded_checks": 772,
+      "request_timer_fields": 72265,
+      "additional_result_sources": 4252,
+      "additional_numeric_fields": 13562
+    },
+    "errors": []
+  },
+  "coverage": {
+    "archived_profile_count": 81,
+    "historical_records": 461,
+    "configuration_snapshots": 426,
+    "unique_measurement_waves": 394,
+    "synchronized_decode_waves": 243,
+    "bounded_check_records": 772,
+    "reported_rate_summaries": 58,
+    "supplemental_result_records": 2157,
+    "supplemental_result_kind_counts": {
+      "context_allocation": 350,
+      "correctness_check": 117,
+      "numerical_evaluation": 2,
+      "performance_detail": 427,
+      "quality_evaluation": 15,
+      "quoted_quality_score": 2,
+      "test_outcome": 1244
+    },
+    "client_estimated_decode_waves": 4
+  },
+  "known_source_credentials_absent": true,
+  "historical_artifact_links_checked": 24,
+  "historical_artifact_links_http_200": 24,
+  "artifact_pins_added_since_link_check": 0,
+  "limitations": [
+    "Record counts include overlapping summaries, cited copies, request details and regraded responses; they are not independent repetitions.",
+    "Missing measurements, sampling settings, artifact identities and runtime pins remain explicit gaps.",
+    "Four long-output client estimates do not establish synchronized backend decode throughput.",
+    "Bounded task scores do not isolate quantization effects or establish a broad coding/cybersecurity quality benchmark.",
+    "Historical configurations are not newly GPU-qualified or added to the supported launch catalog.",
+    "Older short-output AWQ/DeepSeek reports retain their missing native prefill fields. New complete C1/concurrent pairs are separate. Standard Qwen historical C2 and replica measurements retain their own scopes. The additional C8 wave without an all-eight decode interval is preserved; no aggregate is invented."
+  ],
+  "source_coverage_verification": {
+    "passed": true,
+    "archived_profiles_verified": 81,
+    "definition_records_verified": 313,
+    "request_array_receipts_verified": 366,
+    "request_records_in_receipts": 1382,
+    "scope": "Frozen archived/experiment definitions and numerical request-array records in the retained benchmark-report collection. Repeated source copies are not independent requests."
+  },
+  "public_inventory_review_passed": true,
+  "recommended_serving_settings_unchanged": true,
+  "retained_measurement_values_unchanged": true,
+  "data_preservation_verification": {
+    "passed": true,
+    "numerical_leaves_preserved": 159174,
+    "data_files_verified": 62,
+    "all_original_serving_settings_and_artifact_pins_preserved": true,
+    "calendar_fields_and_source_labels_excluded_from_comparison": true,
+    "errors": [],
+    "new_gpu_measurements": true,
+    "metadata_changes": "All prior non-null measurements, serving settings and artifact pins are preserved. Two previously unavailable AWQ derived fields are enriched from verified native snapshots; six new matched performance waves are appended separately.",
+    "old_nonnull_measurements_preserved": true,
+    "verified_derived_field_enrichments": 2
+  },
+  "archive_navigation": {
+    "archived_profile_index_count": 81,
+    "model_family_pages": 13,
+    "indexed_historical_records": 461,
+    "complete_partition_verified": true
+  },
+  "prefill_export": {
+    "saved_entries": 990,
+    "source_arrays": 293,
+    "derived_view_of_existing_observations": true,
+    "all_source_entries_preserved": true,
+    "rates_reconstructed_from_backend_timers": true,
+    "ttft_substituted_for_backend_time": false,
+    "aggregate_prefill_throughput_inferred": false
+  },
+  "qwen_replica_archive": {
+    "waves": 4,
+    "source_output_budget_tokens_per_request": 1024,
+    "csv_matches_existing_canonical_json": true,
+    "legacy_client_timing_cohort_kept_separate": true,
+    "original_request_records": 102,
+    "original_source_report_count": 2,
+    "native_prefill_timers_verified_against_original_reports": true,
+    "headline_statistics": "Median of observed per-replica cold values; historical C16 per replica remains distinct from configured C8.",
+    "new_inference_runs": 0
+  },
+  "quantization_declaration_source_checked": {
+    "passed": true,
+    "checks": [
+      {
+        "recipe": "deepseek-v41-flash-dspark5-tp3",
+        "http_status": 200,
+        "sha256_matches": true
+      }
+    ]
+  },
+  "readme_rendering": {
+    "github_markdown_api_pages": [
+      "README.md",
+      "docs/PREFILL-COMPARISON.md"
+    ],
+    "local_preview_pages": 10,
+    "local_preview_widths_px": [
+      1280,
+      390
+    ],
+    "local_preview_checks": 20,
+    "table_cells_consistent": true,
+    "body_overflow": false,
+    "scope": "Local CommonMark/GFM-style preview with exact emulated viewports; GitHub supplies its own CSS."
+  },
+  "headline_native_prefill": {
+    "recorded_recipe_count": 6,
+    "unavailable_recipes": [
+      "apex-abliterated-awq-dflash2-pp3-balanced",
+      "deepseek-v41-flash-dspark5-tp3"
+    ],
+    "reconstructed_rates_substituted": false,
+    "ttft_used_as_prefill_proxy": false,
+    "fresh_rerun_performed": false
+  },
+  "apex_effective_bpw_verification": {
+    "passed": true,
+    "formula": "8 * matching stored weight bytes / logical parameters",
+    "main_tensor_payload_bpw": 4.373979925198434,
+    "complete_file_bpw": 4.372981856375359,
+    "display_bpw": 4.37,
+    "safetensors_files_verified": 23,
+    "file_bytes": 175642473288,
+    "matching_logical_parameters": 321323031390,
+    "file_headers_included": true,
+    "weight_bytes_cross_checked_on_cpu": true,
+    "inference_required": false
+  },
+  "public_metadata_review": {
+    "passed": true,
+    "public_files_checked": 747,
+    "empty_markdown_table_cells": 0,
+    "absolute_calendar_metadata_and_epoch_labels_absent": true,
+    "documentation_generator_idempotent": true
+  },
+  "native_prefill_recovery": {
+    "observations": 4,
+    "source_reports": 2,
+    "histograms_per_observation": 4,
+    "completed_request_delta_each": 1,
+    "original_sources_verified": true,
+    "prompt_output_and_prefix_accounting_verified": true,
+    "new_inference_runs": 0,
+    "separate_from_short_output_comparison": true
+  },
+  "selected_serving_prefill_comparison": {
+    "completed_recipe_pairs": 3,
+    "complete_matched_waves": 6,
+    "native_c1_prefill_measured": 3,
+    "all_request_counts_and_output_budgets_verified": true,
+    "cached_input_tokens_all_requests": 0,
+    "synchronized_decode_values_reproduced_from_numeric_traces": true,
+    "additional_completed_qwen_c8_without_common_interval_retained": true,
+    "source_values_independently_verified": true,
+    "new_quality_or_full_context_qualification": false
+  },
+  "new_comparison_figures": {
+    "figures": 3,
+    "desktop_and_mobile_variants": true,
+    "viewport_checks": 6,
+    "numerical_values_match_exported_aggregates": true,
+    "run_dates_omitted": true
+  }
+}

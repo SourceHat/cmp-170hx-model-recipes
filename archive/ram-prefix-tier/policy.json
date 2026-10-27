@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "classification": "Configuration decision after the retained measurements; no enabled/disabled performance trial.",
+  "observation_file": "archive/ram-prefix-tier/observations.json",
+  "observation_sha256": "dac6ee83b83b13fdccda266a8bd185e0f78ea6879fd319d4cd218cb59d2f1678",
+  "profiles": [
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "retained_measurement_ram_kv_mib": 8192,
+      "current_ram_kv_mib": 0,
+      "current_ram_recurrent_mib": 16384
+    },
+    {
+      "recipe": "apex-abliterated-exl3-mtp1-tp3",
+      "retained_measurement_ram_kv_mib": 8192,
+      "current_ram_kv_mib": 0,
+      "current_ram_recurrent_mib": 16384
+    },
+    {
+      "recipe": "qwen-flash-next-mtp2-layer-split",
+      "retained_measurement_ram_kv_mib": 8192,
+      "current_ram_kv_mib": 0,
+      "current_ram_recurrent_mib": 16384,
+      "basis": "Default-policy choice for the same optional Tabby page-spill implementation; no per-model enabled/disabled performance measurement."
+    },
+    {
+      "recipe": "mimo-flash-mtp1-tp3",
+      "retained_measurement_ram_kv_mib": 8192,
+      "current_ram_kv_mib": 0,
+      "current_ram_recurrent_mib": 16384,
+      "basis": "Default-policy choice for the same optional Tabby page-spill implementation; no per-model enabled/disabled performance measurement."
+    },
+    {
+      "recipe": "glm-5.3-flash-mtp1-tp3",
+      "retained_measurement_ram_kv_mib": 8192,
+      "current_ram_kv_mib": 0,
+      "current_ram_recurrent_mib": 16384,
+      "basis": "Default-policy choice for the same optional Tabby page-spill implementation; no per-model enabled/disabled performance measurement."
+    },
+    {
+      "recipe": "qwen3.8-27b-exl3",
+      "retained_measurement_ram_kv_mib": 10240,
+      "current_ram_kv_mib": 0,
+      "current_ram_recurrent_mib": 7168,
+      "basis": "Default-policy choice for the same optional Tabby page-spill implementation; no per-model enabled/disabled performance measurement."
+    }
+  ],
+  "reason": "The optional Tabby page tier pre-pins its budget and copies evicted pages on inference streams. Orca/Apex counters show little restoration relative to writes. The same mechanism now defaults off in the other selected Tabby recipes as a policy choice; no per-model performance improvement is inferred. Recurrent budgets and weight storage are preserved.",
+  "performance_improvement_measured": false,
+  "gpu_pool_context_slots_changed": false,
+  "gpu_runs_for_this_change": 0,
+  "models_with_retained_live_page_counters": [
+    "qwen27-orca-mtp3-native",
+    "apex-abliterated-exl3-mtp1-tp3"
+  ],
+  "extended_to_all_selected_tabby_profiles": true
+}

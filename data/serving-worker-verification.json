@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "purpose": "HTTP worker and concurrent live-service verification; separate from controlled recipe benchmarks",
+  "exllamav3_patch_sha256": "a50367af5dfb41ea5dd2b4f89c0bb23b41cbe3093a460305c4f13ee20f207cad",
+  "tabbyapi_patch_sha256": "8f3d697c00e5e33d82382968097182d106da3774361dcc317a52611b8eb073a8",
+  "cpu_tests_passed": 49,
+  "definitions": {
+    "backend_generation_tokens_per_second": "accepted output tokens / unrounded backend generation wall seconds; exported backend seconds are rounded to two decimals",
+    "client_output_tokens_per_total_second": "accepted output tokens / client request-send-to-stream-close seconds; includes queue, prefill, generation and gateway/network overhead",
+    "client_first_progress_seconds": "client request send to first nonempty completion text (native), or reasoning/text delta (LiteLLM Responses)",
+    "native_same_iteration_deliveries": "shared captured monotonic timestamps for both native requests in generator result deliveries",
+    "native_health": "one HTTP health probe approximately every 150 ms while the native pair ran"
+  },
+  "limitations": [
+    "Each configuration has one measured concurrent wave, not repeated independent samples.",
+    "Background production traffic, prompts and cache state were uncontrolled; caches were restarted.",
+    "Different native and gateway prompts have different drafting behavior; these rows do not isolate gateway overhead.",
+    "The pre-worker health timing is a single observation in a different live workload, not a matched latency comparison.",
+    "Responses were deliberately limited to 384 output tokens and remained in reasoning; token-limit incomplete is expected. These tests do not grade answer or tool-call quality.",
+    "Gateway admin policy/source was not inspected or changed; the earlier 503 did not recur in this pair.",
+    "These checks do not establish sustained full-cache behavior or long-context speed guarantees."
+  ],
+  "checks": [
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "request_groups": [
+        {
+          "endpoint": "native_completions",
+          "concurrency": 2,
+          "requests": [
+            {
+              "input_tokens": 23,
+              "cached_input_tokens": 0,
+              "output_tokens": 384,
+              "backend_generation_seconds": 9.16,
+              "backend_generation_tokens_per_second": 41.93,
+              "backend_prefill_seconds": 0.21,
+              "client_first_progress_seconds": 2.5105254170193803,
+              "client_total_seconds": 10.955658578022849,
+              "client_output_tokens_per_total_second": 35.050380336815856
+            },
+            {
+              "input_tokens": 23,
+              "cached_input_tokens": 0,
+              "output_tokens": 384,
+              "backend_generation_seconds": 9.16,
+              "backend_generation_tokens_per_second": 41.92,
+              "backend_prefill_seconds": 0.08,
+              "client_first_progress_seconds": 2.5109307669918053,
+              "client_total_seconds": 10.955656837992137,
+              "client_output_tokens_per_total_second": 35.050385903687754
+            }
+          ]
+        },
+        {
+          "endpoint": "litellm_responses",
+          "concurrency": 2,
+          "requests": [
+            {
+              "input_tokens": 71,
+              "cached_input_tokens": 0,
+              "output_tokens": 384,
+              "backend_generation_seconds": 11.01,
+              "backend_generation_tokens_per_second": 34.87,
+              "backend_prefill_seconds": 0.78,
+              "client_first_progress_seconds": 2.318899441015674,
+              "terminal_status": "incomplete",
+              "reasoning_events": 155,
+              "answer_events": 0,
+              "client_total_seconds": 13.30431752599543,
+              "client_output_tokens_per_total_second": 28.8628108318746
+            },
+            {
+              "input_tokens": 71,
+              "cached_input_tokens": 0,
+              "output_tokens": 384,
+              "backend_generation_seconds": 11.01,
+              "backend_generation_tokens_per_second": 34.86,
+              "backend_prefill_seconds": 0.21,
+              "client_first_progress_seconds": 2.318826945993351,
+              "terminal_status": "incomplete",
+              "reasoning_events": 155,
+              "answer_events": 0,
+              "client_total_seconds": 13.303259167994838,
+              "client_output_tokens_per_total_second": 28.865107050145458
+            }
+          ]
+        }
+      ],
+      "native_same_iteration_deliveries": 99,
+      "native_health": {
+        "samples": 71,
+        "median_seconds": 0.001580443000420928,
+        "maximum_seconds": 0.09963818098185584,
+        "all_http_200": true
+      },
+      "pre_worker_health_single_live_observation_seconds": 1.405147268989822,
+      "page_table_audit_valid": true,
+      "shared_gpu_kv_tokens": 866560
+    },
+    {
+      "recipe": "apex-abliterated-exl3-mtp1-tp3",
+      "request_groups": [
+        {
+          "endpoint": "native_completions",
+          "concurrency": 2,
+          "requests": [
+            {
+              "input_tokens": 24,
+              "cached_input_tokens": 0,
+              "output_tokens": 384,
+              "backend_generation_seconds": 14.52,
+              "backend_generation_tokens_per_second": 26.45,
+              "backend_prefill_seconds": 1.08,
+              "client_first_progress_seconds": 3.1269730250060093,
+              "client_total_seconds": 17.47662864602171,
+              "client_output_tokens_per_total_second": 21.972201148040746
+            },
+            {
+              "input_tokens": 24,
+              "cached_input_tokens": 0,
+              "output_tokens": 384,
+              "backend_generation_seconds": 14.52,
+              "backend_generation_tokens_per_second": 26.45,
+              "backend_prefill_seconds": 0.93,
+              "client_first_progress_seconds": 3.126955604995601,
+              "client_total_seconds": 17.476629629003583,
+              "client_output_tokens_per_total_second": 21.97219991220318
+            }
+          ]
+        },
+        {
+          "endpoint": "litellm_responses",
+          "concurrency": 2,
+          "requests": [
+            {
+              "input_tokens": 32,
+              "cached_input_tokens": 0,
+              "output_tokens": 384,
+              "backend_generation_seconds": 12.94,
+              "backend_generation_tokens_per_second": 29.69,
+              "backend_prefill_seconds": 0.28,
+              "client_first_progress_seconds": 3.6794781259959564,
+              "terminal_status": "incomplete",
+              "reasoning_events": 221,
+              "answer_events": 0,
+              "client_total_seconds": 16.581185098999413,
+              "client_output_tokens_per_total_second": 23.158778923659224
+            },
+            {
+              "input_tokens": 32,
+              "cached_input_tokens": 0,
+              "output_tokens": 384,
+              "backend_generation_seconds": 12.94,
+              "backend_generation_tokens_per_second": 29.68,
+              "backend_prefill_seconds": 0.14,
+              "client_first_progress_seconds": 3.679278001014609,
+              "terminal_status": "incomplete",
+              "reasoning_events": 221,
+              "answer_events": 0,
+              "client_total_seconds": 16.580861237016506,
+              "client_output_tokens_per_total_second": 23.15923126735577
+            }
+          ]
+        }
+      ],
+      "native_same_iteration_deliveries": 195,
+      "native_health": {
+        "samples": 115,
+        "median_seconds": 0.0015427570033352822,
+        "maximum_seconds": 0.11032120801974088,
+        "all_http_200": true
+      },
+      "pre_worker_health_single_live_observation_seconds": 6.668328735016985,
+      "page_table_audit_valid": true,
+      "shared_gpu_kv_tokens": 1083136
+    }
+  ],
+  "disconnect_checks": [
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "stream_closed_after_first_text": true,
+      "requested_output_tokens": 512,
+      "output_tokens_before_cancellation": 2,
+      "status": "cancelled"
+    },
+    {
+      "recipe": "apex-abliterated-exl3-mtp1-tp3",
+      "stream_closed_after_first_text": true,
+      "requested_output_tokens": 512,
+      "output_tokens_before_cancellation": 2,
+      "status": "cancelled"
+    }
+  ]
+}

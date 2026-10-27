@@ -1,0 +1,56 @@
+{
+  "phase": "Counter snapshots before and after the page-tier configuration change",
+  "rows": [
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "gpu_pool_tokens": 866560,
+      "ram_kv_budget_mib": 8192,
+      "ram_kv_token_slot_ceiling": 232192,
+      "before_restart_ram_page_pushes": 15736,
+      "before_restart_ram_page_restores": 358,
+      "before_restart_total_page_allocations": 112062,
+      "before_restart_ram_share_page_allocations": 0.0031946600988738377,
+      "after_restart_free_gpu_tokens": 273920,
+      "after_restart_ram_page_pushes": 0,
+      "after_restart_ram_page_restores": 0,
+      "after_restart_recurrent_restores": 66,
+      "after_restart_recurrent_checkpoint_bytes": 15338797056,
+      "after_restart_recurrent_budget_bytes": 17179869184,
+      "page_table_valid": true
+    },
+    {
+      "recipe": "apex-abliterated-exl3-mtp1-tp3",
+      "gpu_pool_tokens": 1083136,
+      "ram_kv_budget_mib": 8192,
+      "ram_kv_token_slot_ceiling": 638976,
+      "before_restart_ram_page_pushes": 110585,
+      "before_restart_ram_page_restores": 29,
+      "before_restart_total_page_allocations": 515563,
+      "before_restart_ram_share_page_allocations": 5.624918778112471e-05,
+      "after_restart_free_gpu_tokens": 1035008,
+      "after_restart_ram_page_pushes": 0,
+      "after_restart_ram_page_restores": 0,
+      "after_restart_recurrent_restores": 25,
+      "after_restart_recurrent_checkpoint_bytes": 6419865600,
+      "after_restart_recurrent_budget_bytes": 17179869184,
+      "page_table_valid": true
+    }
+  ],
+  "limitations": [
+    "Counters are cumulative operations, not distinct histories or saved prefill seconds.",
+    "The after-restart snapshot includes maintenance test traffic and ordinary production traffic.",
+    "Different lifetimes and cache state prevent an isolated before/after performance comparison.",
+    "The snapshot establishes page/state reuse counts, not the performance benefit of enabling or disabling either tier."
+  ],
+  "source": {
+    "file": "source-90304696225802dc8b358d10.json",
+    "sha256": "58c2b069878d4039b548d066aff1fba23c1ca5b12291c78e32796f3144590f10",
+    "json_pointer": ""
+  },
+  "definitions": {
+    "ram_share_page_allocations": "RAM page restores / total GPU page allocations; operations can revisit the same prefix.",
+    "recurrent_restores": "Matching hybrid-state checkpoint restores; KV can remain GPU resident.",
+    "ram_kv_budget_mib": "Pinned KV-page-cache byte budget; complete pages include main and draft KV.",
+    "ram_kv_token_slot_ceiling": "Page-slot ceiling, not distinct retained history or expanded per-request context."
+  }
+}

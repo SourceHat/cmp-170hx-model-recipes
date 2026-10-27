@@ -1,0 +1,1351 @@
+{
+  "action": "reload",
+  "port": null,
+  "custody_request": "kv-q8-capacity-20261015",
+  "passed": true,
+  "previous_job": "apex-abliterated-exl3-mtp1-tp3-1792138511227771655",
+  "before": {
+    "job_id": "apex-abliterated-exl3-mtp1-tp3-1792138511227771655",
+    "at": 1792138975.8079991,
+    "ready": true,
+    "model": "apex-flash-1-abliterated-exl3-4bit-spark",
+    "context": 524288,
+    "max_batch_size": 4,
+    "draft_tokens": 1,
+    "chunk_size": 512,
+    "prefill_scheduler": {
+      "prefill_time_fraction": 0.25,
+      "decode_debt_seconds": 0.0,
+      "mixed_prefill_steps": 0,
+      "decode_only_steps": 16,
+      "mixed_step_seconds": 0.0,
+      "decode_only_seconds": 0.8937318490134203,
+      "mixed_chunk_tokens": 256,
+      "prefill_quantum_tokens": 2048,
+      "generation_quantum_tokens": 512,
+      "prefill_yields": 0,
+      "generation_yields": 0
+    },
+    "allocated_state_slots": 4,
+    "draft_mode": "mtp",
+    "dynamic_draft": false,
+    "draft_confidence": null,
+    "draft_architecture": "Glm5NextForConditionalGeneration",
+    "draft_checkpoint": "apex-flash-1-abliterated-exl3-4bit-spark",
+    "cache": {
+      "page_size": 256,
+      "max_tokens": 1083136,
+      "used_tokens": 0,
+      "cached_tokens": 0,
+      "free_tokens": 1083136,
+      "tier_cached_tokens": 0,
+      "tier_max_tokens": 0,
+      "alloc_pages": 19,
+      "alloc_cached_pages": 0,
+      "alloc_tier_pages": 0,
+      "hit_rate": 0.0,
+      "tier_hit_rate": 0.0,
+      "active_jobs": 0,
+      "pending_jobs": 0
+    },
+    "page_metrics": {
+      "evictions": 19,
+      "evictions_live": 0,
+      "stashes_stranded": 0,
+      "alloc_pages": 19,
+      "alloc_cached_pages": 0,
+      "alloc_tier_pages": 0,
+      "alloc_kv_only_pages": 0
+    },
+    "ram_kv_metrics": {},
+    "ram_kv_layout": {},
+    "recurrent": {
+      "bytes": 0,
+      "max_bytes": 17179869184,
+      "checkpoints": 0,
+      "stash_evictions": 0,
+      "stash_evictions_stranded": 0,
+      "stash_evictions_live_kv": 0,
+      "stash_pruned": 0
+    },
+    "totals": {
+      "requests": 3,
+      "prompt_tokens": 479,
+      "cached_tokens": 0,
+      "generated_tokens": 30,
+      "draft_accepted": 14,
+      "draft_rejected": 2,
+      "recurrent_restores": 0,
+      "recurrent_restored_prefix_tokens": 0
+    },
+    "rss_bytes": 4762746880,
+    "decode_trace": {
+      "version": 1,
+      "active": 0,
+      "errors": 0
+    },
+    "pinned_host_memory": {
+      "active_bytes.allocated": 96384,
+      "active_bytes.current": 78656,
+      "active_bytes.freed": 17728,
+      "active_bytes.peak": 86856,
+      "active_requests.allocated": 180,
+      "active_requests.current": 10,
+      "active_requests.freed": 170,
+      "active_requests.peak": 12,
+      "allocated_bytes.allocated": 86856,
+      "allocated_bytes.current": 86856,
+      "allocated_bytes.freed": 0,
+      "allocated_bytes.peak": 86856,
+      "allocations.allocated": 12,
+      "allocations.current": 12,
+      "allocations.freed": 0,
+      "allocations.peak": 12,
+      "host_alloc_time.avg": 75,
+      "host_alloc_time.count": 12,
+      "host_alloc_time.max": 282,
+      "host_alloc_time.min": 30,
+      "host_alloc_time.total": 909,
+      "host_free_time.avg": 0,
+      "host_free_time.count": 0,
+      "host_free_time.max": 0,
+      "host_free_time.min": 0,
+      "host_free_time.total": 0,
+      "num_host_alloc": 12,
+      "num_host_free": 0
+    },
+    "allocator_config": "pinned_max_round_threshold_mb:1",
+    "host_backing_requested": "ordinary",
+    "host_backing": {
+      "requested": "ordinary",
+      "live_custom_mappings": 0,
+      "mappings": [],
+      "actual_hugetlb_bytes": 0,
+      "actual_transparent_hugepage_bytes": 0
+    },
+    "device_copy": {
+      "direct": 0,
+      "bounced": 60,
+      "probes": 0
+    },
+    "runtime_sources": {
+      "tabby": "tabbyapi-glm53",
+      "exllama": "__init__.py",
+      "extension": "exllamav3_ext.so"
+    },
+    "gpus": [
+      {
+        "device": 0,
+        "pid": 944192,
+        "gpu_bytes": {
+          "kv": 6065561600,
+          "module_tensors": 5123605620
+        },
+        "cache_layers": [
+          {
+            "key": "model.language_model.layers.3.self_attn",
+            "device": "0",
+            "bytes": 1213112320,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.11.self_attn",
+            "device": "0",
+            "bytes": 1213112320,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.19.self_attn",
+            "device": "0",
+            "bytes": 1213112320,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.31.self_attn",
+            "device": "0",
+            "bytes": 1213112320,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.43.self_attn",
+            "device": "0",
+            "bytes": 1213112320,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          }
+        ],
+        "modules": [
+          {
+            "key": "model.language_model.embed_tokens",
+            "type": "Embedding",
+            "device": "cuda:0"
+          },
+          {
+            "key": "hc_expand",
+            "type": "ExpandStreams",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.0",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.1",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.2",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.3",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.4",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.5",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.6",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.7",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.8",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.9",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.10",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.11",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.12",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.13",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.14",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.15",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.16",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.17",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.18",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.19",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.20",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.21",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.22",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.23",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.24",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.25",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.26",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.27",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.28",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.29",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.30",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.31",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.32",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.33",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.34",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.35",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.36",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.37",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.38",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.39",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.40",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.41",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.42",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.43",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.layers.44",
+            "type": "TransformerBlock",
+            "device": "cuda:0"
+          },
+          {
+            "key": "hc_head",
+            "type": "HyperHead",
+            "device": "cuda:0"
+          },
+          {
+            "key": "model.language_model.norm",
+            "type": "RMSNorm",
+            "device": "cuda:0"
+          },
+          {
+            "key": "lm_head",
+            "type": "Linear",
+            "device": "cuda:0"
+          },
+          {
+            "key": "output_gather",
+            "type": "OutputGather",
+            "device": "cuda:0"
+          }
+        ],
+        "host_backing": {
+          "requested": "ordinary",
+          "live_custom_mappings": 0,
+          "mappings": [],
+          "actual_hugetlb_bytes": 0,
+          "actual_transparent_hugepage_bytes": 0
+        },
+        "allocated_bytes": 63897476608,
+        "reserved_bytes": 64401440768,
+        "free_bytes": 2389770240,
+        "peak_allocated_bytes": 64338115584,
+        "peak_reserved_bytes": 64401440768,
+        "uuid": "reference-gpu-0"
+      },
+      {
+        "device": 1,
+        "pid": 944425,
+        "gpu_bytes": {
+          "kv": 4852449280,
+          "module_tensors": 5034671756
+        },
+        "cache_layers": [
+          {
+            "key": "model.language_model.layers.7.self_attn",
+            "device": "1",
+            "bytes": 1213112320,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.15.self_attn",
+            "device": "1",
+            "bytes": 1213112320,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.23.self_attn",
+            "device": "1",
+            "bytes": 1213112320,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.35.self_attn",
+            "device": "1",
+            "bytes": 1213112320,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          }
+        ],
+        "modules": [
+          {
+            "key": "model.language_model.embed_tokens",
+            "type": "Embedding",
+            "device": "cuda:1"
+          },
+          {
+            "key": "hc_expand",
+            "type": "ExpandStreams",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.0",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.1",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.2",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.3",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.4",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.5",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.6",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.7",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.8",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.9",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.10",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.11",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.12",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.13",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.14",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.15",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.16",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.17",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.18",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.19",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.20",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.21",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.22",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.23",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.24",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.25",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.26",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.27",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.28",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.29",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.30",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.31",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.32",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.33",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.34",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.35",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.36",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.37",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.38",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.39",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.40",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.41",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.42",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.43",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.layers.44",
+            "type": "TransformerBlock",
+            "device": "cuda:1"
+          },
+          {
+            "key": "hc_head",
+            "type": "HyperHead",
+            "device": "cuda:1"
+          },
+          {
+            "key": "model.language_model.norm",
+            "type": "RMSNorm",
+            "device": "cuda:1"
+          },
+          {
+            "key": "lm_head",
+            "type": "Linear",
+            "device": "cuda:1"
+          },
+          {
+            "key": "output_gather",
+            "type": "OutputGather",
+            "device": "cuda:1"
+          }
+        ],
+        "host_backing": {
+          "requested": "ordinary",
+          "live_custom_mappings": 0,
+          "mappings": [],
+          "actual_hugetlb_bytes": 0,
+          "actual_transparent_hugepage_bytes": 0
+        },
+        "allocated_bytes": 63552505856,
+        "reserved_bytes": 64040730624,
+        "free_bytes": 2876309504,
+        "peak_allocated_bytes": 63993143296,
+        "peak_reserved_bytes": 64040730624,
+        "uuid": "reference-gpu-1"
+      },
+      {
+        "device": 2,
+        "pid": 944426,
+        "gpu_bytes": {
+          "kv": 2426224640,
+          "module_tensors": 4304301032
+        },
+        "cache_layers": [
+          {
+            "key": "model.language_model.layers.27.self_attn",
+            "device": "2",
+            "bytes": 1213112320,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.39.self_attn",
+            "device": "2",
+            "bytes": 1213112320,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          }
+        ],
+        "modules": [
+          {
+            "key": "model.language_model.embed_tokens",
+            "type": "Embedding",
+            "device": "cuda:2"
+          },
+          {
+            "key": "hc_expand",
+            "type": "ExpandStreams",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.0",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.1",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.2",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.3",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.4",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.5",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.6",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.7",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.8",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.9",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.10",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.11",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.12",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.13",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.14",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.15",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.16",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.17",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.18",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.19",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.20",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.21",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.22",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.23",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.24",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.25",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.26",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.27",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.28",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.29",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.30",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.31",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.32",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.33",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.34",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.35",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.36",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.37",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.38",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.39",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.40",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.41",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.42",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.43",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.layers.44",
+            "type": "TransformerBlock",
+            "device": "cuda:2"
+          },
+          {
+            "key": "hc_head",
+            "type": "HyperHead",
+            "device": "cuda:2"
+          },
+          {
+            "key": "model.language_model.norm",
+            "type": "RMSNorm",
+            "device": "cuda:2"
+          },
+          {
+            "key": "lm_head",
+            "type": "Linear",
+            "device": "cuda:2"
+          },
+          {
+            "key": "output_gather",
+            "type": "OutputGather",
+            "device": "cuda:2"
+          }
+        ],
+        "host_backing": {
+          "requested": "ordinary",
+          "live_custom_mappings": 0,
+          "mappings": [],
+          "actual_hugetlb_bytes": 0,
+          "actual_transparent_hugepage_bytes": 0
+        },
+        "allocated_bytes": 58013749248,
+        "reserved_bytes": 58493763584,
+        "free_bytes": 2503016448,
+        "peak_allocated_bytes": 58454386688,
+        "peak_reserved_bytes": 58493763584,
+        "uuid": "reference-gpu-2"
+      }
+    ]
+  },
+  "serving_pid": 944192,
+  "drain_started_at": 1792138975.829164,
+  "cleanup_exit_code": 0,
+  "drained_at": 1792138981.218378,
+  "started_at": 1792138981.2206662,
+  "profile_file": "apex-1374976-r2560-2336-2848.json",
+  "profile": "apex-abliterated-exl3-mtp1-tp3",
+  "gpus": "0,1,2",
+  "tested_profile_sha256": "ea1d6d91a62fafcfbb3927dfed1e594a1d5a8251ad617e3bd62609ce714fcd10",
+  "launcher_exit_code": 0,
+  "launch": {
+    "id": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212",
+    "state": "launching",
+    "profile": "apex-abliterated-exl3-mtp1-tp3",
+    "profile_source": "apex-1374976-r2560-2336-2848.json",
+    "profile_source_sha256": "ea1d6d91a62fafcfbb3927dfed1e594a1d5a8251ad617e3bd62609ce714fcd10",
+    "gpu_selection": {
+      "devices": [
+        {
+          "index": "0",
+          "topology": {
+            "attachment": "cpu",
+            "link_speed_gt_s": 5.0,
+            "link_width": 8,
+            "pci_address": "0000:01:00.0",
+            "pci_hops": 2,
+            "root_port": "0000:00:01.0"
+          },
+          "uuid": "reference-gpu-0"
+        },
+        {
+          "index": "1",
+          "topology": {
+            "attachment": "cpu",
+            "link_speed_gt_s": 5.0,
+            "link_width": 4,
+            "pci_address": "0000:02:00.0",
+            "pci_hops": 2,
+            "root_port": "0000:00:01.1"
+          },
+          "uuid": "reference-gpu-1"
+        },
+        {
+          "index": "2",
+          "topology": {
+            "attachment": "pch",
+            "link_speed_gt_s": 5.0,
+            "link_width": 4,
+            "pci_address": "0000:09:00.0",
+            "pci_hops": 2,
+            "root_port": "0000:00:1c.4"
+          },
+          "uuid": "reference-gpu-2"
+        }
+      ],
+      "mode": "explicit",
+      "policy": null
+    }
+  },
+  "current_job": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212",
+  "ready_at": 1792139423.843605,
+  "after": {
+    "job_id": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212",
+    "at": 1792139423.8348186,
+    "ready": true,
+    "model": "apex-flash-1-abliterated-exl3-4bit-spark",
+    "context": 524288,
+    "max_batch_size": 4,
+    "draft_tokens": 1,
+    "chunk_size": 512,
+    "prefill_scheduler": {
+      "prefill_time_fraction": 0.25,
+      "decode_debt_seconds": 0.0,
+      "mixed_prefill_steps": 0,
+      "decode_only_steps": 0,
+      "mixed_step_seconds": 0.0,
+      "decode_only_seconds": 0.0,
+      "mixed_chunk_tokens": 256,
+      "prefill_quantum_tokens": 2048,
+      "generation_quantum_tokens": 512,
+      "prefill_yields": 0,
+      "generation_yields": 0
+    },
+    "allocated_state_slots": 4,
+    "draft_mode": "mtp",
+    "dynamic_draft": false,
+    "draft_confidence": null,
+    "draft_architecture": "Glm5NextForConditionalGeneration",
+    "draft_checkpoint": "apex-flash-1-abliterated-exl3-4bit-spark",
+    "cache": {
+      "page_size": 256,
+      "max_tokens": 1374976,
+      "used_tokens": 0,
+      "cached_tokens": 0,
+      "free_tokens": 1374976,
+      "tier_cached_tokens": 0,
+      "tier_max_tokens": 0,
+      "alloc_pages": 0,
+      "alloc_cached_pages": 0,
+      "alloc_tier_pages": 0,
+      "hit_rate": null,
+      "tier_hit_rate": null,
+      "active_jobs": 0,
+      "pending_jobs": 0
+    },
+    "page_metrics": {
+      "evictions": 0,
+      "evictions_live": 0,
+      "stashes_stranded": 0,
+      "alloc_pages": 0,
+      "alloc_cached_pages": 0,
+      "alloc_tier_pages": 0,
+      "alloc_kv_only_pages": 0
+    },
+    "ram_kv_metrics": {},
+    "ram_kv_layout": {},
+    "recurrent": {
+      "bytes": 0,
+      "max_bytes": 17179869184,
+      "checkpoints": 0,
+      "stash_evictions": 0,
+      "stash_evictions_stranded": 0,
+      "stash_evictions_live_kv": 0,
+      "stash_pruned": 0
+    },
+    "totals": {
+      "requests": 0,
+      "prompt_tokens": 0,
+      "cached_tokens": 0,
+      "generated_tokens": 0,
+      "draft_accepted": 0,
+      "draft_rejected": 0,
+      "recurrent_restores": 0,
+      "recurrent_restored_prefix_tokens": 0
+    },
+    "rss_bytes": 9347477504,
+    "decode_trace": {
+      "version": 1,
+      "active": 0,
+      "errors": 0
+    },
+    "pinned_host_memory": {
+      "active_bytes.allocated": 64,
+      "active_bytes.current": 64,
+      "active_bytes.freed": 0,
+      "active_bytes.peak": 64,
+      "active_requests.allocated": 2,
+      "active_requests.current": 2,
+      "active_requests.freed": 0,
+      "active_requests.peak": 2,
+      "allocated_bytes.allocated": 64,
+      "allocated_bytes.current": 64,
+      "allocated_bytes.freed": 0,
+      "allocated_bytes.peak": 64,
+      "allocations.allocated": 2,
+      "allocations.current": 2,
+      "allocations.freed": 0,
+      "allocations.peak": 2,
+      "host_alloc_time.avg": 50,
+      "host_alloc_time.count": 2,
+      "host_alloc_time.max": 83,
+      "host_alloc_time.min": 18,
+      "host_alloc_time.total": 101,
+      "host_free_time.avg": 0,
+      "host_free_time.count": 0,
+      "host_free_time.max": 0,
+      "host_free_time.min": 0,
+      "host_free_time.total": 0,
+      "num_host_alloc": 2,
+      "num_host_free": 0
+    },
+    "allocator_config": "pinned_max_round_threshold_mb:1",
+    "host_backing_requested": "ordinary",
+    "host_backing": {
+      "requested": "ordinary",
+      "live_custom_mappings": 0,
+      "mappings": [],
+      "actual_hugetlb_bytes": 0,
+      "actual_transparent_hugepage_bytes": 0
+    },
+    "device_copy": {
+      "direct": 0,
+      "bounced": 0,
+      "probes": 0
+    },
+    "runtime_sources": {
+      "tabby": "tabbyapi-glm53",
+      "exllama": "__init__.py",
+      "extension": "exllamav3_ext.so"
+    },
+    "gpus": [
+      {
+        "uuid": "reference-gpu-0",
+        "allocated_bytes": 64851232768,
+        "reserved_bytes": 64885882880,
+        "peak_allocated_bytes": 64851232768,
+        "peak_reserved_bytes": 64885882880,
+        "free_bytes": 2064711680
+      },
+      {
+        "uuid": "reference-gpu-1",
+        "allocated_bytes": 0,
+        "reserved_bytes": 0,
+        "peak_allocated_bytes": 0,
+        "peak_reserved_bytes": 0,
+        "free_bytes": 1985019904
+      },
+      {
+        "uuid": "reference-gpu-2",
+        "allocated_bytes": 5641017344,
+        "reserved_bytes": 5731516416,
+        "peak_allocated_bytes": 5908928512,
+        "peak_reserved_bytes": 5920260096,
+        "free_bytes": 2656108544
+      }
+    ]
+  },
+  "ended_at": 1792139423.8447013
+}

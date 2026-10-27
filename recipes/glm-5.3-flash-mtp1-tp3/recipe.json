@@ -1,0 +1,144 @@
+{
+  "format_version": 1,
+  "id": "glm-5.3-flash-mtp1-tp3",
+  "title": "GLM-5.3-Flash - MTP1 TP3",
+  "short_name": "GLM-5.3-Flash",
+  "model": {
+    "hf_repo": "turboderp/GLM-5.3-Flash-exl3",
+    "revision": "2a30229e67012798ba9f0cd832bb78abf4c363d5",
+    "served_name": "glm-5.3-flash",
+    "quantization": "EXL3 4.05 bpw"
+  },
+  "runtime": {
+    "id": "tabby",
+    "engine": "TabbyAPI / ExLlamaV3",
+    "version": "ExLlamaV3 1.5.3",
+    "tabby_revision": "be74bf0a00bcb3a518e6feb7606f150c189be637",
+    "exllama_revision": "d3739fd393337b1ff4d6c2a342b12f0c87a9592f",
+    "torch": "2.14.0",
+    "python": "3.12",
+    "patches": [
+      "runtimes/tabby/tabbyapi.patch",
+      "runtimes/tabby/exllamav3.patch"
+    ]
+  },
+  "hardware": {
+    "accelerator": "NVIDIA CMP 170HX",
+    "architecture": "SM80",
+    "card_count": 3,
+    "vram_gib_per_card": 64,
+    "power_limit_watts_per_card_as_tested": 200
+  },
+  "serving": {
+    "context_tokens": 524288,
+    "max_requests": 4,
+    "rope": "native",
+    "parallelism": "tensor_parallel",
+    "prefill_chunk_tokens": 512,
+    "output_chunk_tokens": 4096,
+    "speculation": {
+      "method": "mtp",
+      "depth": 1
+    },
+    "kv": {
+      "main_dtype": "Q8",
+      "draft_dtype": "Q8",
+      "shared_gpu_pool_tokens": 1829376,
+      "host_kv_budget_mib": 0,
+      "host_recurrent_budget_mib": 16384
+    }
+  },
+  "launch": {
+    "argv": [
+      "bash",
+      "recipes/glm-5.3-flash-mtp1-tp3/launch.sh"
+    ],
+    "environment": {
+      "EXLLAMA_NO_P2P_COPY": "1",
+      "NCCL_P2P_DISABLE": "1",
+      "MESHIFY_HOST_BACKING": "ordinary",
+      "PYTORCH_ALLOC_CONF": "pinned_max_round_threshold_mb:1"
+    }
+  },
+  "engine_config": {
+    "network": {
+      "host": "@HOST@",
+      "port": "@PORT@",
+      "disable_auth": true,
+      "allowed_origins": [],
+      "disable_fetch_requests": true,
+      "api_servers": [
+        "oai"
+      ],
+      "sse_ping_interval": 15
+    },
+    "logging": {
+      "log_prompt": false,
+      "log_requests": false,
+      "log_live_status": false
+    },
+    "model": {
+      "model_dir": "@MODEL_PARENT@",
+      "model_name": "glm-5.3-flash",
+      "backend": "exllamav3",
+      "max_seq_len": 524288,
+      "cache_size": 1829376,
+      "cache_mode": "Q8",
+      "max_batch_size": 4,
+      "chunk_size": 512,
+      "tensor_parallel": true,
+      "tensor_parallel_backend": "nccl",
+      "gpu_split_auto": true,
+      "autosplit_reserve": [
+        2048,
+        2048,
+        2048
+      ],
+      "vision": false,
+      "warmup": true,
+      "output_chunking": true,
+      "inline_model_loading": false,
+      "recurrent_checkpoint_interval": 2048,
+      "recurrent_checkpoint_interval_pp": 32768
+    },
+    "draft_model": {
+      "draft_mode": "mtp",
+      "draft_cache_mode": "Q8",
+      "draft_num_tokens": 1,
+      "dynamic_draft": false,
+      "draft_gpu_split": [
+        0,
+        0,
+        62.0
+      ]
+    },
+    "sampling": {},
+    "memory": {
+      "sysmem_kv_cache": 0,
+      "sysmem_recurrent_cache": 16384
+    }
+  },
+  "qualification": {
+    "status": "measured on the reference host; portable export not GPU-requalified",
+    "context_evidence": "Matched decode, eight-bit allocation, concurrent allocation smoke and near-limit context smoke; RAM retention/restoration and long-history stress were not retested",
+    "native_near_limit_retested": null,
+    "ram_history_restoration_retested": false
+  },
+  "notes": [
+    "The context limit is per request; the KV pool is shared across requests and retained prefixes.",
+    "Maximum-history counts are capacity arithmetic, not a long-context concurrent speed measurement."
+  ],
+  "source_receipts": [
+    {
+      "file": "glm-5.3-flash-mtp1-tp3.json",
+      "sha256": "fc9dc2c7841c1cd11843b5f02f80de3b75fefbf748c5f15ff6fc2d109c8c851b",
+      "kind": "selected-serving-profile"
+    },
+    {
+      "file": "source-6aef4a407afad568a9719594.json",
+      "sha256": "96f6144ee1599e13026e8a082f1ddaf5d3fa0d02d84f456fd07f45f78cd72cb8",
+      "kind": "stock-runtime-cold-waves"
+    }
+  ],
+  "benchmark_file": "benchmarks.json"
+}

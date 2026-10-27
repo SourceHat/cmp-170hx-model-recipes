@@ -1,0 +1,171 @@
+{
+  "format_version": 1,
+  "id": "apex-abliterated-awq-dflash2-pp3-balanced",
+  "title": "Apex Flash 1 AWQ - abliterated, DFlash2 PP3 balanced",
+  "short_name": "Apex Flash 1 AWQ",
+  "model": {
+    "hf_repo": "svbmrgd/apex-flash-1-abliterated-AWQ",
+    "revision": "7ea31e3d22c6622c999d3de74d1569efce815943",
+    "served_name": "apex-flash-1-abliterated-awq",
+    "quantization": "AWQ INT4, group size 128; native non-routed tensors",
+    "lineage": {
+      "base_model": "zai-org/GLM-5.3-Flash",
+      "post_trained_model": "cantina-security/apex-flash-1",
+      "developers": [
+        "Cantina Security",
+        "Yeta"
+      ],
+      "post_training_method": "reinforcement learning",
+      "parent_checkpoint": "cantina-security/apex-flash-1-abliterated",
+      "parent_revision": "cecb5eeb9c6b32404a0dd930df81de2c239bdd84",
+      "model_card": "https://huggingface.co/cantina-security/apex-flash-1/tree/28c647a6bd0444973a7ef3d940c24c67e64f52fe"
+    }
+  },
+  "runtime": {
+    "id": "apex-awq",
+    "engine": "vLLM",
+    "version": "0.30.1rc1.dev640+g155488d85",
+    "torch": "2.13.0",
+    "python": "3.12",
+    "source_commit_prefix": "155488d85",
+    "source_revision": "155488d853a0bc42df227dbfc74005b3fd488e94",
+    "patches": [
+      "runtimes/apex-awq/overlay-manifest.json"
+    ]
+  },
+  "hardware": {
+    "accelerator": "NVIDIA CMP 170HX",
+    "architecture": "SM80",
+    "card_count": 3,
+    "vram_gib_per_card": 64,
+    "power_limit_watts_per_card_as_tested": 200
+  },
+  "serving": {
+    "context_tokens": 524288,
+    "max_requests": 4,
+    "rope": "native",
+    "parallelism": "pipeline_parallel",
+    "prefill_chunk_tokens": 512,
+    "output_chunk_tokens": null,
+    "speculation": {
+      "method": "dflash2",
+      "depth": 3
+    },
+    "kv": {
+      "main_dtype": "fp8_e4m3",
+      "draft_dtype": "int8_per_token_head",
+      "shared_gpu_pool_tokens": 1400157,
+      "host_kv_budget_mib": 8192,
+      "host_recurrent_budget_mib": 0,
+      "capacity_basis": "vllm_context_normalized_block_capacity",
+      "capacity_context_tokens": 524288,
+      "capacity_formula": "floor(max_model_len * calculated_max_context_concurrency_from_cache_blocks)"
+    }
+  },
+  "launch": {
+    "argv": [
+      "bash",
+      "recipes/apex-abliterated-awq-dflash2-pp3-balanced/launch.sh"
+    ],
+    "environment": {
+      "NCCL_P2P_DISABLE": "1",
+      "MAX_JOBS": "1",
+      "VLLM_USE_V2_MODEL_RUNNER": "1",
+      "VLLM_PP_LAYER_PARTITION": "17,15,13",
+      "MESHIFY_GLM_INDEXER_SM80": "1",
+      "VLLM_PLUGINS": ""
+    }
+  },
+  "engine_config": {
+    "argv": [
+      "--model",
+      "@MODEL@",
+      "--tokenizer",
+      "@MODEL@",
+      "--host",
+      "@HOST@",
+      "--port",
+      "@PORT@",
+      "--served-model-name",
+      "apex-flash-1-abliterated-awq",
+      "--tensor-parallel-size",
+      "1",
+      "--pipeline-parallel-size",
+      "3",
+      "--distributed-executor-backend",
+      "mp",
+      "--dtype",
+      "bfloat16",
+      "--quantization",
+      "compressed-tensors",
+      "--attention-backend",
+      "CUSTOM",
+      "--kv-cache-dtype",
+      "fp8_e4m3",
+      "--gpu-memory-utilization",
+      "0.985",
+      "--max-model-len",
+      "524288",
+      "--max-num-seqs",
+      "4",
+      "--max-num-batched-tokens",
+      "512",
+      "--enable-chunked-prefill",
+      "--enable-prefix-caching",
+      "--enforce-eager",
+      "--disable-custom-all-reduce",
+      "--mamba-cache-mode",
+      "align",
+      "--mamba-ssm-cache-dtype",
+      "bfloat16",
+      "--limit-mm-per-prompt",
+      "{\"image\":0,\"video\":0}",
+      "--enable-auto-tool-choice",
+      "--tool-call-parser",
+      "glm47",
+      "--reasoning-parser",
+      "glm45",
+      "--attention-config",
+      "{\"sparse_mla_force_mqa\": true}",
+      "--kv-offloading-size",
+      "8.0",
+      "--kv-offloading-backend",
+      "native",
+      "--speculative-config",
+      "{\"method\": \"dflash\", \"model\": \"@DRAFT@\", \"num_speculative_tokens\": 3, \"max_model_len\": 524288, \"kv_cache_dtype\": \"int8_per_token_head\", \"attention_backend\": \"TRITON_ATTN\"}"
+    ],
+    "gpu_memory_utilization": 0.985
+  },
+  "qualification": {
+    "status": "measured on the reference host; portable export not GPU-requalified",
+    "context_evidence": "Matched decode, eight-bit allocation, concurrent allocation smoke and near-limit context smoke; RAM retention/restoration and long-history stress were not retested",
+    "native_near_limit_retested": null,
+    "ram_history_restoration_retested": false
+  },
+  "notes": [
+    "The context limit is per request; the KV pool is shared across requests and retained prefixes.",
+    "Maximum-history counts are capacity arithmetic, not a long-context concurrent speed measurement.",
+    "Balanced and fast use the same AWQ weights. Balanced PP3 17/15/13 was selected for its larger KV pool.",
+    "The external BF16 DFlash2 head must be prepared with the matching target embedding; draft KV is INT8.",
+    "The 8,192-output SSE measurement and 256-output server measurements use different timing methods."
+  ],
+  "source_receipts": [
+    {
+      "file": "apex-abliterated-awq-dflash2-pp3-balanced.json",
+      "sha256": "97afc703794f52b1b532e894658775a74ddedbfe518ebd08e53532d32b9c1229",
+      "kind": "selected-serving-profile"
+    },
+    {
+      "file": "source-797606345fa45914fcd85b71.json",
+      "sha256": "8d6895b4a6472cd24bba8e98983326bdf6cea858a1ee8e31c3bfcc4c5a30f427",
+      "kind": "balanced-AWQ-comparison"
+    }
+  ],
+  "benchmark_file": "benchmarks.json",
+  "draft_model": {
+    "hf_repo": "incoai/GLM-5.3-Flash-DFlash2",
+    "revision": "bf582e4eacc1810f76656d1811693ff6c6737d2a",
+    "precision": "BF16",
+    "preparation": "matching target embedding and PP3 tail layer layout"
+  }
+}

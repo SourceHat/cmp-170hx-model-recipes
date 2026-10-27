@@ -1,0 +1,1598 @@
+diff --git a/exllamav3/architecture/dflash2.py b/exllamav3/architecture/dflash2.py
+index ff85e97..7b30468 100644
+--- a/exllamav3/architecture/dflash2.py
++++ b/exllamav3/architecture/dflash2.py
+@@ -226,10 +226,8 @@ class DFlash2Model(Model):
+ 
+ 
+     def attach_to(self, target):
+-        if target.loaded_tp:
+-            raise NotImplementedError(
+-                "DFlash2 does not support tensor-parallel targets because the selector needs top-k logits"
+-            )
++        if target.loaded_tp and not callable(getattr(target, "lm_head_topk", None)):
++            raise NotImplementedError("DFlash2 requires the target's global vocabulary candidates")
+         if target.config.vocab_size != self.config.vocab_size:
+             raise ValueError(
+                 f"DFlash2 vocabulary size {self.config.vocab_size} does not match "
+@@ -272,6 +270,23 @@ class DFlash2Model(Model):
+         anchor. The selector is greedy; sampling remains lossless because the
+         target verifier still samples normally and accepts only exact matches."""
+         target = self.attached_model()
++        if target.loaded_tp:
++            dev = self.selector.device
++            unary, candidates = target.lm_head_topk(
++                state.half(), params, self.config.selector_top_k,
++                scale=self.config.output_multiplier,
++                softcap=self.config.final_logit_softcapping,
++            )
++            anchor = get_for_device(params, "dflash2_anchor_ids", dev)[:, -1]
++            export_conf = params.get("export_draft_conf", False)
++            out, confidence = self.selector.walk_candidates(
++                to_device(state[:, 1:], dev), to_device(unary[:, 1:], dev),
++                to_device(candidates[:, 1:], dev), anchor,
++                return_confidence=export_conf,
++            )
++            if export_conf:
++                params["draft_conf"] = confidence
++            return out
+         lm = target.modules[target.logit_layer_idx]
+         logits = lm.prepare_for_device(state.half(), params)
+         logits = lm.forward(logits, params)
+diff --git a/exllamav3/cache/recurrent.py b/exllamav3/cache/recurrent.py
+index 61559c5..8659cc0 100644
+--- a/exllamav3/cache/recurrent.py
++++ b/exllamav3/cache/recurrent.py
+@@ -31,6 +31,8 @@ class RecurrentCache(OrderedDict):
+ 
+         # Optionally set by the Generator; enables stranded-first eviction and staleness metrics
+         self.pagetable = None
++        self._puts_since_prune = 0
++        self.loss_reasons = OrderedDict()
+         self.metrics = {
+             "stash_evictions": 0,           # checkpoints dropped by LRU pressure
+             "stash_evictions_stranded": 0,  # of those, checkpoints that were already unrestorable
+@@ -48,16 +50,34 @@ class RecurrentCache(OrderedDict):
+             return self[key]
+         return default
+ 
++    def note_loss(self, key, reason):
++        self.loss_reasons.pop(key, None)
++        self.loss_reasons[key] = reason
++        while len(self.loss_reasons) > 4096:
++            self.loss_reasons.popitem(last=False)
+ 
+-    def put(self, key, state):
++
++    def put(self, key, state, mtp_hidden=None):
+         """
+         Add state to cache
+         """
++        self._puts_since_prune += 1
++        if self._puts_since_prune >= 16:
++            self._puts_since_prune = 0
++            self.prune_stranded()
+         if key in self:
+             self.move_to_end(key)
+         else:
+             stashed_state = state.stash()
++            if mtp_hidden is not None:
++                hidden = mtp_hidden.detach().cpu().clone()
++                stashed_state["mtp_hidden"] = hidden
++                stashed_state["checkpoint_size"] += hidden.numel() * hidden.element_size()
+             state_size = stashed_state["checkpoint_size"]
++            pt = self.pagetable
++            retainable = None
++            if pt is not None and self.update_total_size() + state_size > self.max_size:
++                retainable = pt.checkpoint_retention_hashes()
+             while self.update_total_size() + state_size > self.max_size:
+                 assert self.current_size >= 0, "Not enough space in cache for single state"
+                 pt = self.pagetable
+@@ -69,14 +89,16 @@ class RecurrentCache(OrderedDict):
+                 popped_key = None
+                 if pt is not None:
+                     for k in self:
+-                        if not pt.is_resumable(k):
++                        if k not in retainable:
+                             popped_key = k
+                             break
+                 if popped_key is not None:
+                     popped = self.pop(popped_key)
+                     self.metrics["stash_evictions_stranded"] += 1
++                    self.note_loss(popped_key, "stranded")
+                 else:
+                     popped_key, popped = self.popitem(last = False)
++                    self.note_loss(popped_key, "budget")
+                     if pt is not None:
+                         page = pt.referenced_pages.get(popped_key) or pt.unreferenced_pages.get(popped_key)
+                         if page is not None and page.kv_position == PAGE_SIZE:
+@@ -88,6 +110,7 @@ class RecurrentCache(OrderedDict):
+                     self.model.tp_dispatch_all(mp_cache_recurrent_del, (id(self), popped["tp_handle"]))
+ 
+             self[key] = stashed_state
++            self.loss_reasons.pop(key, None)
+             self.update_total_size()
+ 
+ 
+@@ -100,9 +123,11 @@ class RecurrentCache(OrderedDict):
+         """
+         if self.pagetable is None:
+             return 0
+-        stranded = [k for k in self if not self.pagetable.is_resumable(k)]
++        retainable = self.pagetable.checkpoint_retention_hashes()
++        stranded = [k for k in self if k not in retainable]
+         for k in stranded:
+             popped = self.pop(k)
++            self.note_loss(k, "stranded")
+             self.metrics["stash_pruned"] += 1
+             note_freed(popped["checkpoint_size"])
+             if self.model.loaded_tp:
+diff --git a/exllamav3/generator/async_generator.py b/exllamav3/generator/async_generator.py
+index dc48d85..0a58679 100644
+--- a/exllamav3/generator/async_generator.py
++++ b/exllamav3/generator/async_generator.py
+@@ -1,6 +1,8 @@
+ from __future__ import annotations
+ from .generator import Generator
+ from .job import Job
++from .serialized_worker import SerializedWorker
++from .prefix_diagnostics import PREFIX_REQUEST
+ import asyncio
+ import torch
+ 
+@@ -14,8 +16,16 @@ class AsyncGenerator:
+     """
+     def __init__(self, *args, **kwargs):
+         self.generator = Generator(*args, **kwargs)
++        device = torch.cuda.current_device() if torch.cuda.is_initialized() else None
++        self.worker = SerializedWorker(
++            initializer=(lambda: torch.cuda.set_device(device)) if device is not None else None
++        )
+         self.jobs = {}
+         self.error = None
++        self.cache_stats = self.generator.get_cache_stats()
++        self._closing = False
++        self._close_task = None
++        self._mutations = set()
+         self.condition = asyncio.Condition()
+         self.iteration_task = asyncio.create_task(self._run_iteration())
+ 
+@@ -33,11 +43,11 @@ class AsyncGenerator:
+                 # Delivery must never block: this single task serves every job, so waiting on one stalled
+                 # consumer (e.g. a disconnected client that stopped draining its queue) would wedge the whole
+                 # generator (issue #227).
+-                results = self.generator.iterate()
++                results, self.cache_stats = await self.worker.call(self._iterate)
+                 self.deliver_results(results)
+ 
+-                # Yield back to the event loop so result consumers and cancellation requests can run between
+-                # generator iterations, even if the synchronous generator immediately has more work available.
++                # The worker await already lets network I/O run during inference.
++                # Give ready consumers a chance to queue controls before the next step.
+                 await asyncio.sleep(0)
+ 
+         except asyncio.CancelledError:
+@@ -53,6 +63,66 @@ class AsyncGenerator:
+                 async_job.put_result(e)
+             self.jobs.clear()
+ 
++    def _iterate(self):
++        try:
++            return self._step()
++        except Exception as error:
++            # Queued control operations must see a fatal inference failure
++            # before the event loop receives and broadcasts it.
++            self.error = error
++            raise
++
++    def _step(self):
++        results = self.generator.iterate()
++        cuda_devices = set()
++
++        def freeze(value):
++            if isinstance(value, torch.Tensor):
++                result = value.detach().clone()
++                if result.device.type == "cuda":
++                    cuda_devices.add(result.device)
++                return result
++            if isinstance(value, dict):
++                return {key: freeze(child) for key, child in value.items()}
++            if isinstance(value, list):
++                return [freeze(child) for child in value]
++            if isinstance(value, tuple):
++                return tuple(freeze(child) for child in value)
++            return value
++
++        frozen = []
++        for result in results:
++            # Tensor staging and Job counters belong to the worker. Consumers
++            # can keep an event after the next inference step has begun.
++            event = {key: value if key == "job" else freeze(value)
++                     for key, value in result.items()}
++            job = event["job"]
++            event["cumulative_tokens"] = max(0, job.rq_new_tokens + job.new_tokens)
++            frozen.append(event)
++        for device in cuda_devices:
++            torch.cuda.synchronize(device)
++        return frozen, self.generator.get_cache_stats()
++
++    async def call(self, operation, *args, **kwargs):
++        """Serialize cache inspection and control with inference."""
++        return await self.worker.call(operation, *args, **kwargs)
++
++    def _submit_mutation(self, job, operation, *args):
++        future = asyncio.wrap_future(self.worker.submit(operation, *args))
++        self._mutations.add(future)
++
++        def completed(done):
++            self._mutations.discard(done)
++            if done.cancelled():
++                return
++            error = done.exception()
++            if error is not None and self.jobs.pop(job.job, None) is not None:
++                job.put_result(error)
++                if not self._closing and self.error is None:
++                    self._submit_mutation(job, self.generator.cancel, job.job)
++
++        future.add_done_callback(completed)
++
+     def deliver_results(self, results):
+         """
+         Fan generator results out to the owning AsyncJob queues. Missing jobs can happen if a job
+@@ -79,15 +149,15 @@ class AsyncGenerator:
+ 
+     def enqueue(self, job: AsyncJob):
+         # The iteration task died on a generator exception; surface it to the new job's consumer immediately
+-        if self.error is not None:
+-            job.put_result(self.error)
++        if self.error is not None or self._closing:
++            job.put_result(self.error or RuntimeError("Generator is closed"))
+             return
+ 
+         # Track the AsyncJob before enqueueing the underlying Job so any immediate generator result has a queue to
+         # land in. The sync generator still owns scheduling and serial assignment.
+         assert job.job not in self.jobs
+         self.jobs[job.job] = job
+-        self.generator.enqueue(job.job)
++        self._submit_mutation(job, self._enqueue_job, job.job)
+ 
+         # Condition.notify_all() must run while holding the condition lock, so schedule a tiny coroutine instead of
+         # trying to notify directly from this synchronous method.
+@@ -97,7 +167,22 @@ class AsyncGenerator:
+         async with self.condition:
+             self.condition.notify_all()
+ 
++    def _enqueue_job(self, job):
++        if self.error is not None:
++            raise self.error
++        return self.generator.enqueue(job)
++
+     async def close(self):
++        if self._close_task is None:
++            self._closing = True
++            self._close_task = asyncio.create_task(self._close())
++        try:
++            await asyncio.shield(self._close_task)
++        except asyncio.CancelledError:
++            await asyncio.shield(self._close_task)
++            raise
++
++    async def _close(self):
+         self.iteration_task.cancel()
+ 
+         # Force a re-check of the condition to unlock the loop
+@@ -112,23 +197,42 @@ class AsyncGenerator:
+             async_job.put_result(_CANCELLED_SENTINEL)
+         self.jobs.clear()
+ 
++        await self.worker.close(self._cleanup)
++
++    def _cleanup(self):
++        if self.error is None:
++            for job in list(self.generator.pending_jobs) + list(self.generator.active_jobs):
++                self.generator.cancel(job)
++        if torch.cuda.is_initialized():
++            for device in range(torch.cuda.device_count()):
++                torch.cuda.synchronize(device)
+         cpu_cache = getattr(self.generator, "cpu_page_cache", None)
+         if cpu_cache is not None:
+             cpu_cache.close()
+ 
+     async def cancel(self, job: AsyncJob):
+-        # Remove the underlying Job from the synchronous generator first so no new tokens are produced, then drop
+-        # the async mapping so any late results from an in-flight iteration are ignored. Finally wake the job's
+-        # consumer in case it is parked in queue.get(), waiting for a result that will never arrive.
+-        # After a generator exception the sync generator's state is suspect and every job was already delivered
+-        # the error; don't poke it from consumers' cleanup handlers, or their except/finally blocks can be hit
+-        # with a second exception.
++        # Wake the HTTP consumer immediately; cache release follows any running
++        # step on the owner thread, and late results have no async recipient.
++        if self.jobs.pop(job.job, None) is not None:
++            job.put_result(_CANCELLED_SENTINEL)
++        if self.error is None and not self._closing:
++            await self.worker.call(self._cancel_job, job.job)
++
++    def _cancel_job(self, job):
+         if self.error is None:
+-            self.generator.cancel(job.job)
+-        if job.job not in self.jobs:
+-            return
+-        del self.jobs[job.job]
+-        job.put_result(_CANCELLED_SENTINEL)
++            self.generator.cancel(job)
++
++    def constrain_output(self, job, output):
++        if self.jobs.get(job.job) is job and not self._closing and self.error is None:
++            if isinstance(output, torch.Tensor):
++                output = output.clone()
++            self._submit_mutation(job, self._constrain_job, job.job, output)
++
++    def _constrain_job(self, job, output):
++        if self.error is None and (
++            job in self.generator.active_jobs or job in self.generator.pending_jobs
++        ):
++            job.constrain_output_now(output)
+ 
+ 
+ class AsyncJob:
+@@ -138,6 +242,7 @@ class AsyncJob:
+     def __init__(self, generator: AsyncGenerator, *args: object, **kwargs: object):
+         self.generator = generator
+         self.job = Job(*args, **kwargs)
++        self.job.prefix_metadata = dict(PREFIX_REQUEST.get() or {})
+         # The queue is unbounded and written with put_nowait: the shared iteration task must never block on a
+         # consumer that stopped draining (see _run_iteration). Growth is paced by the sync generator's own token
+         # rate and ends when the job completes or is cancelled, which is the frontend's responsibility on client
+@@ -174,7 +279,7 @@ class AsyncJob:
+         call from any coroutine on the generator's event loop. Note that tokens already sampled by the
+         shared iteration task but still queued for this consumer precede the injection in the stream.
+         """
+-        self.job.constrain_output_now(output)
++        self.generator.constrain_output(self, output)
+ 
+     async def cancel(self):
+         # Delegate cancellation to the wrapper so it can update both the sync generator queue and the async job map,
+diff --git a/exllamav3/generator/cpu_cache.py b/exllamav3/generator/cpu_cache.py
+index afc91e4..f15d802 100644
+--- a/exllamav3/generator/cpu_cache.py
++++ b/exllamav3/generator/cpu_cache.py
+@@ -5,6 +5,7 @@ import weakref
+ import torch
+ from collections import deque
+ from ..constants import PAGE_SIZE
++from ..util.host_backing import host_tensor
+ 
+ 
+ def _align(n: int, a: int) -> int:
+@@ -161,6 +162,7 @@ class CPUPageCache:
+             "dedup_hits": 0,    # pushes skipped because the page was already stored
+             "restores": 0,      # pages copied back into the GPU cache at allocation
+             "evictions": 0,     # tier entries dropped to make room
++            "evictions_redundant": 0,  # dropped images still complete in VRAM
+             "cold_allocs": 0,   # pushes that had to pin a slab synchronously (spare pool was empty)
+         }
+         # cold_allocs is the sum of the two halves, since a slot can have a local slab and per-rank buffers
+@@ -199,7 +201,7 @@ class CPUPageCache:
+ 
+ 
+     def _make_slab(self):
+-        slab = torch.empty((self.slab_size,), dtype = torch.uint8, pin_memory = True)
++        slab = host_tensor((self.slab_size,), torch.uint8, pin=True, name='RAM KV eviction slab')
+         views = []
+         for t, offset, page_shape, dtype in self.segments:
+             nbytes = t[0].numel() * t.element_size()
+@@ -240,6 +242,16 @@ class CPUPageCache:
+ 
+     def _evict_one(self, protect: set | None):
+         assert self.entries, "CPU page cache has no entries to evict (logic error)"
++        # A restored GPU copy makes its RAM image redundant, even when the hash
++        # is protected by the current allocation. Preserve unique paused history
++        # before spending the tier on copies already complete in VRAM.
++        if self.pagetable is not None:
++            for h, e in self.entries.items():
++                if self.pagetable.get_live_page(h) is not None:
++                    del self.entries[h]
++                    self.metrics["evictions"] += 1
++                    self.metrics["evictions_redundant"] += 1
++                    return e["slot"]
+         # Entries claimed by the allocation in progress (a restore protects every page of the chain it is
+         # bringing back, hundreds of pages on a long prompt) are passed over and requeued; they are only
+         # taken once every entry has been deferred, i.e. everything is protected. A deferral does not count
+diff --git a/exllamav3/generator/fair_queue.py b/exllamav3/generator/fair_queue.py
+new file mode 100644
+index 0000000..3f72374
+--- /dev/null
++++ b/exllamav3/generator/fair_queue.py
+@@ -0,0 +1,31 @@
++"""Rotate occupied request slots only when another request is waiting."""
++
++
++class FairQueue:
++    def __init__(self, page_size=256, prefill_quantum=2048, generation_quantum=512):
++        self.page_size = page_size
++        self.prefill_quantum = prefill_quantum
++        self.generation_quantum = generation_quantum
++        self.prefill_yields = 0
++        self.generation_yields = 0
++
++    def prefill_due(self, job, pending):
++        if (not pending or len(job.sequences) != 1 or job.embeddings or job.prefix_token is not None
++                or getattr(job, 'banned_strings', None)):
++            return False
++        seq = job.sequences[0]
++        return (not job.is_prefill_done()
++                and seq.kv_position % self.page_size == 0
++                and seq.kv_position - job.prefill_turn_start >= self.prefill_quantum)
++
++    def generation_due(self, job, pending):
++        return (bool(pending) and len(job.sequences) == 1
++                and not getattr(job, 'banned_strings', None)
++                and job.new_tokens >= self.generation_quantum
++                and job.sequences[0].kv_position % self.page_size == 0)
++
++    def stats(self):
++        return {'prefill_quantum_tokens': self.prefill_quantum,
++                'generation_quantum_tokens': self.generation_quantum,
++                'prefill_yields': self.prefill_yields,
++                'generation_yields': self.generation_yields}
+diff --git a/exllamav3/generator/generator.py b/exllamav3/generator/generator.py
+index e88569f..62563e4 100644
+--- a/exllamav3/generator/generator.py
++++ b/exllamav3/generator/generator.py
+@@ -4,6 +4,7 @@ import torch
+ from ..model.model import Model
+ from ..cache.cache import Cache
+ from ..cache.recurrent import RecurrentCache
++from .fair_queue import FairQueue
+ from ..tokenizer.tokenizer import Tokenizer
+ from ..constants import PAGE_SIZE
+ from ..util import cuda_sync_active
+@@ -14,6 +15,8 @@ from .pagetable import PageTable, is_content_hash
+ from .cpu_cache import CPUPageCache
+ from .draft_confidence import DraftConfidenceCalibrator
+ from .job import Job
++from .prefill_scheduler import PrefillScheduler
++from .prefix_diagnostics import PrefixHistory
+ from .filter import Filter
+ from concurrent.futures import ThreadPoolExecutor
+ from .sampler import Sampler
+@@ -47,6 +50,8 @@ class Generator:
+         draft_confidence: float = 0.4,
+         record_draft_stats: bool = False,
+         ngram_corpus: str | None = None,
++        prefill_time_fraction: float = 0.25,
++        mixed_prefill_chunk_size: int = PAGE_SIZE,
+         **kwargs
+     ):
+         """
+@@ -152,6 +157,7 @@ class Generator:
+         self.cache_owner_serial = cache.owner_serial
+         self.max_total_tokens = PAGE_SIZE * self.pagetable.max_pages
+         self._cache_stats_memo = (None, None)
++        self.fair_queue = FairQueue(PAGE_SIZE)
+ 
+         # Draft model
+         self.draft_model = draft_model
+@@ -193,6 +199,10 @@ class Generator:
+         # Chunking/partitioning
+         self.max_batch_size = max_batch_size
+         self.max_chunk_size = max_chunk_size
++        if mixed_prefill_chunk_size < PAGE_SIZE or mixed_prefill_chunk_size % PAGE_SIZE:
++            raise ValueError("mixed_prefill_chunk_size must be a positive multiple of PAGE_SIZE")
++        self.mixed_prefill_chunk_size = min(max_chunk_size, mixed_prefill_chunk_size)
++        self.prefill_scheduler = PrefillScheduler(prefill_time_fraction)
+ 
+         # Job queues
+         self.job_serial = 0
+@@ -241,6 +251,7 @@ class Generator:
+ 
+         # Recurrent cache
+         self.recurrent_cache_size = recurrent_cache_size
++        self.prefix_history = PrefixHistory(PAGE_SIZE)
+         if self.model.caps.get("recurrent_states"):
+             self.recurrent_cache = RecurrentCache(self.model, recurrent_cache_size)
+             self.recurrent_cache.pagetable = self.pagetable
+@@ -538,10 +549,26 @@ class Generator:
+         results = []
+         self.iterate_start_jobs(results)
+ 
+-        # Perform one round of prefill
+-        for job in list(self.active_jobs):
++        step_start = time.perf_counter()
++        decoding = any(job.is_prefill_done() for job in self.active_jobs)
++        if decoding:
++            # Cache-only advancement stays available while GPU prefill is deferred.
++            # It never runs the target/draft or changes recurrent checkpoint policy.
++            for job in list(self.active_jobs):
++                if job.is_prefill_done():
++                    continue
++                try:
++                    job.prefill(results, cache_only=True)
++                except Exception as e:
++                    self.reap_failed_job(job, e, results)
++
++        prefilling = [job for job in self.active_jobs if not job.is_prefill_done()]
++        prefill_jobs = self.prefill_scheduler.select(prefilling, decoding)
++        for job in prefill_jobs:
+             try:
+-                job.prefill(results)
++                job.prefill(results, max_chunk_size=self.mixed_prefill_chunk_size if decoding else None)
++                if self.fair_queue.prefill_due(job, self.pending_jobs):
++                    self.yield_prefill(job)
+             except Exception as e:
+                 self.reap_failed_job(job, e, results)
+ 
+@@ -574,9 +601,22 @@ class Generator:
+         if self.visualizer:
+             self.update_visualizer()
+ 
++        self.prefill_scheduler.account(decoding, bool(prefill_jobs), time.perf_counter() - step_start)
++
+         # Finished iteration
+         return results
+ 
++    def yield_prefill(self, job):
++        if self.recurrent_cache is not None:
++            job.maybe_stash_recurrent(self.recurrent_cache, PAGE_SIZE)
++        now = time.time()
++        job.time_enqueued += job.time_first_prefill - job.time_enqueue
++        job.time_prefill += now - job.time_first_prefill
++        job.deallocate_pages()
++        self.active_jobs.remove(job)
++        self.pending_jobs.append(job.prepare_for_requeue())
++        self.fair_queue.prefill_yields += 1
++
+ 
+     @torch.inference_mode()
+     def on_queue_drained(self):
+@@ -1197,6 +1237,8 @@ class Generator:
+                     if len(job.sequences) == 1 and rq:
+                         if draft_tokens is not None:
+                             rejected = reject_remainder(job, j, i, batch_states)
++                        if job._fair_yield:
++                            self.fair_queue.generation_yields += 1
+                         requeuing_jobs.append(job)
+                         break
+ 
+@@ -1358,11 +1400,10 @@ class Generator:
+             job.deallocate_pages()
+             self.active_jobs.remove(job)
+ 
+-        # Requeue jobs. Puts replacement jobs at the front so long generations continue promptly after they yield
+-        # their cache pages.
++        # A yielded continuation joins the tail so waiting requests receive the freed slot.
+         for job in requeuing_jobs:
+             rq_job = job.prepare_for_requeue()
+-            self.pending_jobs.insert(0, rq_job)
++            self.pending_jobs.append(rq_job)
+ 
+         # Defrag. Physical page indices can only be compacted when no active block tables are using them.
+         if num_jobs and not self.num_remaining_jobs():
+@@ -1443,6 +1484,7 @@ class Generator:
+                 # Allocate pages for job
+                 try:
+                     job.allocate_pages()
++                    job.prefill_turn_start = job.sequences[0].kv_position
+                 except Exception as e:
+                     self.reap_failed_job(job, e, results)
+                     continue
+diff --git a/exllamav3/generator/job.py b/exllamav3/generator/job.py
+index b89ed7e..559c184 100644
+--- a/exllamav3/generator/job.py
++++ b/exllamav3/generator/job.py
+@@ -155,6 +155,7 @@ class Job:
+             self.rq_new_tokens = rq_state["rq_new_tokens"]
+ 
+         self.generator = None
++        self._fair_yield = False
+         self.pagetable = None
+         self.serial_number = None
+         self.identifier = identifier
+@@ -277,6 +278,8 @@ class Job:
+         self.rejected_draft_tokens = rq_state.get("rejected_draft_tokens", 0)
+         self.rq_prompt_tokens = rq_state.get("prompt_tokens")
+         self.rq_cached = rq_state.get("cached")
++        self.prefix_metadata = rq_state.get("prefix_metadata", {})
++        self.prefix_diagnostic = rq_state.get("prefix_diagnostic", {"allocations": 0, "rounds": []})
+         self.draft_stats = []
+         self.cached_pages = 0
+         self.cached_tokens = 0
+@@ -683,6 +686,10 @@ class Job:
+                     page.prev_hash = new_hash
+                     page.can_revert = False
+ 
++        if self.generator.fair_queue.generation_due(self, self.generator.pending_jobs):
++            requeue_now = True
++            self._fair_yield = True
++
+         # Stream output
+ 
+         def emit(
+@@ -775,6 +782,7 @@ class Job:
+                     "time_generate": self.time_generate,
+                     "cached_pages": cached[0],
+                     "cached_tokens": cached[1],
++                    "prefix_diagnostic": self.prefix_diagnostic,
+                 })
+                 if self.generator.draft_model or self.generator.ngram_match_min:
+                     r.update({
+@@ -1047,7 +1055,7 @@ class Job:
+             "time_enqueued": self.time_enqueued,
+             "time_prefill": self.time_prefill,
+             "time_generate": self.time_generate,
+-            "rq_new_tokens": self.new_tokens,   # every token accepted so far counts; the requeued segment starts after them
++            "rq_new_tokens": self.rq_new_tokens + self.new_tokens,
+             "accepted_draft_tokens": self.accepted_draft_tokens,
+             "rejected_draft_tokens": self.rejected_draft_tokens,
+             "prompt_tokens": self.rq_prompt_tokens or len(seq.input_ids),
+@@ -1056,6 +1064,8 @@ class Job:
+             "sam": self.sam,
+             "forced_ids": None if self.forced_ids is None else self.forced_ids[:, self.forced_index:],
+             "filters_suspended": self.filters_suspended,
++            "prefix_metadata": getattr(self, "prefix_metadata", {}),
++            "prefix_diagnostic": getattr(self, "prefix_diagnostic", {"allocations": 0, "rounds": []}),
+         }
+ 
+         serial_number = self.serial_number
+@@ -1201,7 +1211,7 @@ class Job:
+         return new_pages
+ 
+ 
+-    def prefill(self, results: list):
++    def prefill(self, results: list, max_chunk_size: int | None = None, cache_only: bool = False):
+         """
+         Run prompt prefill chunks for already allocated cache pages.
+ 
+@@ -1223,10 +1233,18 @@ class Job:
+             cp_pos = self.recurrent_state.position if self.recurrent_state is not None else -1
+ 
+             prefill_start = seq.kv_position
+-            prefill_end = seq.kv_position + self.generator.max_chunk_size
++            chunk_size = self.generator.max_chunk_size if max_chunk_size is None else max_chunk_size
++            prefill_end = seq.kv_position + chunk_size
+             prefill_end = (prefill_end // PAGE_SIZE) * PAGE_SIZE
+             prefill_end = min(prefill_end, len(seq.sequence_ids) - 1)
+ 
++            shared_checkpoint_boundary = False
++            shared_checkpoint = getattr(seq, "shared_checkpoint_position", None)
++            if (self.generator.recurrent_cache is not None and not self.embeddings and
++                shared_checkpoint is not None and prefill_start < shared_checkpoint <= prefill_end):
++                prefill_end = shared_checkpoint
++                shared_checkpoint_boundary = True
++
+             atomic_mm_prefill = bool(self.embeddings) and self.generator.model.caps.get("atomic_mm_prefill")
+             mm_exact_chunks = bool(self.embeddings) and self.generator.model.caps.get("mm_exact_chunks")
+             # assert not atomic_mm_prefill or not self.recurrent_state, \
+@@ -1255,7 +1273,7 @@ class Job:
+                     prefill_end = local_idx * PAGE_SIZE
+                     break
+ 
+-            if prefill_end <= prefill_start:
++            if cache_only or prefill_end <= prefill_start:
+                 continue
+ 
+             assert prefill_start % PAGE_SIZE == 0 or mm_exact_chunks
+@@ -1414,6 +1432,8 @@ class Job:
+                         carry_hidden = seq.mtp_carry_hidden
+                         if carry_hidden is None:
+                             carry_hidden = torch.zeros_like(target_hidden[:, :1, :])
++                        else:
++                            carry_hidden = carry_hidden.to(target_hidden.device)
+                         shifted_hidden = torch.cat((carry_hidden, target_hidden[:, :-1, :]), dim = 1)
+                         seq.mtp_carry_hidden = target_hidden[:, -1:, :].clone()
+                         self.mtp_last_hidden = seq.mtp_carry_hidden
+@@ -1443,6 +1463,11 @@ class Job:
+                 p2 = min(p1 + 1, len(seq.allocated_pages))
+                 for local_idx in range(p0, p2):
+                     page = seq.allocated_pages[local_idx]
++                    # The extra page links a fresh suffix. Recurrent replay must not
++                    # invalidate an untouched, already complete shared page: another
++                    # job can prune checkpoints while this replay is between chunks.
++                    if local_idx * PAGE_SIZE >= prefill_end and page.kv_position == PAGE_SIZE:
++                        continue
+                     page.kv_position = min(max(prefill_end - local_idx * PAGE_SIZE, 0), PAGE_SIZE)
+                     if local_idx == 0:
+                         page.prev_hash = None
+@@ -1462,7 +1487,7 @@ class Job:
+                 if self.sequences[0].kv_position >= len(seq.sequence_ids) - 1:
+                     seq.prefill_complete = True
+ 
+-                if recurrent_last_page:
++                if recurrent_last_page or shared_checkpoint_boundary:
+                     self.maybe_stash_recurrent(self.generator.recurrent_cache, PAGE_SIZE)
+ 
+ 
+@@ -1495,6 +1520,12 @@ class Job:
+         protected_hashes = set(self.all_unique_hashes)
+ 
+         for seq in self.sequences:
++            history = getattr(self.generator, "prefix_history", None)
++            diagnostic = None
++            if history is not None:
++                diagnostic = history.allocation(
++                    self.serial_number, seq.page_hashes[:seq.max_cached_pages], len(seq.sequence_ids),
++                    self.pagetable, self.generator.recurrent_cache, self.prefix_metadata)
+             allocated_pages, cached_pages, non_sequential_pages, stashed_recurrent_state = \
+                 seq.allocate_pages(self.pagetable, self.generator.recurrent_cache, protected_hashes)
+ 
+@@ -1513,8 +1544,25 @@ class Job:
+                         stashed_recurrent_state,
+                         position = cached_pages * PAGE_SIZE,
+                     )
++                    if self.generator.mtp_draft:
++                        hidden = stashed_recurrent_state.get("mtp_hidden")
++                        seq.mtp_carry_hidden = (hidden.to(self.generator.model.output_device)
++                                                if hidden is not None else None)
++                        self.mtp_last_hidden = seq.mtp_carry_hidden
+                     self.last_recurrent_checkpoint_pos = self.recurrent_state.position
+ 
++            if diagnostic is not None:
++                history.restored(diagnostic, seq.kv_position, stashed_recurrent_state)
++                seq.shared_checkpoint_position = (history.checkpoint_target(diagnostic)
++                                                  if self.generator.recurrent_cache is not None else None)
++                diagnostic["shared_checkpoint_target_tokens"] = seq.shared_checkpoint_position
++                self.prefix_diagnostic["allocations"] += 1
++                rounds = self.prefix_diagnostic["rounds"]
++                # Keep the first allocation and recent resumptions, without unbounded output metadata.
++                if len(rounds) >= 16:
++                    del rounds[1]
++                rounds.append(diagnostic)
++
+             # Metrics
+             self.cached_pages += cached_pages
+             self.total_pages += allocated_pages
+@@ -1525,6 +1573,9 @@ class Job:
+         self.free_recurrent_state()
+         for seq in self.sequences:
+             if seq.allocated_pages is not None:
++                history = getattr(self.generator, "prefix_history", None)
++                if history is not None:
++                    history.completed_sequence(self.serial_number, seq.allocated_pages, self.prefix_metadata)
+                 self.pagetable.deallocate_pages(seq.allocated_pages)
+                 seq.allocated_pages = []
+ 
+@@ -1615,7 +1666,8 @@ class Job:
+ 
+             page = seq.allocated_pages[last_page]
+             assert page.kv_position == PAGE_SIZE
+-            cache.put(page.phash, self.recurrent_state)
++            cache.put(page.phash, self.recurrent_state,
++                      mtp_hidden=self.mtp_last_hidden if self.generator.mtp_draft else None)
+ 
+             # Prevent setting the same checkpoint twice in a row if prefill ends on the first page of a chunk
+             self.last_recurrent_checkpoint_pos = seq.kv_position
+diff --git a/exllamav3/generator/pagetable.py b/exllamav3/generator/pagetable.py
+index f429e6a..7bf53df 100644
+--- a/exllamav3/generator/pagetable.py
++++ b/exllamav3/generator/pagetable.py
+@@ -680,6 +680,35 @@ class PageTable:
+                 return False
+ 
+ 
++    def checkpoint_retention_hashes(self) -> set:
++        """Anchors whose KV is present or temporarily checked out without being written.
++
++        Unused generation pages revert on release. They are not allocatable under
++        their old hash yet, but pruning their checkpoints loses otherwise reusable
++        state. This snapshot is for retention only, never prefix restoration.
++        """
++        links = {p.phash: p.prev_hash for p in self.all_pages if p.kv_position == PAGE_SIZE}
++        if self.cpu_tier is not None:
++            for h, entry in self.cpu_tier.entries.items():
++                links.setdefault(h, entry["prev_hash"])
++        for p in self.all_pages:
++            if p.ref_count and p.can_revert and p.kv_position_revert == PAGE_SIZE:
++                links.setdefault(p.phash_revert, p.prev_hash_revert)
++        valid = {}
++        for anchor in links:
++            h = anchor
++            walk = []
++            visited = set()
++            while h is not None and h not in valid and h in links and h not in visited:
++                walk.append(h)
++                visited.add(h)
++                h = links[h]
++            ok = h is None or valid.get(h, False)
++            for key in walk:
++                valid[key] = ok
++        return {h for h, ok in valid.items() if ok}
++
++
+     def audit_recurrent_sync(self, recurrent_cache) -> dict:
+         """
+         Measure two-way staleness between the KV page cache and the recurrent checkpoint cache on hybrid models.
+diff --git a/exllamav3/generator/prefill_scheduler.py b/exllamav3/generator/prefill_scheduler.py
+new file mode 100644
+index 0000000..7ae607e
+--- /dev/null
++++ b/exllamav3/generator/prefill_scheduler.py
+@@ -0,0 +1,50 @@
++"""Share mixed prefill/decode time without changing cache ownership or kernels."""
++import math
++
++
++class PrefillScheduler:
++    def __init__(self, time_fraction=0.25):
++        if not math.isfinite(time_fraction) or not 0 < time_fraction <= 1:
++            raise ValueError("prefill_time_fraction must be in (0, 1]")
++        self.time_fraction = time_fraction
++        self.decode_debt = 0.0
++        self.last_serial = -1
++        self.mixed_prefill_steps = 0
++        self.decode_only_steps = 0
++        self.mixed_step_seconds = 0.0
++        self.decode_only_seconds = 0.0
++
++    def select(self, jobs, decoding):
++        if not jobs or not decoding:
++            self.decode_debt = 0.0
++            return list(jobs)
++        if self.decode_debt > 0:
++            return []
++        ordered = sorted(jobs, key=lambda job: job.serial_number)
++        job = next((job for job in ordered if job.serial_number > self.last_serial), ordered[0])
++        self.last_serial = job.serial_number
++        return [job]
++
++    def account(self, decoding, prefilling, elapsed):
++        if not decoding:
++            self.decode_debt = 0.0
++        elif prefilling:
++            # Charge the whole mixed step: decode's readback also waits for any
++            # asynchronous prefill kernels, so host enqueue time would undercount.
++            self.decode_debt += elapsed * (1 - self.time_fraction) / self.time_fraction
++            self.mixed_prefill_steps += 1
++            self.mixed_step_seconds += elapsed
++        else:
++            self.decode_debt = max(0.0, self.decode_debt - elapsed)
++            self.decode_only_steps += 1
++            self.decode_only_seconds += elapsed
++
++    def stats(self):
++        return {
++            "prefill_time_fraction": self.time_fraction,
++            "decode_debt_seconds": self.decode_debt,
++            "mixed_prefill_steps": self.mixed_prefill_steps,
++            "decode_only_steps": self.decode_only_steps,
++            "mixed_step_seconds": self.mixed_step_seconds,
++            "decode_only_seconds": self.decode_only_seconds,
++        }
+diff --git a/exllamav3/generator/prefix_diagnostics.py b/exllamav3/generator/prefix_diagnostics.py
+new file mode 100644
+index 0000000..f9544fb
+--- /dev/null
++++ b/exllamav3/generator/prefix_diagnostics.py
+@@ -0,0 +1,169 @@
++"""Bounded request-level prefix attribution. No tokens or prompt text leave this module."""
++from collections import Counter, OrderedDict
++from contextvars import ContextVar
++
++
++PREFIX_REQUEST = ContextVar("prefix_request", default=None)
++
++
++class PrefixHistory:
++    def __init__(self, page_size=256, max_histories=128, max_pages=131072):
++        self.page_size = page_size
++        self.max_histories = max_histories
++        self.max_pages = max_pages
++        self.observed = OrderedDict()
++        self.completed = OrderedDict()
++        self.observed_pages = Counter()
++        self.completed_pages = Counter()
++        self.sessions = OrderedDict()
++
++    def _remember(self, histories, counts, serial, hashes):
++        old = histories.pop(serial, ())
++        counts.subtract(old)
++        histories[serial] = tuple(hashes)
++        counts.update(hashes)
++        while len(histories) > self.max_histories or sum(map(len, histories.values())) > self.max_pages:
++            _, removed = histories.popitem(last=False)
++            counts.subtract(removed)
++        # Remove zero counts: otherwise a bounded history leaves an unbounded index.
++        for key in old:
++            if counts[key] <= 0:
++                counts.pop(key, None)
++        if len(counts) > self.max_pages or any(value <= 0 for value in counts.values()):
++            for key in list(counts):
++                if counts[key] <= 0:
++                    del counts[key]
++
++    @staticmethod
++    def _common(left, right):
++        for i, (a, b) in enumerate(zip(left, right)):
++            if a != b:
++                return i
++        return min(len(left), len(right))
++
++    @staticmethod
++    def _known_prefix(hashes, counts):
++        for i, h in enumerate(hashes):
++            if counts.get(h, 0) <= 0:
++                return i
++        return len(hashes)
++
++    def allocation(self, serial, hashes, input_tokens, pagetable, recurrent_cache, metadata=None):
++        metadata = metadata or {}
++        seen = self._known_prefix(hashes, self.observed_pages)
++        built = self._known_prefix(hashes, self.completed_pages)
++        resident = 0
++        broken_at = None
++        checkpoints = []
++        lost = []
++        invalid_positions = 0
++        prev = None
++        for i, h in enumerate(hashes):
++            page = pagetable.get_live_page(h)
++            if page is not None and resident == i:
++                resident += 1
++                if page.prev_hash != prev and broken_at is None:
++                    broken_at = i * self.page_size
++            if recurrent_cache is not None:
++                stash = recurrent_cache.get(h)
++                if stash is not None:
++                    if stash.get("position") == (i + 1) * self.page_size:
++                        checkpoints.append(i + 1)
++                    else:
++                        invalid_positions += 1
++                reason = getattr(recurrent_cache, "loss_reasons", {}).get(h)
++                if reason is not None:
++                    lost.append((i + 1, reason))
++            prev = h
++        usable = max((n for n in checkpoints if n <= resident), default=0)
++        if recurrent_cache is None:
++            usable = resident
++        ps = self.page_size
++        row = {
++            "version": 1, "input_tokens": input_tokens,
++            "eligible_prefix_tokens": len(hashes) * ps,
++            "previous_observed_prefix_tokens": seen * ps,
++            "previous_completed_prefix_tokens": built * ps,
++            "history_known": bool(seen),
++            "resident_prefix_tokens": resident * ps,
++            "latest_matching_checkpoint_tokens": max(checkpoints, default=0) * ps,
++            "valid_checkpoint_tokens": usable * ps,
++            "previous_completed_kv_missing_tokens": max(0, built - resident) * ps,
++            "resident_kv_without_state_tokens": max(0, resident - usable) * ps,
++            "broken_ancestry_at_tokens": broken_at,
++            "invalid_checkpoint_positions": invalid_positions,
++            "checkpoint_loss_tokens": {
++                reason: max((n for n, r in lost if r == reason and usable < n <= resident), default=0) * ps
++                for reason in ("budget", "stranded")
++            },
++            "active_jobs_at_allocation": len(pagetable.generator.active_jobs),
++            "active_decode_at_allocation": sum(j.is_prefill_done() for j in pagetable.generator.active_jobs),
++            "session_history_known": False,
++            "session_shared_prefix_tokens": None,
++            "session_first_changed_message": None,
++            "session_first_changed_normalized_message": None,
++        }
++        session = metadata.get("session_key")
++        prior = self.sessions.get(session) if session else None
++        if prior is not None:
++            row["session_history_known"] = True
++            shared = self._common(prior["hashes"], hashes)
++            row["session_shared_prefix_tokens"] = shared * ps
++            row["session_prior_prefix_tokens"] = len(prior["hashes"]) * ps
++            row["session_prefix_changed"] = shared < min(len(prior["hashes"]), len(hashes))
++            for field, target in (("message_hashes", "session_first_changed_message"),
++                                  ("normalized_message_hashes", "session_first_changed_normalized_message")):
++                a, b = prior["metadata"].get(field), metadata.get(field)
++                if a is not None and b is not None:
++                    common = self._common(a, b)
++                    if common < min(len(a), len(b)):
++                        row[target] = common
++            row["session_template_options_changed"] = (
++                prior["metadata"].get("template_options_hash") != metadata.get("template_options_hash"))
++        if session:
++            self.sessions.pop(session, None)
++            self.sessions[session] = {"hashes": tuple(hashes), "metadata": dict(metadata), "serial": serial}
++            while len(self.sessions) > self.max_histories or sum(len(s["hashes"]) for s in self.sessions.values()) > self.max_pages:
++                self.sessions.popitem(last=False)
++        self._remember(self.observed, self.observed_pages, serial, hashes)
++        return row
++
++    def completed_sequence(self, serial, pages, metadata=None):
++        hashes = []
++        for p in pages:
++            if p.kv_position != self.page_size:
++                break
++            hashes.append(p.phash)
++        self._remember(self.completed, self.completed_pages, serial, hashes)
++        metadata = metadata or {}
++        session = metadata.get("session_key")
++        prior = self.sessions.get(session)
++        if prior is not None and prior["serial"] == serial:
++            prior["hashes"] = tuple(hashes)
++
++    @staticmethod
++    def checkpoint_target(row, min_gap_tokens=2048):
++        """Save one demonstrated fork boundary, not every page on the branch."""
++        shared = min(row["resident_prefix_tokens"], row["previous_completed_prefix_tokens"])
++        return shared if shared - row["valid_checkpoint_tokens"] >= min_gap_tokens else None
++
++    @staticmethod
++    def restored(row, position, stashed_state):
++        row["restored_position_tokens"] = position
++        row["restored_state_position_tokens"] = stashed_state.get("position") if stashed_state else None
++        row["restored_mtp_carry"] = stashed_state.get("mtp_hidden") is not None if stashed_state else False
++        reasons = []
++        if row.get("session_prefix_changed"):
++            reasons.append("incoming_prefix_change")
++        if row["previous_completed_kv_missing_tokens"]:
++            reasons.append("kv_page_loss")
++        if row["broken_ancestry_at_tokens"] is not None:
++            reasons.append("broken_ancestry")
++        if row["resident_kv_without_state_tokens"]:
++            reasons.append("recurrent_checkpoint_gap")
++        for reason, tokens in row["checkpoint_loss_tokens"].items():
++            if tokens:
++                reasons.append("checkpoint_" + reason)
++        if not row["history_known"] and not row["session_history_known"]:
++            reasons.append("unknown_history")
++        row["replay_reasons"] = reasons
+diff --git a/exllamav3/generator/serialized_worker.py b/exllamav3/generator/serialized_worker.py
+new file mode 100644
+index 0000000..3b43318
+--- /dev/null
++++ b/exllamav3/generator/serialized_worker.py
+@@ -0,0 +1,36 @@
++"""One inference owner thread without blocking the HTTP event loop."""
++import asyncio
++from concurrent.futures import ThreadPoolExecutor
++
++
++class SerializedWorker:
++    def __init__(self, initializer=None):
++        self.executor = ThreadPoolExecutor(max_workers=1, initializer=initializer,
++                                           thread_name_prefix="inference")
++        self.closed = False
++        self._cleanup = None
++
++    def submit(self, function, *args, **kwargs):
++        if self.closed:
++            raise RuntimeError("Inference worker is closed")
++        return self.executor.submit(function, *args, **kwargs)
++
++    async def call(self, function, *args, **kwargs):
++        future = asyncio.wrap_future(self.submit(function, *args, **kwargs))
++        # A disconnected caller must not cancel a queued mutation or leave a
++        # still-running CUDA step mistaken for completed work.
++        future.add_done_callback(lambda done: None if done.cancelled() else done.exception())
++        return await asyncio.shield(future)
++
++    async def close(self, cleanup=None):
++        if self._cleanup is None:
++            self._cleanup = asyncio.wrap_future(self.submit(cleanup or (lambda: None)))
++            self.closed = True
++        try:
++            await asyncio.shield(self._cleanup)
++        except asyncio.CancelledError:
++            await asyncio.shield(self._cleanup)
++            raise
++        finally:
++            if self._cleanup.done():
++                self.executor.shutdown(wait=False, cancel_futures=False)
+diff --git a/exllamav3/model/lm_head_candidates.py b/exllamav3/model/lm_head_candidates.py
+new file mode 100644
+index 0000000..a2d8067
+--- /dev/null
++++ b/exllamav3/model/lm_head_candidates.py
+@@ -0,0 +1,63 @@
++"""Exact vocabulary candidates shared by sharded and reference LM heads."""
++import torch
++
++
++def candidate_priority(ids,vocab_size,scalar_bytes=None):
++    if scalar_bytes is None:return ids
++    if scalar_bytes not in (2,4) or not 1<=vocab_size<=524288:
++        raise ValueError('Unsupported CUDA reference candidate geometry')
++    elements=16 if vocab_size<=262144 else 32
++    vector=16//scalar_bytes
++    block=256*elements
++    local=ids.remainder(block)
++    thread=local.remainder(256*vector)//vector
++    element=(local//(256*vector))*vector+local.remainder(vector)
++    # The existing kernel breaks ties by block, warp, lane, then register slot.
++    return (ids//block)*block+thread*elements+element
++
++
++def ordered_topk(scores,ids,k,vocab_size,scalar_bytes=None):
++    priority=candidate_priority(ids,vocab_size,scalar_bytes)
++    bits=scores.contiguous().view(torch.int32).long()
++    bits=torch.where(scores==0,0,bits)
++    sortable=torch.where(bits<0,(~bits)&0xffffffff,bits^0x80000000)
++    # Unique integer keys retain every FP32 score bit and the reference tie order.
++    keys=((sortable-0x80000000)<<32)|(0xffffffff-priority)
++    order=torch.topk(keys,k,dim=-1,sorted=True).indices
++    return scores.gather(-1,order),ids.expand_as(scores).gather(-1,order)
++
++
++def vocab_topk(logits, k, *, offset=0, vocab_size=None, scale=1.0, softcap=0.0,
++               scalar_bytes=None):
++    if type(k) is not int or k < 1 or offset < 0:
++        raise ValueError('Invalid vocabulary candidate request')
++    vocab_size = vocab_size if vocab_size is not None else offset + logits.shape[-1]
++    width = max(0, min(logits.shape[-1], vocab_size - offset))
++    values = logits[..., :width].float() * scale
++    if softcap > 0:
++        if logits.is_cuda and width:
++            from ..ext import exllamav3_ext
++            # Use the reference kernel's fast-math tanhf before selecting ties.
++            values=values.contiguous()
++            exllamav3_ext.softcap(values,values,softcap)
++        else:
++            values = torch.tanh(values / softcap) * softcap
++    count = min(k, width)
++    if scalar_bytes is None and logits.is_cuda:scalar_bytes=logits.element_size()
++    ids=torch.arange(offset,offset+width,dtype=torch.long,device=logits.device)
++    scores,ids=ordered_topk(values,ids,count,vocab_size,scalar_bytes)
++    if count < k:
++        shape = (*logits.shape[:-1], k - count)
++        scores = torch.cat((scores, torch.full(shape, -float('inf'), dtype=torch.float32,
++                                             device=logits.device)), dim=-1)
++        ids = torch.cat((ids, torch.full(shape, vocab_size, dtype=torch.long,
++                                       device=logits.device)), dim=-1)
++    return scores, ids
++
++
++def merge_vocab_topk(scores, ids, k, vocab_size,scalar_bytes=None):
++    if scores.shape != ids.shape or type(k) is not int or not 1 <= k <= vocab_size:
++        raise ValueError('Invalid sharded vocabulary candidates')
++    scores = scores.masked_fill((ids < 0) | (ids >= vocab_size), -float('inf'))
++    if scalar_bytes is None and scores.is_cuda:scalar_bytes=4
++    return ordered_topk(scores,ids,k,vocab_size,scalar_bytes)
+diff --git a/exllamav3/model/model.py b/exllamav3/model/model.py
+index 4614eb5..0bee55f 100644
+--- a/exllamav3/model/model.py
++++ b/exllamav3/model/model.py
+@@ -6,6 +6,7 @@ from .config import Config
+ from ..util import parse_int_list
+ from ..util.memory import free_mem
+ from .model_tp import Model_TPMixin
++from .lm_head_candidates import vocab_topk
+ from .model_ls import Model_LSMixin
+ from ..util.tensor import g_tensor_cache
+ from ..cache.recurrent_util import advance_recurrent_states
+@@ -376,6 +377,19 @@ class Model(Model_TPMixin, Model_LSMixin):
+             return y
+ 
+ 
++    @torch.inference_mode
++    def lm_head_topk(self, state, params, k, scale=1.0, softcap=0.0):
++        if type(k) is not int or not 1 <= k <= self.config.vocab_size:
++            raise ValueError('Invalid target vocabulary candidate count')
++        if self.loaded_tp:
++            shared = self.tp_producer.send(state)
++            return self.tp_dispatch_lm_head_topk((shared, {}), k, scale, softcap)
++        lm = self.modules[self.logit_layer_idx]
++        logits = lm.forward(lm.prepare_for_device(state, params), params)
++        return vocab_topk(logits, k, vocab_size=self.config.vocab_size,
++                          scale=scale, softcap=softcap)
++
++
+     @torch.inference_mode
+     def lm_head_argmax(self, state: torch.Tensor, params: dict) -> torch.Tensor:
+         """
+diff --git a/exllamav3/model/model_tp.py b/exllamav3/model/model_tp.py
+index e9a04fe..d7cb0fe 100644
+--- a/exllamav3/model/model_tp.py
++++ b/exllamav3/model/model_tp.py
+@@ -11,6 +11,7 @@ from ..util.progress import ProgressBar
+ from .config import Config
+ from ..util.misc import Cleanupper
+ from .model_tp_fn import *
++from .lm_head_candidates import merge_vocab_topk
+ import uuid
+ from ..util import log_tp, global_t0
+ from ..tokenizer.mm_embedding import send_embeddings
+@@ -317,6 +318,11 @@ class Model_TPMixin:
+         return sum(cold)
+ 
+ 
++    def tp_resident_layout(self,cache_id):
++        self.tp_drain_acks()
++        return self.tp_worker_dispatch_wait_multi(self.active_devices,mp_resident_layout,(cache_id,))
++
++
+     def tp_cpu_cache_fetch(self, cache_ids: list[int], slot: int, page_index: int):
+         """
+         Copy a stored cache page back into a page slot on every rank
+@@ -347,6 +353,39 @@ class Model_TPMixin:
+         return r
+ 
+ 
++    def tp_dispatch_lm_head_topk(self, args, k, scale=1.0, softcap=0.0):
++        owners = {}
++        for device in self.active_devices:
++            start, stop, _ = self.plan[device]["lm_head"]
++            if stop > start:
++                owners[device] = start
++        if not owners:
++            raise ValueError('The TP target has no LM-head shard')
++        if len(owners) == 1 and self.tp_output_device in owners:
++            return self.tp_worker_dispatch_single(
++                self.tp_output_device, mp_model_forward_lm_head_topk,
++                args + (owners[self.tp_output_device], None, None,
++                        self.config.vocab_size, k, scale, softcap))
++        devices = sorted(set(owners) | {self.tp_output_device})
++        widths = [k if device in owners else 0 for device in devices]
++        pending = []
++        for device in self.active_devices:
++            if device not in devices:
++                continue
++            self.tp_worker_dispatch(device, mp_model_forward_lm_head_topk,
++                args + (owners.get(device, -1), devices, widths,
++                        self.config.vocab_size, k, scale, softcap))
++            pending.append(device)
++        results = [(device, result) for device in pending
++                   if (result := self.tp_worker_result(device)) is not None]
++        if len(results) != 1 or results[0][0] != self.tp_output_device:
++            raise RuntimeError('TP candidate gather returned an unexpected owner')
++        scores, ids = results[0][1]
++        head=self.modules[self.logit_layer_idx]
++        scalar_bytes=(head.out_dtype or torch.half).itemsize
++        return merge_vocab_topk(scores, ids, k, self.config.vocab_size,scalar_bytes)
++
++
+     def tp_dispatch_lm_head_argmax(self, args, return_max: bool = False):
+         """
+         Compute argmax over a tensor-parallel sharded LM head.
+diff --git a/exllamav3/model/model_tp_fn.py b/exllamav3/model/model_tp_fn.py
+index 7224536..9356abe 100644
+--- a/exllamav3/model/model_tp_fn.py
++++ b/exllamav3/model/model_tp_fn.py
+@@ -1,4 +1,6 @@
+ import torch
++from .lm_head_candidates import vocab_topk
++from ..util.host_backing import host_tensor,backing_statistics
+ import traceback
+ import os
+ import signal
+@@ -127,6 +129,47 @@ def mp_cpu_reduce(local_context: dict):
+     backend.run_cpu_reduce_jobs()
+ 
+ 
++def mp_resident_layout(local_context,cache_id):
++    device=local_context['device']
++    seen=set();sizes={};layers=[];modules=[]
++    def tensor_values(value):
++        if isinstance(value,torch.Tensor):yield value
++        elif isinstance(value,dict):
++            for child in value.values():yield from tensor_values(child)
++        elif isinstance(value,(list,tuple)):
++            for child in value:yield from tensor_values(child)
++    def account(values,kind):
++        for tensor in values:
++            if tensor.device.type!='cuda':continue
++            storage=tensor.untyped_storage();key=(str(tensor.device),storage.data_ptr())
++            if key not in seen:
++                seen.add(key);sizes[kind]=sizes.get(kind,0)+storage.nbytes()
++    for module in local_context['kv_modules']:
++        layer=module.tp_cache_lookup.get(cache_id)
++        if layer is None:continue
++        values=[v for v in layer.get_tensors() if v is not None]
++        account(values,'kv')
++        layers.append(dict(key=module.key,device=str(layer.device),
++            bytes=sum(v.numel()*v.element_size() for v in values),
++            k_bits=getattr(layer,'k_bits',None),v_bits=getattr(layer,'v_bits',None),
++            storage_dtypes=[str(v.dtype) for v in values]))
++    for module in local_context['modules']:
++        modules.append(dict(key=module.key,type=type(module).__name__,device='cuda:'+str(device)))
++        for inner in module:
++            account(tensor_values(vars(inner)),'module_tensors')
++            quant=getattr(inner,'inner',None)
++            if quant is not None and hasattr(quant,'__dict__'):
++                account(tensor_values(vars(quant)),'module_tensors')
++    for module in local_context['recurrent_modules']:
++        layer=getattr(module,'tp_cache_lookup',{}).get(cache_id)
++        if layer is not None:account(tensor_values(vars(layer)),'recurrent')
++    return dict(device=device,pid=os.getpid(),gpu_bytes=sizes,cache_layers=layers,modules=modules,
++        host_backing=backing_statistics(),allocated_bytes=torch.cuda.memory_allocated(device),
++        reserved_bytes=torch.cuda.memory_reserved(device),free_bytes=torch.cuda.mem_get_info(device)[0],
++        peak_allocated_bytes=torch.cuda.max_memory_allocated(device),
++        peak_reserved_bytes=torch.cuda.max_memory_reserved(device))
++
++
+ def mp_set_plan(local_context: dict, plan: dict, active_devices: list):
+     """
+     Used by TP loader, send (potentially large) plan dict once to avoid pickling with every message while loading
+@@ -298,6 +341,36 @@ def mp_model_forward_embedding(
+     return x
+ 
+ 
++def mp_model_forward_lm_head_topk(
++    local_context, shared_input, params, offset, gather_devices, ldims,
++    vocab_size, k, scale, softcap,
++):
++    consumer = local_context["inf_consumer"]
++    device = local_context["device"]
++    output_device = local_context["output_device"]
++    backend = local_context["backend"]
++    x = consumer.recv(shared_input)
++    if offset >= 0:
++        module = local_context["logits_module"]
++        logits = module.forward(module.prepare_for_device(x, params), params)
++        values, indices = vocab_topk(logits, k, offset=offset,
++                                    vocab_size=vocab_size, scale=scale, softcap=softcap)
++    else:
++        values = torch.empty(*x.shape[:-1], 0, dtype=torch.float32, device=x.device)
++        indices = torch.empty(*x.shape[:-1], 0, dtype=torch.long, device=x.device)
++    if gather_devices is None:
++        return values, indices
++    if device == output_device:
++        shape = (*values.shape[:-1], sum(ldims))
++        out_values = torch.empty(shape, dtype=torch.float32, device=values.device)
++        out_indices = torch.empty(shape, dtype=torch.long, device=indices.device)
++    else:
++        out_values = out_indices = None
++    backend.gather_small(values, out_values, gather_devices, output_device, ldims)
++    backend.gather_small(indices, out_indices, gather_devices, output_device, ldims)
++    return (out_values, out_indices) if device == output_device else None
++
++
+ def mp_model_forward_lm_head_argmax(
+     local_context: dict,
+     shared_input: dict,
+@@ -456,7 +529,7 @@ class RankSlotPool:
+ 
+     def _make_buffers(self):
+         try:
+-            slab = torch.empty((self.slab_size,), dtype = torch.uint8, pin_memory = True)
++            slab = host_tensor((self.slab_size,),torch.uint8,pin=True,name='TP RAM KV eviction slab')
+         except RuntimeError:
+             # Out of lockable memory on this rank. Pageable buffers still work, at roughly half the transfer
+             # bandwidth (and stores into them synchronize), which beats failing the store outright (but it
+diff --git a/exllamav3/modules/arch_specific/dflash2.py b/exllamav3/modules/arch_specific/dflash2.py
+index 7acde1b..efa956b 100644
+--- a/exllamav3/modules/arch_specific/dflash2.py
++++ b/exllamav3/modules/arch_specific/dflash2.py
+@@ -374,6 +374,29 @@ class DFlash2Selector(Module):
+         return self._walk_torch(unary.float(), cands.long(), gate.float(), anchor_ids, return_confidence)
+ 
+ 
++    def walk_candidates(self, hidden, unary, cands, anchor_ids, return_confidence=False):
++        if unary.shape != cands.shape or unary.shape[-1] != self.top_k:
++            raise ValueError('Invalid target vocabulary candidate layout')
++        if hidden.shape[:-1] != unary.shape[:-1]:
++            raise ValueError('Candidate rows do not match draft hidden states')
++        gate = self.hidden_proj.forward(hidden.half(), params={})
++        anchor_ids = anchor_ids.long()
++        cuda = hidden.is_cuda and self.pred_codebook.dtype in (torch.half, torch.bfloat16)
++        if cuda:
++            bsz, rows = unary.shape[:2]
++            out = torch.empty((bsz, rows + 1), dtype=torch.long, device=hidden.device)
++            conf = torch.empty((bsz, rows + 1), dtype=torch.float, device=hidden.device) if return_confidence else None
++            ext.dflash2_selector_walk(
++                unary.float().contiguous(), cands.long().contiguous(), gate.contiguous(),
++                self.pred_codebook, self.succ_codebook,
++                anchor_ids.to(hidden.device, non_blocking=anchor_ids.is_pinned()).contiguous(),
++                out, conf,
++            )
++            return out, conf
++        return self._walk_torch(unary.float(), cands.long(), gate.float(),
++                                anchor_ids, return_confidence)
++
++
+     def _walk_torch(self, unary, cands, gate, anchor_ids, return_confidence):
+         pred = anchor_ids
+         path = [pred]
+diff --git a/exllamav3/modules/ngram_embedding.py b/exllamav3/modules/ngram_embedding.py
+index d80a79c..a00eff3 100644
+--- a/exllamav3/modules/ngram_embedding.py
++++ b/exllamav3/modules/ngram_embedding.py
+@@ -3,6 +3,7 @@ from typing_extensions import override
+ import os
+ from concurrent.futures import ThreadPoolExecutor
+ import torch
++from ..util.host_backing import host_tensor
+ from ..model.config import Config
+ from ..loader.safetensors import DiskTensorHandle
+ from ..ext import exllamav3_ext as ext
+@@ -62,10 +63,13 @@ class _PinSet:
+     def grow(self, n: int, row_words: int, row_dtype: torch.dtype):
+         if self.uids is None or self.uids.numel() < n or self.packed.shape[1] != row_words \
+                 or self.packed.dtype != row_dtype:
+-            self.uids = torch.empty(n, dtype = torch.int64, pin_memory = True)
+-            self.inverse = torch.empty(n, dtype = torch.int64, pin_memory = True)
+-            self.heads = torch.empty(n, dtype = torch.int32, pin_memory = True)
+-            self.packed = torch.empty((n, row_words), dtype = row_dtype, pin_memory = True)
++            if self.event is not None:
++                self.event.synchronize()
++                self.event = None
++            self.uids = host_tensor((n,), torch.int64, pin=True, name="ngram row ids")
++            self.inverse = host_tensor((n,), torch.int64, pin=True, name="ngram inverse")
++            self.heads = host_tensor((n,), torch.int32, pin=True, name="ngram heads")
++            self.packed = host_tensor((n, row_words), row_dtype, pin=True, name="ngram staged rows")
+ 
+ 
+ class NGramEmbedding(Module):
+@@ -242,6 +246,12 @@ class NGramEmbedding(Module):
+             self.mode = "trellis_ram" if quantized else "fp16_ram"
+             if len(keys) == 1:
+                 self.tables = [stc.get_tensor(keys[0], "cpu", allow_bf16 = not quantized, no_defer = True)]
++                if os.environ.get('MESHIFY_HOST_BACKING', 'ordinary') != 'ordinary':
++                    old = self.tables[0]
++                    table = host_tensor(tuple(old.shape), old.dtype, name=self.key)
++                    table.copy_(old)
++                    self.tables = [table]
++                    del old
+             else:
+                 # Sharded table: one contiguous slab, each shard copied into its slice as it loads
+                 slab = None
+@@ -251,7 +261,7 @@ class NGramEmbedding(Module):
+                         from ..util.memory import check_host_memory
+                         check_host_memory(self.num_rows * t[0].numel() * t.element_size(),
+                                           f"n-gram table {self.key} held in RAM (--ngram_ram)")
+-                        slab = torch.empty((self.num_rows, *t.shape[1:]), dtype = t.dtype)
++                        slab = host_tensor((self.num_rows, *t.shape[1:]), t.dtype, name=self.key)
+                     r0 = s_i * self.rows_per_shard
+                     slab[r0 : r0 + t.shape[0]].copy_(t)
+                     del t
+diff --git a/exllamav3/modules/quant/fp16.py b/exllamav3/modules/quant/fp16.py
+index 4bfbb94..1a7112b 100644
+--- a/exllamav3/modules/quant/fp16.py
++++ b/exllamav3/modules/quant/fp16.py
+@@ -73,7 +73,8 @@ class LinearFP16:
+         out_dtype: torch.dtype | None = None,
+     ) -> torch.Tensor:
+         out_shape = x.shape[:-1] + (self.out_features,)
+-        x = x.view(-1, x.shape[-1])
++        # DFlash2 excludes each batch's anchor row, producing a strided input.
++        x = x.reshape(-1, x.shape[-1])
+         dtype = out_dtype or self.out_dtype or torch.half
+         y = torch.empty(
+             (x.shape[0], self.out_features),
+diff --git a/exllamav3/util/host_backing.py b/exllamav3/util/host_backing.py
+new file mode 100644
+index 0000000..e32b951
+--- /dev/null
++++ b/exllamav3/util/host_backing.py
+@@ -0,0 +1,146 @@
++"""Optional hugepage-backed host tensors; use only already-reserved pools."""
++import ctypes
++import logging
++import math
++import os
++from pathlib import Path
++import re
++import weakref
++
++import torch
++
++log = logging.getLogger(__name__)
++_mappings = {}
++libc = ctypes.CDLL(None, use_errno=True)
++libc.mmap.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_int,
++                      ctypes.c_int, ctypes.c_int, ctypes.c_size_t]
++libc.mmap.restype = ctypes.c_void_p
++libc.munmap.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
++libc.munmap.restype = ctypes.c_int
++libc.madvise.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_int]
++libc.madvise.restype = ctypes.c_int
++
++
++def pool_free(page_bytes):
++    root=Path('/sys/kernel/mm/hugepages')/f'hugepages-{page_bytes//1024}kB'
++    try:
++        return int((root/'free_hugepages').read_text()) - int((root/'resv_hugepages').read_text())
++    except (OSError,ValueError):
++        return 0
++
++
++def _release(pointer,length,registered):
++    if registered:
++        try:
++            # External registrations do not belong to Torch's event-tracked
++            # pinned allocator. Drain users on every job-visible device first.
++            for device in range(torch.cuda.device_count()):
++                torch.cuda.synchronize(device)
++            result=torch.cuda.cudart().cudaHostUnregister(pointer)
++            if result.value:
++                log.warning('Host unregister failed; retaining the mapped region: %s',result)
++                return
++        except Exception:
++            log.exception('CUDA unavailable while releasing host backing; retaining the mapping')
++            return
++    if libc.munmap(pointer,length):
++        log.warning('munmap failed for host backing: errno=%d',ctypes.get_errno())
++    else:
++        _mappings.pop(pointer,None)
++
++
++def mapped_tensor(shape,dtype,*,pin=False,page_bytes=None,thp=False):
++    nbytes=math.prod(shape)*torch.empty(0,dtype=dtype).element_size()
++    quantum=page_bytes or 4096
++    length=-(-nbytes//quantum)*quantum
++    if length <= 0:
++        raise ValueError('Map a nonempty host tensor')
++    flags=0x02|0x20
++    if page_bytes:
++        flags |= 0x40000|((page_bytes.bit_length()-1)<<26)
++    pointer=libc.mmap(None,length,3,flags,-1,0)
++    if pointer is None or pointer==ctypes.c_void_p(-1).value:
++        raise OSError(ctypes.get_errno(),'Host mmap failed')
++    registered=False
++    try:
++        if thp and libc.madvise(pointer,length,14):
++            raise OSError(ctypes.get_errno(),'MADV_HUGEPAGE refused')
++        # Torch owns this buffer object until the last storage/view disappears.
++        # A raw libc mapping avoids Python mmap.close's exported-buffer failure.
++        owner=(ctypes.c_ubyte*length).from_address(pointer)
++        region=torch.frombuffer(owner,dtype=torch.uint8)
++        result=region[:nbytes].view(dtype).view(shape)
++        if pin:
++            if not torch.cuda.is_initialized():
++                torch.cuda.init()
++            status=torch.cuda.cudart().cudaHostRegister(pointer,length,3)
++            if status.value:
++                raise RuntimeError(f'CUDA host registration failed: {status}')
++            registered=True
++            if not result.is_pinned():
++                raise RuntimeError('CUDA did not acknowledge host registration')
++        finalizer=weakref.finalize(owner,_release,pointer,length,registered)
++        finalizer.atexit=False
++        _mappings[pointer]=dict(length=length,registered=registered,
++                               requested='hugetlb' if page_bytes else 'thp' if thp else 'mapped_ordinary')
++        return result
++    except BaseException:
++        _release(pointer,length,registered)
++        raise
++
++
++def host_tensor(shape,dtype,*,pin=False,name=''):
++    nbytes=math.prod(shape)*torch.empty(0,dtype=dtype).element_size()
++    mode=os.environ.get('MESHIFY_HOST_BACKING','ordinary')
++    if mode not in ('ordinary','hugetlb','thp'):
++        raise ValueError('Unknown host backing mode')
++    if mode=='hugetlb' and nbytes >= 2*1024**2:
++        for page_bytes in (1024**3,2*1024**2):
++            pages=-(-nbytes//page_bytes)
++            if pages*page_bytes > 2*nbytes or pool_free(page_bytes)<pages:
++                continue
++            try:
++                result=mapped_tensor(shape,dtype,pin=pin,page_bytes=page_bytes)
++                log.info('Host backing %s: %d-byte hugetlb pages, %d bytes, pinned=%s',
++                         name,page_bytes,nbytes,pin)
++                return result
++            except (OSError,RuntimeError) as exc:
++                log.info('Host hugetlb tier unavailable for %s: %s',name,exc)
++    if mode=='thp' and nbytes >= 2*1024**2:
++        try:
++            result=mapped_tensor(shape,dtype,pin=pin,thp=True)
++            log.info('Host backing %s: MADV_HUGEPAGE requested, %d bytes, pinned=%s; actual backing requires smaps',
++                     name,nbytes,pin)
++            return result
++        except (OSError,RuntimeError) as exc:
++            log.info('Host THP request unavailable for %s: %s',name,exc)
++    log.info('Host backing %s: ordinary pages, %d bytes, pinned=%s',name,nbytes,pin)
++    return torch.empty(shape,dtype=dtype,device='cpu',pin_memory=pin)
++
++
++def backing_statistics():
++    if not _mappings:
++        return dict(requested=os.environ.get('MESHIFY_HOST_BACKING','ordinary'),
++                    live_custom_mappings=0, mappings=[], actual_hugetlb_bytes=0,
++                    actual_transparent_hugepage_bytes=0)
++    records=[]
++    active=None
++    for line in Path('/proc/self/smaps').read_text().splitlines():
++        header=re.match(r'^([0-9a-f]+)-([0-9a-f]+) ',line)
++        if header:
++            start,stop=(int(v,16) for v in header.groups())
++            active=None
++            for pointer,row in list(_mappings.items()):
++                if start<=pointer<stop:
++                    active=dict(row,KernelPageSize_kB=None,AnonHugePages_kB=0,
++                                Private_Hugetlb_kB=0,Shared_Hugetlb_kB=0)
++                    records.append(active)
++                    break
++        elif active is not None:
++            for name in ('KernelPageSize','AnonHugePages','Private_Hugetlb','Shared_Hugetlb'):
++                if line.startswith(name+':'):
++                    active[name+'_kB']=int(line.split()[1])
++    return dict(requested=os.environ.get('MESHIFY_HOST_BACKING','ordinary'),
++        live_custom_mappings=len(_mappings),mappings=records,
++        actual_hugetlb_bytes=sum((r['Private_Hugetlb_kB']+r['Shared_Hugetlb_kB'])*1024 for r in records),
++        actual_transparent_hugepage_bytes=sum(r['AnonHugePages_kB']*1024 for r in records))

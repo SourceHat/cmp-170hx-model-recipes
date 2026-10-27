@@ -1,0 +1,3 @@
+attempt,job_id,successful_primary_observations_before_failure,warmup_passed,all_four_api_code_checks_passed,case_id,success,accepted_token_count,input_target_tokens,output_ceiling,ttft_seconds,total_seconds,warmup,stream_error,server_error_code,server_error_type
+first_attempt,deepseek-perf-focused-candidate-1792998660167921610,0,True,True,coding-2048-2048-r0,False,625,2048,2048,0.4958852580166422,335.52536907902686,False,True,500,InternalServerError
+diagnostic_retry,deepseek-perf-focused-candidate-1793002376098589211,19,True,True,coding-8192-8192-r4,False,3343,8192,8192,0.47956937199342065,460.07870197400916,False,True,500,InternalServerError

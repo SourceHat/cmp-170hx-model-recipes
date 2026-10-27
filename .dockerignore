@@ -1,0 +1,13 @@
+*
+!runtimes/
+runtimes/*
+!runtimes/tabby/
+runtimes/tabby/*
+!runtimes/tabby/exllamav3.patch
+!runtimes/deepseek/
+runtimes/deepseek/*
+!runtimes/deepseek/Dockerfile
+!runtimes/deepseek/overlay/
+!scripts/
+scripts/*
+!scripts/serve_vllm.py

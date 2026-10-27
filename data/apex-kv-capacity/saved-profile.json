@@ -1,0 +1,112 @@
+{
+  "kind": "tabby",
+  "qualified": true,
+  "description": "Default Apex: apex_exl3: measured 524,288-token request context; 1,374,976-token resident pool; 4 slots; mtp1; tensor_parallel",
+  "launch_policy": "max_vram_v1",
+  "host_memory_policy": "uncapped",
+  "host_memory_gib": 0,
+  "host_swap_gib": 0,
+  "power_watts": 200,
+  "gpu_counts": [
+    3
+  ],
+  "min_vram_mib_per_gpu": 63800,
+  "min_effective_vram_mib": 191400,
+  "model": "SloptimistPrime/apex-flash-1-abliterated-EXL3-4bit-DGX-Spark",
+  "revision": "a4c922dc57dae44a9569ec82a08a2f311636e2a6",
+  "served_name": "apex-flash-1-abliterated-exl3-4bit-spark",
+  "port": null,
+  "context": 524288,
+  "cache_tokens": 1374976,
+  "cache_mode": "Q8",
+  "draft_cache_mode": "Q8",
+  "max_sessions": 4,
+  "chunk_size": 512,
+  "reserve_mib": 2048,
+  "ram_kv_mib": 0,
+  "ram_recurrent_mib": 16384,
+  "draft_mode": "mtp",
+  "draft_tokens": 1,
+  "draft_gpu_uuid": "last-selected",
+  "dynamic_draft": false,
+  "transport": "host",
+  "host_backing": "ordinary",
+  "parallelism": "tensor_parallel",
+  "output_chunk_tokens": 4096,
+  "draft_variant": "original",
+  "tensor_parallel_backend": "nccl",
+  "main_reserve_mib_by_uuid": {
+    "reference-gpu-0": 2560,
+    "reference-gpu-1": 2336,
+    "reference-gpu-2": 2848
+  },
+  "qualification_scope": "Bounded Q8 KV capacity qualification on the recorded driver/devices; two independent loads, all slots, mixed prefill/decode, output growth, near-context retrieval, distinct histories above 95% of the pool, tool calls, cancellation, recurrent prefix reuse, and at least 256 MiB physical free memory per selected GPU beyond observed peaks",
+  "campaign_selection_pending": false,
+  "operational_validation": {
+    "request_id": "kv-q8-capacity-20261015",
+    "experiment": "apex-q8-kv-existing-mtp",
+    "measured_context_tokens": 524288,
+    "measured_resident_pool_tokens": 1374976,
+    "qualification_level": "full_slots_long_history",
+    "capacity_evidence_kind": "measured_distinct_histories",
+    "history_restoration_tested": true,
+    "all_mixed_request_answers_and_completion_verified": true,
+    "concurrent_small_requests_verified": 3,
+    "max_sessions_verified": 4,
+    "independent_model_loads": 2,
+    "receipts": [
+      {
+        "path": "apex-1374976-two-load-qualification.json",
+        "sha256": "e22e0ddb4ee01cf23fac6a264c4c1af5904ccc6fe3888d4b60f875498c741fc5"
+      }
+    ],
+    "baseline_profile": {
+      "path": "apex-abliterated-exl3-mtp1-tp3.json",
+      "sha256": "8164a5c73a03471fce6be0de17b910e749bf16445aae21ad6ea2e09aaf587fcd"
+    },
+    "baseline_validation": {
+      "request_id": "modelrunner-overnight-qualification-20261008-ab",
+      "experiment": "apex_exl3-mtp1-original-tensor_parallel",
+      "experiment_index": {
+        "path": "index.json",
+        "sha256": "0f3f46511644a004abfb84064a8d80d1a205acaaa34190ce187973e2e16953c3"
+      },
+      "measured_context_tokens": 524288,
+      "measured_resident_pool_tokens": 1083136,
+      "qualification_level": "context_smoke",
+      "capacity_evidence_kind": "predicted_pool_verified_by_smoke",
+      "history_restoration_tested": false,
+      "all_mixed_request_answers_and_completion_verified": true,
+      "concurrent_small_requests_verified": 3,
+      "receipts": [
+        {
+          "path": "apex_exl3-mtp1-original-tensor_parallel-completed.json",
+          "sha256": "7987a0cb00986f4d5ebd6079d1f84ed7ab86cba7e87b240d743717fa4582c591"
+        },
+        {
+          "path": "apex_exl3-mtp1-original-tensor_parallel-ctx524288-qualification.json",
+          "sha256": "c5b72882719b3880d4851a963f65db0f142cefa4a959d2de87cb5008983e318e"
+        }
+      ],
+      "selecting_job_receipts": [
+        {
+          "path": "ad019-apex_exl3-mtp1-original-tensor_parallel-sizing-final-smoke-113-1791602067646401052.json",
+          "sha256": "09b77de7ac0693a91a288e57309e3b42c9586349f3629eaa83cdb50d4fed5503"
+        },
+        {
+          "path": "ad019-apex_exl3-mtp1-original-tensor_parallel-sizing-final-smoke-113-1791602067646401052.json",
+          "sha256": "09b77de7ac0693a91a288e57309e3b42c9586349f3629eaa83cdb50d4fed5503"
+        }
+      ],
+      "testing_custody_is_not_a_permanent_launch_requirement": true
+    },
+    "testing_custody_is_not_a_permanent_launch_requirement": true
+  },
+  "model_family": "apex_abliterated",
+  "family_default": true,
+  "gpu_placement": {
+    "policy": "cpu_first"
+  },
+  "fixed_port": true,
+  "start_at_boot": true
+}

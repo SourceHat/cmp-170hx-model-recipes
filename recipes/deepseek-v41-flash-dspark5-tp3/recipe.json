@@ -1,0 +1,145 @@
+{
+  "format_version": 1,
+  "id": "deepseek-v41-flash-dspark5-tp3",
+  "title": "DeepSeek V4.1 Flash TP3 - DSpark5",
+  "short_name": "DeepSeek V4.1 Flash TP3",
+  "model": {
+    "hf_repo": "sfxnz/DeepSeek-V4.1-Flash-EXL3",
+    "revision": "982b70452f399814f56b46272fd30394ae10d58c",
+    "served_name": "deepseek-v4.1-flash",
+    "quantization": "EXL3 2.0 bpw MCG routed experts; native non-routed tensors"
+  },
+  "runtime": {
+    "id": "deepseek",
+    "engine": "vLLM backport + vllm-exl3",
+    "version": "0.13.0 (image distribution label; patched backport)",
+    "torch": "2.13.0+cu130",
+    "python": "3.12",
+    "plugin_version": "0.4.2",
+    "base_image": "docker.io/lazymio/vllm-backport@sha256:349690323ab9aba712111529ed1ca60730199205d8202f67895ffde85b451be3",
+    "patches": [
+      "runtimes/deepseek/overlay-manifest.json"
+    ]
+  },
+  "hardware": {
+    "accelerator": "NVIDIA CMP 170HX",
+    "architecture": "SM80",
+    "card_count": 3,
+    "vram_gib_per_card": 64,
+    "power_limit_watts_per_card_as_tested": 200
+  },
+  "serving": {
+    "context_tokens": 524288,
+    "max_requests": 4,
+    "rope": "native",
+    "parallelism": "tensor_parallel",
+    "prefill_chunk_tokens": 1280,
+    "output_chunk_tokens": null,
+    "speculation": {
+      "method": "dspark",
+      "depth": 5
+    },
+    "kv": {
+      "main_dtype": "fp8",
+      "draft_dtype": "fp8",
+      "shared_gpu_pool_tokens": 3480837,
+      "host_kv_budget_mib": 8192,
+      "host_recurrent_budget_mib": 0,
+      "capacity_basis": "vllm_context_normalized_block_capacity",
+      "capacity_context_tokens": 524288,
+      "capacity_formula": "floor(max_model_len * calculated_max_context_concurrency_from_cache_blocks)"
+    }
+  },
+  "launch": {
+    "argv": [
+      "bash",
+      "recipes/deepseek-v41-flash-dspark5-tp3/launch.sh"
+    ],
+    "environment": {
+      "NCCL_P2P_DISABLE": "1",
+      "MAX_JOBS": "1",
+      "VLLM_USE_V2_MODEL_RUNNER": "1",
+      "VLLM_PLUGINS": "vllm_exl3",
+      "VLLM_BATCH_INVARIANT": "1",
+      "MESHIFY_V41_MTP_SINGLE_TOKEN_MARLIN": "1",
+      "MESHIFY_V41_ENGRAM_RAM_CACHE_MIB": "64"
+    }
+  },
+  "engine_config": {
+    "argv": [
+      "--model",
+      "@MODEL@",
+      "--tokenizer",
+      "@MODEL@",
+      "--host",
+      "@HOST@",
+      "--port",
+      "@PORT@",
+      "--served-model-name",
+      "deepseek-v4.1-flash",
+      "--tensor-parallel-size",
+      "3",
+      "--pipeline-parallel-size",
+      "1",
+      "--distributed-executor-backend",
+      "mp",
+      "--dtype",
+      "bfloat16",
+      "--quantization",
+      "exl3",
+      "--kv-cache-dtype",
+      "fp8",
+      "--gpu-memory-utilization",
+      "0.98391",
+      "--max-model-len",
+      "524288",
+      "--max-num-seqs",
+      "4",
+      "--max-num-batched-tokens",
+      "1280",
+      "--enable-chunked-prefill",
+      "--enable-prefix-caching",
+      "--enforce-eager",
+      "--disable-custom-all-reduce",
+      "--enable-auto-tool-choice",
+      "--tool-call-parser",
+      "deepseek_v41",
+      "--reasoning-parser",
+      "deepseek_v41",
+      "--prefix-match-unit",
+      "8",
+      "--kv-offloading-size",
+      "8.0",
+      "--kv-offloading-backend",
+      "native",
+      "--speculative-config",
+      "{\"method\":\"dspark\",\"num_speculative_tokens\":5,\"draft_tensor_parallel_size\":3}"
+    ],
+    "gpu_memory_utilization": 0.98391
+  },
+  "qualification": {
+    "status": "measured on the reference host; portable export not GPU-requalified",
+    "context_evidence": "Matched decode, eight-bit allocation, concurrent allocation smoke and near-limit context smoke; RAM retention/restoration and long-history stress were not retested",
+    "native_near_limit_retested": null,
+    "ram_history_restoration_retested": false
+  },
+  "notes": [
+    "The context limit is per request; the KV pool is shared across requests and retained prefixes.",
+    "Maximum-history counts are capacity arithmetic, not a long-context concurrent speed measurement.",
+    "Requires the SM80 loader, TP3 padding preparation, vllm-exl3 plugin and NVMe Engram tables.",
+    "Speed measurements precede final automatic pool sizing; they are not a measurement of the final-sized pool."
+  ],
+  "source_receipts": [
+    {
+      "file": "deepseek-v41-flash-dspark5-tp3.json",
+      "sha256": "cdcab95559193abb11016355bab9bc63069554296edb24234824b59d663d1cd2",
+      "kind": "selected-serving-profile"
+    },
+    {
+      "file": "source-06e65bbe238da422163343e9.json",
+      "sha256": "21c40d549bc7a219de9447ed8b0a9f458ff7fa4faf65e4adbe0a95faa5e32c3d",
+      "kind": "historical-matched-speed-waves"
+    }
+  ],
+  "benchmark_file": "benchmarks.json"
+}

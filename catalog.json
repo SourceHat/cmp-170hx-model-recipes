@@ -1,0 +1,110 @@
+{
+  "format_version": 1,
+  "recipes": [
+    {
+      "id": "apex-abliterated-awq-dflash2-pp3-balanced",
+      "path": "recipes/apex-abliterated-awq-dflash2-pp3-balanced/recipe.json"
+    },
+    {
+      "id": "apex-abliterated-exl3-mtp1-tp3",
+      "path": "recipes/apex-abliterated-exl3-mtp1-tp3/recipe.json"
+    },
+    {
+      "id": "deepseek-v41-flash-dspark5-tp3",
+      "path": "recipes/deepseek-v41-flash-dspark5-tp3/recipe.json"
+    },
+    {
+      "id": "glm-5.3-flash-mtp1-tp3",
+      "path": "recipes/glm-5.3-flash-mtp1-tp3/recipe.json"
+    },
+    {
+      "id": "mimo-flash-mtp1-tp3",
+      "path": "recipes/mimo-flash-mtp1-tp3/recipe.json"
+    },
+    {
+      "id": "qwen-flash-next-mtp2-layer-split",
+      "path": "recipes/qwen-flash-next-mtp2-layer-split/recipe.json"
+    },
+    {
+      "id": "qwen27-orca-mtp3-native",
+      "path": "recipes/qwen27-orca-mtp3-native/recipe.json"
+    },
+    {
+      "id": "qwen3.8-27b-exl3",
+      "path": "recipes/qwen3.8-27b-exl3/recipe.json"
+    }
+  ],
+  "reference_profiles": [
+    {
+      "id": "deepseek-v41-flash-1017-dspark5-tp4",
+      "path": "profiles/deepseek-v41-flash-1017-dspark5-tp4/profile.json",
+      "metadata": "profiles/deepseek-v41-flash-1017-dspark5-tp4/metadata.json",
+      "documentation": "profiles/deepseek-v41-flash-1017-dspark5-tp4/README.md"
+    }
+  ],
+  "configurations": [
+    {
+      "id": "apex-abliterated-awq-dflash2-pp3-balanced",
+      "name": "Apex Flash 1 AWQ",
+      "configuration": "recipes/apex-abliterated-awq-dflash2-pp3-balanced/recipe.json",
+      "documentation": "recipes/apex-abliterated-awq-dflash2-pp3-balanced/README.md",
+      "setup": "portable-launcher"
+    },
+    {
+      "id": "apex-abliterated-exl3-mtp1-tp3",
+      "name": "Apex Flash 1 EXL3",
+      "configuration": "recipes/apex-abliterated-exl3-mtp1-tp3/recipe.json",
+      "documentation": "recipes/apex-abliterated-exl3-mtp1-tp3/README.md",
+      "setup": "portable-launcher"
+    },
+    {
+      "id": "deepseek-v41-flash-dspark5-tp3",
+      "name": "DeepSeek V4.1 Flash TP3",
+      "configuration": "recipes/deepseek-v41-flash-dspark5-tp3/recipe.json",
+      "documentation": "recipes/deepseek-v41-flash-dspark5-tp3/README.md",
+      "setup": "portable-launcher"
+    },
+    {
+      "id": "glm-5.3-flash-mtp1-tp3",
+      "name": "GLM-5.3-Flash",
+      "configuration": "recipes/glm-5.3-flash-mtp1-tp3/recipe.json",
+      "documentation": "recipes/glm-5.3-flash-mtp1-tp3/README.md",
+      "setup": "portable-launcher"
+    },
+    {
+      "id": "mimo-flash-mtp1-tp3",
+      "name": "MiMo-V2.6-Flash",
+      "configuration": "recipes/mimo-flash-mtp1-tp3/recipe.json",
+      "documentation": "recipes/mimo-flash-mtp1-tp3/README.md",
+      "setup": "portable-launcher"
+    },
+    {
+      "id": "qwen-flash-next-mtp2-layer-split",
+      "name": "Qwen3.8-Flash-Next",
+      "configuration": "recipes/qwen-flash-next-mtp2-layer-split/recipe.json",
+      "documentation": "recipes/qwen-flash-next-mtp2-layer-split/README.md",
+      "setup": "portable-launcher"
+    },
+    {
+      "id": "qwen27-orca-mtp3-native",
+      "name": "Qwen3.8-27B Orca",
+      "configuration": "recipes/qwen27-orca-mtp3-native/recipe.json",
+      "documentation": "recipes/qwen27-orca-mtp3-native/README.md",
+      "setup": "portable-launcher"
+    },
+    {
+      "id": "qwen3.8-27b-exl3",
+      "name": "Qwen3.8-27B",
+      "configuration": "recipes/qwen3.8-27b-exl3/recipe.json",
+      "documentation": "recipes/qwen3.8-27b-exl3/README.md",
+      "setup": "portable-launcher"
+    },
+    {
+      "id": "deepseek-v41-flash-1017-dspark5-tp4",
+      "name": "DeepSeek V4.1 Flash 1017 TP4",
+      "configuration": "profiles/deepseek-v41-flash-1017-dspark5-tp4/profile.json",
+      "documentation": "profiles/deepseek-v41-flash-1017-dspark5-tp4/README.md",
+      "setup": "qualified-native-runtime"
+    }
+  ]
+}

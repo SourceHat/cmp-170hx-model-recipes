@@ -1,0 +1,1384 @@
+{
+  "format_version": 1,
+  "summaries": [
+    {
+      "summary_id": "summary-0170b3354a39ab98a645",
+      "configuration_ids": [],
+      "reported_field": "generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 76.23836977366528,
+      "request_count": 1,
+      "reported_input_tokens": [
+        4097
+      ],
+      "reported_output_tokens": null,
+      "reported_generated_tokens": 251,
+      "reported_window_seconds": 3.292305446,
+      "sources": [
+        {
+          "file": "source-183c9d3fab451b033715d479.json",
+          "sha256": "54931a4ad2b59093c1734846b148ccfb7add17d69a7a702fbc195870228ae4a3",
+          "json_pointer": "/generated_only_rates/0/generated_tok_s"
+        },
+        {
+          "file": "source-183c9d3fab451b033715d479.json",
+          "sha256": "54931a4ad2b59093c1734846b148ccfb7add17d69a7a702fbc195870228ae4a3",
+          "json_pointer": "/generated_only_rates/0/generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-0b55f9c20c3a0fd7517d",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 115.94635413227728,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/11/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-0cb5e3c9940b201a5b3b",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 50.987916549778475,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/21/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-1ea60e832883e075a544",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 33.49392024700535,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/16/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-206a3a2f1a992736dc24",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 68.88724549667555,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/19/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-21034dad3a95a1431cfa",
+      "configuration_ids": [],
+      "reported_field": "warm_generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 36.04507805688553,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-8ff921c630641b3c63d1d568.json",
+          "sha256": "e9655eed2c1acd0e4a163c4c2614b6cb3250bfeb971c83e95c4ef8af9b176908",
+          "json_pointer": "/modes/0/warm_generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-2b190751c49ffcb7d817",
+      "configuration_ids": [],
+      "reported_field": "generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 229.0601044295047,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-f18fa99b171b3febaacaedfc.json",
+          "sha256": "188d8d7e7a24a4b23f86db0471b305727b07911c0ff2a92db03cb73f44fa963f",
+          "json_pointer": "/short_rates/4/generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-2bfe4a84faaa4021143d",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 89.09619795723546,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/7/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-2d1031bb8f7a170f05a2",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 91.39467233134823,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/6/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-2d9ab04e2a61a1fba8ae",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 71.01432092758064,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/15/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-35128f174b1ecf028a64",
+      "configuration_ids": [],
+      "reported_field": "DFlash_generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 61.30597378658237,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-bda17997f31383d5f7a691c0.json",
+          "sha256": "6dcc35332000de1ee075b75fbaaab031466295f54f98a44d663254367134eb7c",
+          "json_pointer": "/matched_two_request_generated_tok_s/warm/DFlash_generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-37bb3418195d43312c92",
+      "configuration_ids": [],
+      "reported_field": "generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 284.16680810145914,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-f18fa99b171b3febaacaedfc.json",
+          "sha256": "188d8d7e7a24a4b23f86db0471b305727b07911c0ff2a92db03cb73f44fa963f",
+          "json_pointer": "/short_rates/3/generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-385b8efcd230941a3cc0",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 41.974018379746106,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/13/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-40c0579f1618afcc26e4",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 33.65130593959058,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/17/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-4727ed8b4c58d1df658d",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 15.0014121464382,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/2/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-51b6c86af9cc710706fc",
+      "configuration_ids": [],
+      "reported_field": "single_stream_per_card_aggregate_tps",
+      "citing_configuration_ids": [
+        "cfg-dfdf847a6f55dd3a5792"
+      ],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": true,
+      "reported_tok_s": 134.7335556649999,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": 1024,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-ab89fca7e0f49696d5258b56.json",
+          "sha256": "0d8e6ea99a411e9433014c8081ef804e81c524956cc59f3203abede46183a064",
+          "json_pointer": "/profiles/24/current_config/operational_validation/generation_only/single_stream_per_card_aggregate_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-5a4c34347568554559ad",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 67.825285795095,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/14/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-5c1b2ee8e06ee8904554",
+      "configuration_ids": [],
+      "reported_field": "single_generated_tps",
+      "citing_configuration_ids": [
+        "cfg-111d5b173801c7ec3693",
+        "cfg-c2078a3405e7126a029f",
+        "cfg-dda8a08cad070ac627df",
+        "cfg-f400e57ed61b16495727"
+      ],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 26.025250635509348,
+      "request_count": 1,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-83db10acbc3d00cd8e8e710b.json",
+          "sha256": "91d934a189ece2143c3be7533139f1a4268fb408e6ad301af3342405c61f7f03",
+          "json_pointer": "/credited_prior_native_subchecks/single_generated_tps"
+        },
+        {
+          "file": "source-d0a5a9be710c227136a6efd5.json",
+          "sha256": "daa43c23ad5e3943dbc1290d99b7df58d4f56e4d9983b4324d37ec4445eca540",
+          "json_pointer": "/phases/orca_native/credited_prior_native_subchecks/single_generated_tps"
+        },
+        {
+          "file": "source-d0a5a9be710c227136a6efd5.json",
+          "sha256": "daa43c23ad5e3943dbc1290d99b7df58d4f56e4d9983b4324d37ec4445eca540",
+          "json_pointer": "/phases/yarn524k/credited_prior_native_subchecks/single_generated_tps"
+        },
+        {
+          "file": "source-ab516a3a98f8c5f8da4f27b6.json",
+          "sha256": "466b659545d3ec25b6a5351e8619a31d411e45a005b099e26b698eee81a69f77",
+          "json_pointer": "/credited_prior_native_subchecks/single_generated_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-5d286ad12b813fc8bfb0",
+      "configuration_ids": [],
+      "reported_field": "four_request_generated_tps",
+      "citing_configuration_ids": [
+        "cfg-82900b663a036cb64c31",
+        "cfg-a8ad1a79813a60cfd8b7"
+      ],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 55.29662007460255,
+      "request_count": 4,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-f7d98939d8e8ede4bc1ca721.json",
+          "sha256": "a1acf057ccccb101aeb42f5dbd7058e71af4019a09766d5756222e0d9e2c1394",
+          "json_pointer": "/credited_prior_native_subchecks/four_request_generated_tps"
+        },
+        {
+          "file": "source-d0a5a9be710c227136a6efd5.json",
+          "sha256": "daa43c23ad5e3943dbc1290d99b7df58d4f56e4d9983b4324d37ec4445eca540",
+          "json_pointer": "/phases/huihui_native_reference/credited_prior_native_subchecks/four_request_generated_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-6691e7e682ec55874478",
+      "configuration_ids": [
+        "cfg-5bf846d20e2d93254186"
+      ],
+      "reported_field": "DSpark_single_generation_tps",
+      "citing_configuration_ids": [
+        "cfg-5bf846d20e2d93254186"
+      ],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 24.795276627068407,
+      "request_count": 1,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-ab12e0421ae0890864c2a56b.json",
+          "sha256": "d1530bac9c5168ed7067746d9201c18f3b3229187ae6a681b3a67cf767c3c8be",
+          "json_pointer": "/DSpark_single_generation_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-6b23f22f0fdf725602dc",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 55.271567947018994,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/8/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-6cd1043a800ca6f4d229",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 37.1189369739204,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/4/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-7285579d69ef0ff6a855",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 67.0357952541364,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/22/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-72b221a803c6ae64483b",
+      "configuration_ids": [],
+      "reported_field": "generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 130.89480260800502,
+      "request_count": 2,
+      "reported_input_tokens": [
+        4097,
+        4097
+      ],
+      "reported_output_tokens": null,
+      "reported_generated_tokens": 488,
+      "reported_window_seconds": 3.728184697,
+      "sources": [
+        {
+          "file": "source-183c9d3fab451b033715d479.json",
+          "sha256": "54931a4ad2b59093c1734846b148ccfb7add17d69a7a702fbc195870228ae4a3",
+          "json_pointer": "/generated_only_rates/1/generated_tok_s"
+        },
+        {
+          "file": "source-183c9d3fab451b033715d479.json",
+          "sha256": "54931a4ad2b59093c1734846b148ccfb7add17d69a7a702fbc195870228ae4a3",
+          "json_pointer": "/generated_only_rates/1/generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-730f70cfea29b4982f9d",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 47.7433277754116,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/20/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-779c4acfabd3aca942f3",
+      "configuration_ids": [],
+      "reported_field": "fresh_aggregate_generated_tps",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 54.080861445217344,
+      "request_count": 2,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-03f2fc195cdb3ad24acbf4fd.json",
+          "sha256": "c492d58238a82fbc593737f1743ae3a4c7728f9180c54475cc1cc24f5e989381",
+          "json_pointer": "/recovered_evidence/GLM_matched_short/0/fresh_aggregate_generated_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-78599bb7caff8bc9919a",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 56.18371207227674,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/9/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-894cdba1303acdcfe99f",
+      "configuration_ids": [],
+      "reported_field": "warm_generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 99.5277291447802,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-8ff921c630641b3c63d1d568.json",
+          "sha256": "e9655eed2c1acd0e4a163c4c2614b6cb3250bfeb971c83e95c4ef8af9b176908",
+          "json_pointer": "/modes/2/warm_generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-8faf4c5d3f70d7011469",
+      "configuration_ids": [
+        "cfg-7b294aea7e89bfd5d522"
+      ],
+      "reported_field": "long_first_retained_tps",
+      "citing_configuration_ids": [
+        "cfg-7b294aea7e89bfd5d522"
+      ],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": true,
+      "reported_tok_s": 41.23087702286423,
+      "request_count": 2,
+      "reported_input_tokens": null,
+      "reported_output_tokens": 512,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-4f1eff02c53c4c1b71570807.json",
+          "sha256": "51b583362e6c032441825e7bcdbb5dc6e7313e90f63a89d18ca8c280202df981",
+          "json_pointer": "/generation/long_first_retained_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-a01f5caae54506a7428b",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 38.21228334525465,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/5/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-a05ae41d6e0d58df2f16",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 40.42218535495588,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/12/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-a321edcd683b45390715",
+      "configuration_ids": [],
+      "reported_field": "returning_aggregate_generated_tps",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 61.30597378658237,
+      "request_count": 2,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-03f2fc195cdb3ad24acbf4fd.json",
+          "sha256": "c492d58238a82fbc593737f1743ae3a4c7728f9180c54475cc1cc24f5e989381",
+          "json_pointer": "/recovered_evidence/GLM_matched_short/1/returning_aggregate_generated_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-b2f1f12904818afbab1a",
+      "configuration_ids": [],
+      "reported_field": "MTP_generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 51.87769172804231,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-bda17997f31383d5f7a691c0.json",
+          "sha256": "6dcc35332000de1ee075b75fbaaab031466295f54f98a44d663254367134eb7c",
+          "json_pointer": "/matched_two_request_generated_tok_s/warm/MTP_generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-b31bb81fd49048f02f6e",
+      "configuration_ids": [],
+      "reported_field": "fresh_aggregate_generated_tps",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 71.77904116946792,
+      "request_count": 2,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-03f2fc195cdb3ad24acbf4fd.json",
+          "sha256": "c492d58238a82fbc593737f1743ae3a4c7728f9180c54475cc1cc24f5e989381",
+          "json_pointer": "/recovered_evidence/GLM_matched_short/1/fresh_aggregate_generated_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-bad6bedbe730060921dc",
+      "configuration_ids": [],
+      "reported_field": "returning_aggregate_generated_tps",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 51.87769172804231,
+      "request_count": 2,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-03f2fc195cdb3ad24acbf4fd.json",
+          "sha256": "c492d58238a82fbc593737f1743ae3a4c7728f9180c54475cc1cc24f5e989381",
+          "json_pointer": "/recovered_evidence/GLM_matched_short/0/returning_aggregate_generated_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-badbe8e55e64b59dba7f",
+      "configuration_ids": [],
+      "reported_field": "MTP_generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 54.080861445217344,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-bda17997f31383d5f7a691c0.json",
+          "sha256": "6dcc35332000de1ee075b75fbaaab031466295f54f98a44d663254367134eb7c",
+          "json_pointer": "/matched_two_request_generated_tok_s/cold/MTP_generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-bb3945eb92700b337ea5",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 65.41283935697396,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/18/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-c1e617917b704815ef34",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 32.27921336884683,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/3/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-c335a1aa63feb4fe4064",
+      "configuration_ids": [
+        "cfg-5bf846d20e2d93254186"
+      ],
+      "reported_field": "DSpark_four_generation_tps",
+      "citing_configuration_ids": [
+        "cfg-5bf846d20e2d93254186"
+      ],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 66.09099373692409,
+      "request_count": 4,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-ab12e0421ae0890864c2a56b.json",
+          "sha256": "d1530bac9c5168ed7067746d9201c18f3b3229187ae6a681b3a67cf767c3c8be",
+          "json_pointer": "/DSpark_four_generation_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-c479ea493ba98f7cbd95",
+      "configuration_ids": [],
+      "reported_field": "single_generated_tps",
+      "citing_configuration_ids": [
+        "cfg-82900b663a036cb64c31",
+        "cfg-a8ad1a79813a60cfd8b7"
+      ],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 25.444225912993875,
+      "request_count": 1,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-f7d98939d8e8ede4bc1ca721.json",
+          "sha256": "a1acf057ccccb101aeb42f5dbd7058e71af4019a09766d5756222e0d9e2c1394",
+          "json_pointer": "/credited_prior_native_subchecks/single_generated_tps"
+        },
+        {
+          "file": "source-d0a5a9be710c227136a6efd5.json",
+          "sha256": "daa43c23ad5e3943dbc1290d99b7df58d4f56e4d9983b4324d37ec4445eca540",
+          "json_pointer": "/phases/huihui_native_reference/credited_prior_native_subchecks/single_generated_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-c63b6c4f733dc66a9bff",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 8.351036698213154,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/0/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-c90cfcfd9f604ee648ef",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 119.4883495285249,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/10/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-ca61e6533ce6c40c9912",
+      "configuration_ids": [],
+      "reported_field": "generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 127.5164526616241,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-f18fa99b171b3febaacaedfc.json",
+          "sha256": "188d8d7e7a24a4b23f86db0471b305727b07911c0ff2a92db03cb73f44fa963f",
+          "json_pointer": "/short_rates/1/generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-d2389a52c5de4a291869",
+      "configuration_ids": [],
+      "reported_field": "four_request_generated_tps",
+      "citing_configuration_ids": [
+        "cfg-111d5b173801c7ec3693",
+        "cfg-c2078a3405e7126a029f",
+        "cfg-dda8a08cad070ac627df",
+        "cfg-f400e57ed61b16495727"
+      ],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 62.086216595463256,
+      "request_count": 4,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-83db10acbc3d00cd8e8e710b.json",
+          "sha256": "91d934a189ece2143c3be7533139f1a4268fb408e6ad301af3342405c61f7f03",
+          "json_pointer": "/credited_prior_native_subchecks/four_request_generated_tps"
+        },
+        {
+          "file": "source-d0a5a9be710c227136a6efd5.json",
+          "sha256": "daa43c23ad5e3943dbc1290d99b7df58d4f56e4d9983b4324d37ec4445eca540",
+          "json_pointer": "/phases/orca_native/credited_prior_native_subchecks/four_request_generated_tps"
+        },
+        {
+          "file": "source-d0a5a9be710c227136a6efd5.json",
+          "sha256": "daa43c23ad5e3943dbc1290d99b7df58d4f56e4d9983b4324d37ec4445eca540",
+          "json_pointer": "/phases/yarn524k/credited_prior_native_subchecks/four_request_generated_tps"
+        },
+        {
+          "file": "source-ab516a3a98f8c5f8da4f27b6.json",
+          "sha256": "466b659545d3ec25b6a5351e8619a31d411e45a005b099e26b698eee81a69f77",
+          "json_pointer": "/credited_prior_native_subchecks/four_request_generated_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-d4384bfc2ec85226f6ba",
+      "configuration_ids": [],
+      "reported_field": "generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 95.94115276122793,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-f18fa99b171b3febaacaedfc.json",
+          "sha256": "188d8d7e7a24a4b23f86db0471b305727b07911c0ff2a92db03cb73f44fa963f",
+          "json_pointer": "/short_rates/2/generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-d4789ddca9aa2671f2e1",
+      "configuration_ids": [],
+      "reported_field": "cold_generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 36.1970259028652,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-8ff921c630641b3c63d1d568.json",
+          "sha256": "e9655eed2c1acd0e4a163c4c2614b6cb3250bfeb971c83e95c4ef8af9b176908",
+          "json_pointer": "/modes/0/cold_generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-d5baa3fef04834455113",
+      "configuration_ids": [
+        "cfg-515986bc4443035d2bc0"
+      ],
+      "reported_field": "aggregate_generated_tok_s",
+      "citing_configuration_ids": [
+        "cfg-515986bc4443035d2bc0"
+      ],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 65.88564986293015,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": 1981,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-9d45a6abe8aaad72e7c69ef3.json",
+          "sha256": "5c34ce483568213ce18210290138f9a5eee20b599424ef3bab4537c36f69aa48",
+          "json_pointer": "/aggregate_generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-dab6d77da4056bf08b99",
+      "configuration_ids": [],
+      "reported_field": "cold_generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 59.79969070146488,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-8ff921c630641b3c63d1d568.json",
+          "sha256": "e9655eed2c1acd0e4a163c4c2614b6cb3250bfeb971c83e95c4ef8af9b176908",
+          "json_pointer": "/modes/2/cold_generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-dc87930a67f1369f1771",
+      "configuration_ids": [
+        "cfg-7b294aea7e89bfd5d522"
+      ],
+      "reported_field": "long_returning_tps",
+      "citing_configuration_ids": [
+        "cfg-7b294aea7e89bfd5d522"
+      ],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": true,
+      "reported_tok_s": 41.42004136988479,
+      "request_count": 2,
+      "reported_input_tokens": null,
+      "reported_output_tokens": 512,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-4f1eff02c53c4c1b71570807.json",
+          "sha256": "51b583362e6c032441825e7bcdbb5dc6e7313e90f63a89d18ca8c280202df981",
+          "json_pointer": "/generation/long_returning_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-de2a10798cd45eea81ab",
+      "configuration_ids": [
+        "cfg-7b294aea7e89bfd5d522"
+      ],
+      "reported_field": "short_returning_tps",
+      "citing_configuration_ids": [
+        "cfg-7b294aea7e89bfd5d522"
+      ],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": true,
+      "reported_tok_s": 51.74335528729237,
+      "request_count": 2,
+      "reported_input_tokens": null,
+      "reported_output_tokens": 512,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-4f1eff02c53c4c1b71570807.json",
+          "sha256": "51b583362e6c032441825e7bcdbb5dc6e7313e90f63a89d18ca8c280202df981",
+          "json_pointer": "/generation/short_returning_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-e3f5bafb217f38a41802",
+      "configuration_ids": [],
+      "reported_field": "sixteen_streams_per_card_aggregate_tps",
+      "citing_configuration_ids": [
+        "cfg-dfdf847a6f55dd3a5792"
+      ],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": true,
+      "reported_tok_s": 718.7595439911175,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": 1024,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-ab89fca7e0f49696d5258b56.json",
+          "sha256": "0d8e6ea99a411e9433014c8081ef804e81c524956cc59f3203abede46183a064",
+          "json_pointer": "/profiles/24/current_config/operational_validation/generation_only/sixteen_streams_per_card_aggregate_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-e42b230da1f55088adf3",
+      "configuration_ids": [],
+      "reported_field": "cold_generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 46.73121130977958,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-8ff921c630641b3c63d1d568.json",
+          "sha256": "e9655eed2c1acd0e4a163c4c2614b6cb3250bfeb971c83e95c4ef8af9b176908",
+          "json_pointer": "/modes/1/cold_generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-e5be74927571e66195ea",
+      "configuration_ids": [],
+      "reported_field": "DFlash_generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 71.77904116946792,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-bda17997f31383d5f7a691c0.json",
+          "sha256": "6dcc35332000de1ee075b75fbaaab031466295f54f98a44d663254367134eb7c",
+          "json_pointer": "/matched_two_request_generated_tok_s/cold/DFlash_generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-e68838838cf476e590be",
+      "configuration_ids": [],
+      "reported_field": "generated_only_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "recorded_summary_context",
+      "referenced_source_available": false,
+      "reported_tok_s": 28.67369267277801,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-cde19cb16ff5e1b4a7a89d59.json",
+          "sha256": "ae75544426414c535b0177ac0bd0676b09e218b09e34f5a215bd1679674f83d9",
+          "json_pointer": "/rate_windows/1/generated_only_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-ef6dc8622c97e8e298ec",
+      "configuration_ids": [],
+      "reported_field": "generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 136.42234151767713,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-f18fa99b171b3febaacaedfc.json",
+          "sha256": "188d8d7e7a24a4b23f86db0471b305727b07911c0ff2a92db03cb73f44fa963f",
+          "json_pointer": "/short_rates/5/generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-f48fb509cf5432d560ff",
+      "configuration_ids": [],
+      "reported_field": "generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 220.4825652947679,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-f18fa99b171b3febaacaedfc.json",
+          "sha256": "188d8d7e7a24a4b23f86db0471b305727b07911c0ff2a92db03cb73f44fa963f",
+          "json_pointer": "/short_rates/0/generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-f7c92ba6aa7f3c6193c1",
+      "configuration_ids": [],
+      "reported_field": "warm_generated_tok_s",
+      "citing_configuration_ids": [],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": false,
+      "reported_tok_s": 48.03826434811988,
+      "request_count": null,
+      "reported_input_tokens": null,
+      "reported_output_tokens": null,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-8ff921c630641b3c63d1d568.json",
+          "sha256": "e9655eed2c1acd0e4a163c4c2614b6cb3250bfeb971c83e95c4ef8af9b176908",
+          "json_pointer": "/modes/1/warm_generated_tok_s"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    },
+    {
+      "summary_id": "summary-fe3a292f5d81d8381718",
+      "configuration_ids": [
+        "cfg-7b294aea7e89bfd5d522"
+      ],
+      "reported_field": "short_first_tps",
+      "citing_configuration_ids": [
+        "cfg-7b294aea7e89bfd5d522"
+      ],
+      "configuration_binding": "referenced_run_only",
+      "referenced_source_available": true,
+      "reported_tok_s": 53.164956642975845,
+      "request_count": 2,
+      "reported_input_tokens": null,
+      "reported_output_tokens": 512,
+      "reported_generated_tokens": null,
+      "reported_window_seconds": null,
+      "sources": [
+        {
+          "file": "source-4f1eff02c53c4c1b71570807.json",
+          "sha256": "51b583362e6c032441825e7bcdbb5dc6e7313e90f63a89d18ca8c280202df981",
+          "json_pointer": "/generation/short_first_tps"
+        }
+      ],
+      "scope": "Retained summary value; missing request/window evidence is not reconstructed. May overlap a detailed wave; do not pool summaries with measurements."
+    }
+  ]
+}

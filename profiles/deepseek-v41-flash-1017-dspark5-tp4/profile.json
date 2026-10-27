@@ -1,0 +1,47 @@
+{
+  "kind": "vllm_native",
+  "model": "LibertAIDAI/DeepSeek-V4.1-Flash-1017-EXL3-2.9bpw",
+  "revision": "afc7aa0aab98ee735c0f54e0a122019af1ac08f1",
+  "base_model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "base_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+  "artifact_format": "EXL3 2.9 bpw safetensors",
+  "runtime": "deepseek-v41-1017-exl3-29bpw-r1",
+  "served_name": "deepseek-v4.1-flash-1017-exl3",
+  "context": 524288,
+  "max_sessions": 4,
+  "chunk_size": 1280,
+  "ram_kv_mib": 8192,
+  "engram_row_cache_mib": 64,
+  "kv_dtype": "fp8",
+  "enforce_eager": true,
+  "draft_mode": "dspark",
+  "draft_tokens": 5,
+  "power_watts": 200,
+  "gpu_counts": [
+    4
+  ],
+  "min_vram_mib_per_gpu": 60000,
+  "min_effective_vram_mib": 240000,
+  "parallelism": "tensor_parallel",
+  "gpu_memory_utilization": 0.98391,
+  "host_memory_policy": "uncapped",
+  "host_swap_gib": 0,
+  "generation_trace": false,
+  "batch_invariant": false,
+  "transport": "host",
+  "privacy": {
+    "request_logging": false,
+    "response_logging": false,
+    "image_logging": false,
+    "request_metrics": true,
+    "token_metrics": true
+  },
+  "native_module": "meshify_vllm_native_1017",
+  "performance": {
+    "engine": "baseline",
+    "profile_steps": 0
+  },
+  "artifact_directory": "@MODEL_DIRECTORY@",
+  "engram_directory": "@ENGRAM_DIRECTORY@",
+  "port": "@PORT@"
+}

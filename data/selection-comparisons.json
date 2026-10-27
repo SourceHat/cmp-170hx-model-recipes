@@ -1,0 +1,303 @@
+{
+  "format_version": 1,
+  "scope": "Historical decision evidence for the selected Flash Next and Apex recipes; alternatives are not launchable profiles here.",
+  "flash": {
+    "cases": [
+      {
+        "label": "MTP2 / Layer Split",
+        "pool": 1356032,
+        "status": "Included recipe",
+        "kv_bytes": {
+          "main": 22911516672,
+          "draft": 1909293056
+        },
+        "free_MiB": [
+          2875.9375,
+          2697.9375
+        ],
+        "speed": {
+          "single": {
+            "tps": 76.77772974958083,
+            "cold_tps": 76.62270011157858,
+            "ttft": 24.30128752699966,
+            "warm_ttft": 24.32408207800472,
+            "prefill": 1353.5315985130112,
+            "acceptance": 0.8061224489795918,
+            "input_tokens": "32,769",
+            "cold_output": 256,
+            "warm_output": 512,
+            "cached_tokens": "0",
+            "request_count": 1
+          },
+          "concurrent": {
+            "tps": 131.48386556008336,
+            "cold_tps": 137.2819448264148,
+            "ttft": 145.72376800249913,
+            "warm_ttft": 1.1015528885000094,
+            "prefill": 231.50856958399194,
+            "acceptance": 0.7789342214820982,
+            "input_tokens": "32,770",
+            "cold_output": 256,
+            "warm_output": 512,
+            "cached_tokens": "32,768",
+            "request_count": 6
+          }
+        },
+        "speed_source": "ad024 / P2P",
+        "allocation_source": "ad024 / native allocation",
+        "test_configuration": {
+          "context": 262144,
+          "cache_tokens": 1356032,
+          "cache_mode": "Q8",
+          "draft_cache_mode": "Q8",
+          "draft_mode": "mtp",
+          "draft_tokens": 2,
+          "max_sessions": 6,
+          "chunk_size": 512,
+          "parallelism": "layer_split",
+          "transport": "host",
+          "host_backing": "ordinary",
+          "ram_kv_mib": 8192,
+          "ram_recurrent_mib": 16384,
+          "output_chunk_tokens": 4096,
+          "ngram_ram": true,
+          "dynamic_draft": false
+        }
+      },
+      {
+        "label": "MTP3 / Layer Split",
+        "pool": 1356032,
+        "status": "Measured experiment",
+        "kv_bytes": {
+          "main": 22911516672,
+          "draft": 1909293056
+        },
+        "free_MiB": [
+          2511.9375,
+          2393.9375
+        ],
+        "speed": {
+          "single": {
+            "tps": 71.70126269588656,
+            "cold_tps": 71.77571280481833,
+            "ttft": 24.597334471000067,
+            "warm_ttft": 24.644537418003893,
+            "prefill": 1337.5102040816328,
+            "acceptance": 0.5942028985507246,
+            "input_tokens": "32,769",
+            "cold_output": 256,
+            "warm_output": 256,
+            "cached_tokens": "0",
+            "request_count": 1
+          },
+          "concurrent": {
+            "tps": 140.01809262419343,
+            "cold_tps": 144.0207436201554,
+            "ttft": 147.92854974000147,
+            "warm_ttft": 1.2447619880003913,
+            "prefill": 227.9575178753247,
+            "acceptance": 0.6686236138290933,
+            "input_tokens": "32,770",
+            "cold_output": 256,
+            "warm_output": 256,
+            "cached_tokens": "32,768",
+            "request_count": 6
+          }
+        },
+        "speed_source": "Historical / host",
+        "allocation_source": "ad026 / native allocation",
+        "test_configuration": {
+          "context": 262144,
+          "cache_tokens": 1356032,
+          "cache_mode": "Q8",
+          "draft_cache_mode": "Q8",
+          "draft_mode": "mtp",
+          "draft_tokens": 3,
+          "max_sessions": 6,
+          "chunk_size": 512,
+          "parallelism": "layer_split",
+          "transport": "host",
+          "host_backing": "ordinary",
+          "ram_kv_mib": 8192,
+          "ram_recurrent_mib": 16384,
+          "output_chunk_tokens": 4096,
+          "ngram_ram": true,
+          "dynamic_draft": false
+        }
+      },
+      {
+        "label": "MTP2 / TP2",
+        "pool": 1143296,
+        "status": "Measured experiment",
+        "kv_bytes": {
+          "main": 19317129216,
+          "draft": 1609760768
+        },
+        "free_MiB": [
+          2981.0625,
+          1963.0625
+        ],
+        "speed": {
+          "single": {
+            "tps": 73.3644107422718,
+            "cold_tps": 70.04829006602414,
+            "ttft": 36.28950842098857,
+            "warm_ttft": 36.320731743995566,
+            "prefill": 905.4711246200609,
+            "acceptance": 0.8333333333333334,
+            "input_tokens": "32,769",
+            "cold_output": 256,
+            "warm_output": 512,
+            "cached_tokens": "0",
+            "request_count": 1
+          },
+          "concurrent": {
+            "tps": 137.669073339716,
+            "cold_tps": 134.29625588495756,
+            "ttft": 217.7149808089962,
+            "warm_ttft": 1.1293560640042415,
+            "prefill": 154.91383450626046,
+            "acceptance": 0.7972972972972973,
+            "input_tokens": "32,770",
+            "cold_output": 256,
+            "warm_output": 512,
+            "cached_tokens": "32,768",
+            "request_count": 6
+          }
+        },
+        "speed_source": "ad026 / P2P",
+        "allocation_source": "ad026 / native allocation",
+        "test_configuration": {
+          "context": 262144,
+          "cache_tokens": 1143296,
+          "cache_mode": "Q8",
+          "draft_cache_mode": "Q8",
+          "draft_mode": "mtp",
+          "draft_tokens": 2,
+          "max_sessions": 6,
+          "chunk_size": 512,
+          "parallelism": "tensor_parallel",
+          "tensor_parallel_backend": "nccl",
+          "transport": "p2p",
+          "host_backing": "ordinary",
+          "ram_kv_mib": 8192,
+          "ram_recurrent_mib": 16384,
+          "output_chunk_tokens": 4096,
+          "ngram_ram": true,
+          "dynamic_draft": false
+        }
+      },
+      {
+        "label": "MTP3 / TP2",
+        "pool": 1143296,
+        "status": "Historical comparison",
+        "kv_bytes": {
+          "main": 19317129216,
+          "draft": 1609760768
+        },
+        "free_MiB": [
+          2657.0625,
+          1597.0625
+        ],
+        "speed": {
+          "single": {
+            "tps": 79.95860994592704,
+            "cold_tps": 71.86852437662566,
+            "ttft": 36.51371080500394,
+            "warm_ttft": 36.51428055100405,
+            "prefill": 900.0000000000001,
+            "acceptance": 0.7677419354838709,
+            "input_tokens": "32,769",
+            "cold_output": 256,
+            "warm_output": 512,
+            "cached_tokens": "0",
+            "request_count": 1
+          },
+          "concurrent": {
+            "tps": 117.35765137575363,
+            "cold_tps": 146.48407998440547,
+            "ttft": 218.404276623005,
+            "warm_ttft": 1.1802012674961588,
+            "prefill": 153.7886504465829,
+            "acceptance": 0.7073170731707317,
+            "input_tokens": "32,770",
+            "cold_output": 256,
+            "warm_output": 512,
+            "cached_tokens": "32,768",
+            "request_count": 6
+          }
+        },
+        "speed_source": "ad024 / P2P (reused)",
+        "allocation_source": "Historical allocation",
+        "test_configuration": {
+          "context": 262144,
+          "cache_tokens": 1143296,
+          "cache_mode": "Q8",
+          "draft_cache_mode": "Q8",
+          "draft_mode": "mtp",
+          "draft_tokens": 3,
+          "max_sessions": 6,
+          "chunk_size": 512,
+          "parallelism": "tensor_parallel",
+          "tensor_parallel_backend": "nccl",
+          "transport": "host",
+          "host_backing": "ordinary",
+          "ram_kv_mib": 8192,
+          "ram_recurrent_mib": 16384,
+          "output_chunk_tokens": 4096,
+          "ngram_ram": true,
+          "dynamic_draft": false
+        }
+      }
+    ],
+    "analysis": "The TP2 comparison with the reused ad024 reference changes repeated-input decode by -8.2% for one request and +17.3% across six requests when moving from MTP3 to MTP2. MTP2/TP2 has a verified 1,143,296-token Q8 pool; MTP3/layer split has a verified 1,356,032-token pool. These measured allocations close the prior capacity gaps. MTP2/layer split remains the general-use recommendation: cold single-request first token is 24.30 seconds versus 36.29 for MTP2/TP2, and its resident pool is 1,356,032 versus 1,143,296 tokens. MTP2/TP2 changes repeated-input decode by -4.4% for one request and +4.7% across six compared with MTP2/layer split. MTP3/TP2 retains the highest measured single-request repeated-input decode among the P2P runs.",
+    "mtp3_tp2_reference_reused": true,
+    "same_window_tp2_measurement": false,
+    "selected_profile": "qwen-flash-next-mtp2-layer-split"
+  },
+  "apex": {
+    "release_fidelity": {
+      "source": "EXL3 model card; external runtime, not local head-to-head",
+      "held_out_windows": 8,
+      "tokens_per_window": 128,
+      "total_tokens": 1024,
+      "total_tokens_scope": "Derived sampled-input geometry: eight windows of 128 tokens; not an established scored prediction count.",
+      "scored_prediction_tokens": null,
+      "BF16_reference_revision": null,
+      "next_token_agreement_percent": 92.52,
+      "mean_reference_to_candidate_KL_nats": 0.0444,
+      "identity_control_passed": true,
+      "AWQ_comparable_reference_test": null
+    },
+    "memory": {
+      "sampled_NVML_peak_used_GiB": [
+        61.6142578125,
+        60.998046875,
+        61.8251953125
+      ],
+      "recorded_CUDA_free_GiB": [
+        1.50689697265625,
+        2.1248779296875,
+        0.58502197265625
+      ],
+      "minimum_recorded_CUDA_free_MiB": 599.0625,
+      "pool_tokens": 1083136,
+      "additional_capacity_test_planned": false,
+      "subtraction_from_64_GiB_is_not_usable_headroom": true
+    },
+    "selected_default": "apex-abliterated-exl3-mtp1-tp3",
+    "selected_alternative": "apex-abliterated-awq-dflash2-pp3-balanced",
+    "selection": "EXL3 native-MTP and balanced 17/15/13 AWQ recipes included; 17/14/14 AWQ is comparison data.",
+    "quality_interpretation": "No local comparative quality ranking established; model-card fidelity is an external report, and its AWQ equivalent is unavailable."
+  },
+  "sources": [
+    {
+      "file": "source-501c774ad9dcf68465ba3788.json",
+      "sha256": "da7f496a56b05d560edfc0b6b16438a55fa64e67acbf202216ab41c1c2165085"
+    },
+    {
+      "file": "source-e656b2f801b18836fcba6eee.json",
+      "sha256": "3531afa1dcd1e7efdd5bee47b58e11ac0ce6004c2ada0f04988b8aa763500d44"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "source_directory_note": "Paths are relative to the original project's reports directory; full reports are not bundled.",
+  "extraction_policy": "allowlisted scalar metrics, identifiers and configuration facts only",
+  "sources": [
+    {
+      "role": "final_decision",
+      "path_relative_to_original_reports": "focused-result-20261026.json",
+      "sha256": "a1739ed6a2e4c41be29662f16361bbcf8342e333508de06b75726a99ee9ccf03",
+      "bytes": 8745,
+      "recorded_at_unix_seconds": 1793011407.299825
+    },
+    {
+      "role": "baseline",
+      "path_relative_to_original_reports": "campaign/focused-baseline-before.json",
+      "sha256": "309156c03e17f37cb6295182c9766fc8b264b68bd4d8853742380c7d5fd37a42",
+      "bytes": 133423,
+      "recorded_at_unix_seconds": null
+    },
+    {
+      "role": "candidate_retry",
+      "path_relative_to_original_reports": "campaign/focused-candidate.json",
+      "sha256": "645bb1678a72b446b8681522fea371d11bb5b711320bb539a0d8d705a57a23dc",
+      "bytes": 125828,
+      "recorded_at_unix_seconds": null
+    },
+    {
+      "role": "comparison",
+      "path_relative_to_original_reports": "campaign/focused-comparison.json",
+      "sha256": "8a7dbb1942e06bf92374c969d531b830dc56c836d3c9b9665a7bdc23594a4b0e",
+      "bytes": 5603,
+      "recorded_at_unix_seconds": 1793009282.673561
+    },
+    {
+      "role": "first_candidate_record",
+      "path_relative_to_original_reports": "focused-candidate-stall-20261026.json",
+      "sha256": "dadb70f1d83cde4eb42d9b9e93c02f0c480a07bf1b70b6ba7dbfe4aa64b45420",
+      "bytes": 17650,
+      "recorded_at_unix_seconds": 1793002549.4897795
+    },
+    {
+      "role": "candidate_rejection",
+      "path_relative_to_original_reports": "focused-candidate-rejection-20261026.json",
+      "sha256": "3f1e40f48ab6172bbfec23abb65c828bc107943a292039825620d9ed1d31eb9c",
+      "bytes": 13490,
+      "recorded_at_unix_seconds": 1793009282.673561
+    },
+    {
+      "role": "deployment_check",
+      "path_relative_to_original_reports": "campaign/focused-retained-baseline-check.json",
+      "sha256": "f8b509d74e8659df86b4330640e307113db303e3875a8897ad49b0d6351538af",
+      "bytes": 105346,
+      "recorded_at_unix_seconds": null
+    },
+    {
+      "role": "startup_repair",
+      "path_relative_to_original_reports": "baseline-observer-bootstrap-repair-20261026.json",
+      "sha256": "21f7245ed2596e9ef923aa7ca55f4378a40d864c94e726df115c52da2658e80a",
+      "bytes": 2701,
+      "recorded_at_unix_seconds": 1793010343.7935846
+    }
+  ]
+}

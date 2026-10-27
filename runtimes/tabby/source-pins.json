@@ -1,0 +1,16 @@
+{
+  "sources": [
+    {
+      "name": "tabbyAPI",
+      "revision": "be74bf0a00bcb3a518e6feb7606f150c189be637",
+      "patch": "runtimes/tabby/tabbyapi.patch",
+      "patch_sha256": "e26753bff2e7681b3154f467709f617d69ecc9faf78654dd064daadfae388134"
+    },
+    {
+      "name": "ExLlamaV3",
+      "revision": "d3739fd393337b1ff4d6c2a342b12f0c87a9592f",
+      "patch": "runtimes/tabby/exllamav3.patch",
+      "patch_sha256": "2a8488265689a7ac20155fa407c3bdb7aa49f6843661331e7f3faccfd1fe7bb4"
+    }
+  ]
+}

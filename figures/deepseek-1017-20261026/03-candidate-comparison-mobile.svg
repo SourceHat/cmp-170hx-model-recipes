@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns2="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink" width="345.6pt" height="770.4pt" viewBox="0 0 345.6 770.4" version="1.1" role="img" aria-labelledby="03-candidate-comparison-mobile-title 03-candidate-comparison-mobile-description">
+ <title id="03-candidate-comparison-mobile-title">Incomplete batched-candidate comparison</title><desc id="03-candidate-comparison-mobile-description">Three complete five-observation candidate cells changed generation speed by minus 0.89, plus 1.47 and minus 0.88 percent. The next cell showed plus 3.93 percent over only four completed observations, before a request failed. Both 32k-input cells were not reached. No complete cell met the minimum plus 5 percent speed criterion. Solid markers have five successful candidate observations; the hollow diamond has four and is incomplete after the next request failed. Missing cells were not reached. The +5% reference is only the minimum speed criterion, alongside within-run variation, correctness and required concurrency. No overall gain or candidate concurrency cost was measured.</desc><metadata>
+  <rdf:RDF>
+   <ns2:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:title>Incomplete batched-candidate comparison</dc:title>
+    <dc:description>Three complete five-observation candidate cells changed generation speed by minus 0.89, plus 1.47 and minus 0.88 percent. The next cell showed plus 3.93 percent over only four completed observations, before a request failed. Both 32k-input cells were not reached. No complete cell met the minimum plus 5 percent speed criterion.</dc:description>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <ns2:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </ns2:Agent>
+    </dc:creator>
+   </ns2:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 770.4  L 345.6 770.4  L 345.6 0  L 0 0  z " style="fill: #f7f8f5" />
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 110.592 631.728  L 259.2 631.728  L 259.2 192.6  L 110.592 192.6  z " style="fill: #f7f8f5" />
+   </g>
+   <g id="patch_3">
+    <path d="M 213.707755 631.728  L 259.2 631.728  L 259.2 192.6  L 213.707755 192.6  z " clip-path="url(#p224e3187e1)" style="fill: #e9eeea; stroke: #e9eeea; stroke-linejoin: miter" />
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 112.613878 631.728  L 112.613878 192.6  " clip-path="url(#p224e3187e1)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_2" />
+     <g id="text_1">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="112.613878" y="646.008273" transform="rotate(-0 112.613878 646.008273)">-5%</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 163.160816 631.728  L 163.160816 192.6  " clip-path="url(#p224e3187e1)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_4" />
+     <g id="text_2">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="163.160816" y="646.008273" transform="rotate(-0 163.160816 646.008273)">0%</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 213.707755 631.728  L 213.707755 192.6  " clip-path="url(#p224e3187e1)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_6" />
+     <g id="text_3">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="213.707755" y="646.008273" transform="rotate(-0 213.707755 646.008273)">+5%</text>
+     </g>
+    </g>
+    <g id="text_4">
+     <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(86.446 671.945529)">Change in cell median generation speed</text>
+     <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(112.436937 683.917697)">Candidate relative to baseline</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_7" />
+     <g id="text_5">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #101820" x="103.592" y="257.042475" transform="rotate(-0 103.592 257.042475)">2k in / 2k out</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_8" />
+     <g id="text_6">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #101820" x="103.592" y="324.600629" transform="rotate(-0 103.592 324.600629)">2k in / 8k out</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_9" />
+     <g id="text_7">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #101820" x="103.592" y="392.158783" transform="rotate(-0 103.592 392.158783)">8k in / 2k out</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_10" />
+     <g id="text_8">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #101820" x="103.592" y="459.716937" transform="rotate(-0 103.592 459.716937)">8k in / 8k out</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_11" />
+     <g id="text_9">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #101820" x="103.592" y="527.275091" transform="rotate(-0 103.592 527.275091)">32k in / 2k out</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_12" />
+     <g id="text_10">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #101820" x="103.592" y="594.833244" transform="rotate(-0 103.592 594.833244)">32k in / 8k out</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_13">
+    <path d="M 163.160816 631.728  L 163.160816 192.6  " clip-path="url(#p224e3187e1)" style="fill: none; stroke: #566360; stroke-linecap: square" />
+   </g>
+   <g id="line2d_14">
+    <path d="M 213.707755 631.728  L 213.707755 192.6  " clip-path="url(#p224e3187e1)" style="fill: none; stroke-dasharray: 5.2,3.9; stroke-dashoffset: 0; stroke: #246b60; stroke-width: 1.3" />
+   </g>
+   <g id="text_11">
+    <text style="font-size: 9.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #246b60" x="215.729633" y="207.490271" transform="rotate(-0 215.729633 207.490271)">+5% minimum</text>
+   </g>
+   <g id="text_12">
+    <g id="patch_4">
+     <path d="M 135.745728 242.392338  L 172.576822 242.392338  L 172.576822 230.089096  L 135.745728 230.089096  z " style="fill: #f7f8f5" />
+    </g>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="154.161275" y="239.087397" transform="rotate(-0 154.161275 239.087397)">-0.89%</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(265.14432 251.111079)">5/5</text>
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(265.14432 261.853754)">complete</text>
+   </g>
+   <g id="text_14">
+    <g id="patch_5">
+     <path d="M 158.227338 309.950492  L 197.820463 309.950492  L 197.820463 297.64725  L 158.227338 297.64725  z " style="fill: #f7f8f5" />
+    </g>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="178.0239" y="306.645551" transform="rotate(-0 178.0239 306.645551)">+1.47%</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(265.14432 318.669233)">5/5</text>
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(265.14432 329.411908)">complete</text>
+   </g>
+   <g id="text_16">
+    <g id="patch_6">
+     <path d="M 135.85294 377.508646  L 172.684034 377.508646  L 172.684034 365.205404  L 135.85294 365.205404  z " style="fill: #f7f8f5" />
+    </g>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="154.268487" y="374.203705" transform="rotate(-0 154.268487 374.203705)">-0.88%</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(265.14432 386.227386)">5/5</text>
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(265.14432 396.970062)">complete</text>
+   </g>
+   <g id="text_18">
+    <g id="patch_7">
+     <path d="M 156.295912 445.0668  L 195.889037 445.0668  L 195.889037 432.763558  L 156.295912 432.763558  z " style="fill: #f7f8f5" />
+    </g>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #73807a" x="194.899037" y="441.761859" transform="rotate(-0 194.899037 441.761859)">+3.93%</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(265.14432 453.78554)">4/5</text>
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(265.14432 465.516497)">then failure</text>
+   </g>
+   <g id="text_20">
+    <g id="patch_8">
+     <path d="M 112.74828 531.606956  L 176.035389 531.606956  L 176.035389 515.662952  L 112.74828 515.662952  z " style="fill: #f7f8f5" />
+    </g>
+    <text style="font-size: 10.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #566360" x="115.79328" y="526.352239" transform="rotate(-0 115.79328 526.352239)">Not reached</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(265.14432 521.343694)">0/5</text>
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(265.14432 532.684026)">not run</text>
+   </g>
+   <g id="text_22">
+    <g id="patch_9">
+     <path d="M 112.74828 599.16511  L 176.035389 599.16511  L 176.035389 583.221106  L 112.74828 583.221106  z " style="fill: #f7f8f5" />
+    </g>
+    <text style="font-size: 10.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #566360" x="115.79328" y="593.910393" transform="rotate(-0 115.79328 593.910393)">Not reached</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(265.14432 588.901848)">0/5</text>
+    <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(265.14432 600.24218)">not run</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 9px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(265.14432 187.369292)">Candidate</text>
+    <text style="font-size: 9px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(265.14432 197.504839)">observations</text>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path id="mba30a3e258" d="M 0 5.123475  C 1.358762 5.123475 2.662055 4.583634 3.622844 3.622844  C 4.583634 2.662055 5.123475 1.358762 5.123475 0  C 5.123475 -1.358762 4.583634 -2.662055 3.622844 -3.622844  C 2.662055 -4.583634 1.358762 -5.123475 0 -5.123475  C -1.358762 -5.123475 -2.662055 -4.583634 -3.622844 -3.622844  C -4.583634 -2.662055 -5.123475 -1.358762 -5.123475 0  C -5.123475 1.358762 -4.583634 2.662055 -3.622844 3.622844  C -2.662055 4.583634 -1.358762 5.123475 0 5.123475  z " style="stroke: #21465c; stroke-width: 1.7" />
+    </defs>
+    <g clip-path="url(#p224e3187e1)">
+     <use xlink:href="#mba30a3e258" x="154.161275" y="253.402338" style="fill: #21465c; stroke: #21465c; stroke-width: 1.7" />
+    </g>
+   </g>
+   <g id="PathCollection_2">
+    <g clip-path="url(#p224e3187e1)">
+     <use xlink:href="#mba30a3e258" x="178.0239" y="320.960492" style="fill: #21465c; stroke: #21465c; stroke-width: 1.7" />
+    </g>
+   </g>
+   <g id="PathCollection_3">
+    <g clip-path="url(#p224e3187e1)">
+     <use xlink:href="#mba30a3e258" x="154.268487" y="388.518646" style="fill: #21465c; stroke: #21465c; stroke-width: 1.7" />
+    </g>
+   </g>
+   <g id="PathCollection_4">
+    <defs>
+     <path id="m9c99947be6" d="M -0 7.245688  L 7.245688 0  L 0 -7.245688  L -7.245688 -0  z " style="stroke: #73807a; stroke-width: 1.7" />
+    </defs>
+    <g clip-path="url(#p224e3187e1)">
+     <use xlink:href="#m9c99947be6" x="202.899037" y="456.0768" style="fill: #f7f8f5; stroke: #73807a; stroke-width: 1.7" />
+    </g>
+   </g>
+  </g>
+  <g id="text_25">
+   <text style="font-size: 8.2px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #566360" x="12.096" y="25.229824" transform="rotate(-0 12.096 25.229824)">SOURCEHAT LABS  /  DEEPSEEK V4.1 FLASH 1017</text>
+  </g>
+  <g id="text_26">
+   <text style="font-size: 20px; font-family: 'Liberation Serif', 'DejaVu Serif', 'Bitstream Vera Serif', 'Computer Modern Roman', 'New Century Schoolbook', 'Century Schoolbook L', 'Utopia', 'ITC Bookman', 'Bookman', 'Nimbus Roman No9 L', 'Times New Roman', 'Times', 'Palatino', 'Charter', serif; fill: #101820" transform="translate(12.096 64.788238)">The batched candidate</text>
+   <text style="font-size: 20px; font-family: 'Liberation Serif', 'DejaVu Serif', 'Bitstream Vera Serif', 'Computer Modern Roman', 'New Century Schoolbook', 'Century Schoolbook L', 'Utopia', 'ITC Bookman', 'Bookman', 'Nimbus Roman No9 L', 'Times New Roman', 'Times', 'Palatino', 'Charter', serif; fill: #101820" transform="translate(12.096 83.19605)">did not qualify</text>
+  </g>
+  <g id="text_27">
+   <text style="font-size: 10.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 121.074687)">Three complete comparison cells; 19 successful</text>
+   <text style="font-size: 10.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 134.377592)">primary observations before the retry stalled.</text>
+  </g>
+  <g id="text_28">
+   <text style="font-size: 9.1px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 698.919942)">Hollow diamond: incomplete cell, with only four</text>
+   <text style="font-size: 9.1px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 711.775469)">successful observations. The +5% line is a minimum</text>
+   <text style="font-size: 9.1px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 722.832325)">criterion; passing reliability, within-run noise and</text>
+   <text style="font-size: 9.1px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 734.788516)">the full workload are also required. No overall gain or</text>
+   <text style="font-size: 9.1px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 746.744707)">candidate concurrency result.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p224e3187e1">
+   <rect x="110.592" y="192.6" width="148.608" height="439.128" />
+  </clipPath>
+ </defs>
+</svg>

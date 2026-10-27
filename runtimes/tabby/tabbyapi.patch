@@ -1,0 +1,99 @@
+diff --git a/backends/exllamav3/model.py b/backends/exllamav3/model.py
+index 58eb5fc..724e119 100644
+--- a/backends/exllamav3/model.py
++++ b/backends/exllamav3/model.py
+@@ -873,6 +873,10 @@ class ExllamaV3Container:
+         loading continues, since warmup is only an optimization.
+         """
+ 
++        if self.model.loaded_tp and self.use_draft_model:
++            xlogger.info("Skipping optional TP speculator warmup; serving requests prime the kernels.")
++            return
++
+         loop = asyncio.get_running_loop()
+         progress: asyncio.Queue = asyncio.Queue()
+ 
+@@ -1076,6 +1080,12 @@ class ExllamaV3Container:
+             # Clear the image embedding cache
+             clear_image_embedding_cache()
+ 
++            # Finish the inference owner thread before releasing model/cache
++            # tensors or sending unload commands to TP workers.
++            if self.generator is not None:
++                await self.generator.close()
++                self.generator = None
++
+             self.model.unload()
+             self.model = None
+             self.config = None
+@@ -1092,11 +1102,6 @@ class ExllamaV3Container:
+                 self.vision_model.unload()
+                 self.vision_model = None
+ 
+-            # Cleanup the generator from any pending jobs
+-            if self.generator is not None:
+-                await self.generator.close()
+-                self.generator = None
+-
+             gc.collect()
+             torch.cuda.empty_cache()
+ 
+@@ -1474,6 +1479,7 @@ class ExllamaV3Container:
+             "eos_reason": eos_reason,
+             "stop_str": stop_str,
+             "full_text": full_text,
++            "prefix_diagnostic": result.get("prefix_diagnostic"),
+         }
+ 
+         # TODO: Add extended draft stats in backend
+diff --git a/common/logger.py b/common/logger.py
+index c6f834f..cb57d3e 100644
+--- a/common/logger.py
++++ b/common/logger.py
+@@ -153,6 +153,9 @@ def setup_logger():
+         level=LOG_LEVEL,
+         format="{message}",
+     )
++    # MESHIFY_MODEL_IO_LOGGING hard-disabled; no text log sink.
++    if os.getenv("MESHIFY_MODEL_IO_LOGGING", "1") == "0":
++        return
+     # Add file logging
+     logger.add(
+         "logs/{time}.log",
+diff --git a/common/status_display.py b/common/status_display.py
+index c4bfc0f..64abad8 100644
+--- a/common/status_display.py
++++ b/common/status_display.py
+@@ -212,7 +212,11 @@ class StatusDisplay:
+         from common import model
+ 
+         container = model.container
+-        generator = getattr(getattr(container, "generator", None), "generator", None)
++        async_generator = getattr(container, "generator", None)
++        snapshot = getattr(async_generator, "cache_stats", None)
++        if snapshot is not None:
++            return dict(snapshot)
++        generator = getattr(async_generator, "generator", None)
+         if generator is None or not hasattr(generator, "get_cache_stats"):
+             return None
+ 
+diff --git a/common/tabby_config.py b/common/tabby_config.py
+index 3da502b..c2958de 100644
+--- a/common/tabby_config.py
++++ b/common/tabby_config.py
+@@ -45,6 +45,15 @@ class TabbyConfig(TabbyConfigModel):
+             value = getattr(merged_config_model, field)
+             setattr(self, field, value)
+ 
++        # MESHIFY_MODEL_IO_LOGGING hard-disabled; no request or prompt logging.
++        if getenv("MESHIFY_MODEL_IO_LOGGING", "1") == "0":
++            logging_config = getattr(self, "logging", None)
++            if logging_config is not None:
++                for field in ("log_prompt", "log_generation_params",
++                              "log_requests", "log_live_status",
++                              "log_chat_completion_requests"):
++                    setattr(logging_config, field, False)
++
+         # Set model defaults dict once to prevent on-demand reconstruction
+         # TODO: clean this up a bit
+         for field in self.model.use_as_default:

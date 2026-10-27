@@ -1,0 +1,4 @@
+# Unified diffs, upstream interfaces and package metadata are preserved verbatim.
+*.patch -whitespace
+runtimes/**/overlay/*.dist-info/* -whitespace
+runtimes/**/overlay/vllm/model_executor/models/interfaces.py -whitespace

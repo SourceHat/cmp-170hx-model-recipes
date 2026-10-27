@@ -1,0 +1,40 @@
+{
+  "format_version": 1,
+  "scope": "Campaign performance requests; historical standard-Qwen replica collection is separate.",
+  "sampling": {
+    "temperature": 0,
+    "seed": 20261008,
+    "min_tokens": "requested output budget",
+    "max_tokens": "requested output budget",
+    "reasoning_effort_requested": "low"
+  },
+  "workload": {
+    "repeated_input_line": "def add(a, b): return a + b  # The implementation adds two numbers.\n",
+    "completion_task": "Write a complete Python implementation of a small scheduling library, explain its invariants, and include unit tests and usage examples.",
+    "distinct_prompt_identity_per_request": true,
+    "prompt_token_target_tolerance": 64,
+    "tokenizer_adjustment_attempts": 12,
+    "output_budgets_tokens": [
+      256,
+      512,
+      8192
+    ]
+  },
+  "measurement": {
+    "minimum_shared_decode_interval_seconds": 0.5,
+    "prefill_excluded_from_decode": true,
+    "accepted_reasoning_tokens_included": true
+  },
+  "source": {
+    "file": "benchmark.py",
+    "sha256": "dec4736b6d6166c9e47063e27e4bb3b6e51ff3036dd5c2a4d3cfec1b21cc2ccf"
+  },
+  "limits": [
+    "Synthetic repetitive coding prompts; not a general agent-quality benchmark.",
+    "The source definition is preserved as protocol metadata; historical per-run parameters not stored in receipts remain unspecified."
+  ],
+  "sampling_helper_source": {
+    "file": "validate_api.py",
+    "sha256": "8deb66c0bf0913a6b03b82ef78725d212dcf2b730d6a455812413f5d5480abac"
+  }
+}

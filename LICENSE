@@ -1,0 +1,56 @@
+CMP 170HX Model Recipes - License Scope
+
+Copyright (c) 2026 MCP Capital LLC and contributors
+
+SourceHat is a brand owned by MCP Capital LLC. Original work in this repository
+is released by MCP Capital LLC under the SourceHat brand.
+
+This repository contains materials under different licenses. The grants below
+apply only to original SourceHat material, not to third-party material.
+
+1. Original recipe documentation, metadata and benchmark data
+
+   Licensed under Creative Commons Attribution 4.0 International
+   (SPDX-License-Identifier: CC-BY-4.0).
+
+   This covers original Markdown documentation, recipes/*/recipe.json,
+   recipes/*/benchmarks.json, recipes/*/evidence.json, historical measurement
+   exports, catalog.json, publication.json, schemas/, data/, benchmarks.csv,
+   archive/catalog.json, archive/runtime.json, archive/benchmarks.csv and
+   archive/*/{profile,benchmarks,evidence}.json and original historical
+   metadata, numerical exports and generated profile documentation under
+   archive/history/.
+   Full license: LICENSES/CC-BY-4.0.txt
+   https://creativecommons.org/licenses/by/4.0/
+
+   When sharing or adapting the licensed material, attribute SourceHat,
+   retain applicable copyright and attribution notices, identify changes,
+   and provide the source and license links in a reasonable manner for the
+   medium, as required by Section 3 of CC BY 4.0. Source:
+   https://github.com/SourceHat/cmp-170hx-model-recipes
+
+2. Original standalone software and configuration templates
+
+   Licensed under the Apache License, Version 2.0
+   (SPDX-License-Identifier: Apache-2.0).
+
+   This covers original scripts/, tests/, launch.sh files, engine configuration
+   templates (including archive/*/engine-config.json), Docker/Compose/build
+   configuration, and standalone runtime
+   preparation/API helpers, except files derived from third-party code.
+   Full license: LICENSES/Apache-2.0.txt
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Redistributions must comply with Section 4, including retaining applicable
+   copyright/attribution notices, supplying the license, identifying changed
+   files and carrying applicable NOTICE attribution. See NOTICE.
+
+3. Third-party material
+
+   Runtime source patches, extracted/modified upstream code and upstream
+   notices retain their original licenses. The licenses in runtimes/ and
+   THIRD_PARTY.md identify those components. The grants above do not replace
+   their terms or relicense downloaded model/draft weights.
+
+Previously distributed copies under MIT retain that license grant. These
+terms govern this edition and do not revoke permissions already granted.

@@ -1,0 +1,18 @@
+{
+  "format_version": 2,
+  "status": "historical_only",
+  "scope": "Historical model-profile and experiment archive, including detailed Strata configuration records.",
+  "profiles": [
+    {
+      "id": "strata-q4-single",
+      "path": "archive/strata-q4-single/profile.json"
+    },
+    {
+      "id": "strata-q6-split",
+      "path": "archive/strata-q6-split/profile.json"
+    }
+  ],
+  "historical_catalog": "archive/history/catalog.json",
+  "coverage_file": "archive/history/coverage.json",
+  "profiles_scope": "Detailed Strata native templates; the historical_catalog contains the complete model-profile and experiment inventory."
+}

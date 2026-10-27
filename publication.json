@@ -1,0 +1,16 @@
+{
+  "article": {
+    "title": "Serving long-context models on CMP 170HX",
+    "url": "https://sourcehat.com/research/cmp-170hx-long-context-inference/",
+    "status": "published"
+  },
+  "repository": {
+    "name": "SourceHat/cmp-170hx-model-recipes",
+    "url": "https://github.com/SourceHat/cmp-170hx-model-recipes"
+  },
+  "released_by": "MCP Capital LLC",
+  "brand": {
+    "name": "SourceHat",
+    "owner": "MCP Capital LLC"
+  }
+}

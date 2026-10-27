@@ -1,0 +1,403 @@
+{
+  "format_version": 1,
+  "scope": "Four native prefill observations recovered from saved vLLM metric snapshots; no new inference. Balanced and fast layouts, cold and partially cached inputs, remain separate.",
+  "formula": "processed prompt tokens = delta(request_prefill_kv_computed_tokens_sum); native prefill seconds = delta(request_prefill_time_seconds_sum); tok/s = processed prompt tokens / native prefill seconds",
+  "accounting": "Each of four histograms must advance by exactly one completed request, with unchanged metric labels and creation-epoch fingerprint. Prompt/output deltas must match the saved request; computed plus cached tokens must match the prompt and prefix counters.",
+  "timing_scope": "vLLM native request-prefill timer: first NEW_TOKEN minus first SCHEDULED; queue excluded, preemptions included. This is not an exclusive kernel timer or client TTFT.",
+  "epoch_fingerprint": "SHA256 of native metric labels and histogram creation epochs; absolute creation timestamps are omitted.",
+  "headline_limit": "These 32k-input / 8192-output C1 runs used 524288 context. Their prefill is not assigned to the older 32k-input / 256-output C1/C4 comparison at 262144 context.",
+  "records": [
+    {
+      "id": "apex-awq-balanced-long-output-cold",
+      "profile": "apex-abliterated-awq-dflash2-pp3-balanced",
+      "wave": "cold",
+      "model": {
+        "model": "svbmrgd/apex-flash-1-abliterated-AWQ",
+        "revision": "7ea31e3d22c6622c999d3de74d1569efce815943",
+        "served_name": "apex-flash-1-abliterated-awq"
+      },
+      "configuration": {
+        "context": 524288,
+        "max_sessions": 4,
+        "draft_mode": "dflash2",
+        "draft_tokens": 3,
+        "chunk_size": 512,
+        "parallelism": "pipeline_parallel",
+        "pipeline_layer_partition": [
+          17,
+          15,
+          13
+        ],
+        "gpu_memory_utilization": 0.985,
+        "kv_dtype": "fp8_e4m3",
+        "draft_kv_dtype": "int8_per_token_head",
+        "ram_kv_mib": 8192
+      },
+      "concurrency": 1,
+      "output_budget_tokens": 8192,
+      "request": {
+        "input_tokens": 32771,
+        "accepted_output_tokens": 8192,
+        "client_ttft_seconds": 16.818311908005853
+      },
+      "before": {
+        "labels": {
+          "engine": "0",
+          "model_name": "apex-flash-1-abliterated-awq"
+        },
+        "epoch_sha256": "e5ef9bb4f859ee01f8daf443db1e8d0b2d83f16ccc13b0688665903e4c6a0c38",
+        "prefill_seconds": {
+          "count": 8.0,
+          "sum": 6.374278862014762
+        },
+        "computed_prompt_tokens": {
+          "count": 8.0,
+          "sum": 874.0
+        },
+        "prompt_tokens": {
+          "count": 8.0,
+          "sum": 874.0
+        },
+        "output_tokens": {
+          "count": 8.0,
+          "sum": 352.0
+        },
+        "prefix_queries": 874.0,
+        "prefix_hits": 0.0
+      },
+      "after": {
+        "labels": {
+          "engine": "0",
+          "model_name": "apex-flash-1-abliterated-awq"
+        },
+        "epoch_sha256": "e5ef9bb4f859ee01f8daf443db1e8d0b2d83f16ccc13b0688665903e4c6a0c38",
+        "prefill_seconds": {
+          "count": 9.0,
+          "sum": 22.51207238002098
+        },
+        "computed_prompt_tokens": {
+          "count": 9.0,
+          "sum": 33645.0
+        },
+        "prompt_tokens": {
+          "count": 9.0,
+          "sum": 33645.0
+        },
+        "output_tokens": {
+          "count": 9.0,
+          "sum": 8544.0
+        },
+        "prefix_queries": 33645.0,
+        "prefix_hits": 0.0
+      },
+      "source": {
+        "file": "source-efaba1a74b9a64d2c2eee4af.json",
+        "sha256": "491f1527c480f2e5b9b827c59e491e0377becdf42b7d5666843adc2e88197462",
+        "json_pointer": "/waves/0"
+      },
+      "measurement": {
+        "request_count": 1,
+        "input_tokens": 32771,
+        "processed_prompt_tokens": 32771,
+        "cached_prompt_tokens": 0,
+        "accepted_output_tokens": 8192,
+        "backend_prefill_seconds": 16.13779351800622,
+        "prefill_tok_s": 2030.6989281672732
+      }
+    },
+    {
+      "id": "apex-awq-balanced-long-output-cached_prefix",
+      "profile": "apex-abliterated-awq-dflash2-pp3-balanced",
+      "wave": "cached_prefix",
+      "model": {
+        "model": "svbmrgd/apex-flash-1-abliterated-AWQ",
+        "revision": "7ea31e3d22c6622c999d3de74d1569efce815943",
+        "served_name": "apex-flash-1-abliterated-awq"
+      },
+      "configuration": {
+        "context": 524288,
+        "max_sessions": 4,
+        "draft_mode": "dflash2",
+        "draft_tokens": 3,
+        "chunk_size": 512,
+        "parallelism": "pipeline_parallel",
+        "pipeline_layer_partition": [
+          17,
+          15,
+          13
+        ],
+        "gpu_memory_utilization": 0.985,
+        "kv_dtype": "fp8_e4m3",
+        "draft_kv_dtype": "int8_per_token_head",
+        "ram_kv_mib": 8192
+      },
+      "concurrency": 1,
+      "output_budget_tokens": 8192,
+      "request": {
+        "input_tokens": 32771,
+        "accepted_output_tokens": 8192,
+        "client_ttft_seconds": 8.15190486900974
+      },
+      "before": {
+        "labels": {
+          "engine": "0",
+          "model_name": "apex-flash-1-abliterated-awq"
+        },
+        "epoch_sha256": "e5ef9bb4f859ee01f8daf443db1e8d0b2d83f16ccc13b0688665903e4c6a0c38",
+        "prefill_seconds": {
+          "count": 9.0,
+          "sum": 22.51207238002098
+        },
+        "computed_prompt_tokens": {
+          "count": 9.0,
+          "sum": 33645.0
+        },
+        "prompt_tokens": {
+          "count": 9.0,
+          "sum": 33645.0
+        },
+        "output_tokens": {
+          "count": 9.0,
+          "sum": 8544.0
+        },
+        "prefix_queries": 33645.0,
+        "prefix_hits": 0.0
+      },
+      "after": {
+        "labels": {
+          "engine": "0",
+          "model_name": "apex-flash-1-abliterated-awq"
+        },
+        "epoch_sha256": "e5ef9bb4f859ee01f8daf443db1e8d0b2d83f16ccc13b0688665903e4c6a0c38",
+        "prefill_seconds": {
+          "count": 10.0,
+          "sum": 30.078514170018025
+        },
+        "computed_prompt_tokens": {
+          "count": 10.0,
+          "sum": 48752.0
+        },
+        "prompt_tokens": {
+          "count": 10.0,
+          "sum": 66416.0
+        },
+        "output_tokens": {
+          "count": 10.0,
+          "sum": 16736.0
+        },
+        "prefix_queries": 66416.0,
+        "prefix_hits": 17664.0
+      },
+      "source": {
+        "file": "source-efaba1a74b9a64d2c2eee4af.json",
+        "sha256": "491f1527c480f2e5b9b827c59e491e0377becdf42b7d5666843adc2e88197462",
+        "json_pointer": "/waves/1"
+      },
+      "measurement": {
+        "request_count": 1,
+        "input_tokens": 32771,
+        "processed_prompt_tokens": 15107,
+        "cached_prompt_tokens": 17664,
+        "accepted_output_tokens": 8192,
+        "backend_prefill_seconds": 7.566441789997043,
+        "prefill_tok_s": 1996.5791608906177
+      }
+    },
+    {
+      "id": "apex-awq-fast-long-output-cold",
+      "profile": "apex-abliterated-awq-dflash2-pp3-fast",
+      "wave": "cold",
+      "model": {
+        "model": "svbmrgd/apex-flash-1-abliterated-AWQ",
+        "revision": "7ea31e3d22c6622c999d3de74d1569efce815943",
+        "served_name": "apex-flash-1-abliterated-awq"
+      },
+      "configuration": {
+        "context": 524288,
+        "max_sessions": 4,
+        "draft_mode": "dflash2",
+        "draft_tokens": 3,
+        "chunk_size": 512,
+        "parallelism": "pipeline_parallel",
+        "pipeline_layer_partition": [
+          17,
+          14,
+          14
+        ],
+        "gpu_memory_utilization": 0.985,
+        "kv_dtype": "fp8_e4m3",
+        "draft_kv_dtype": "int8_per_token_head",
+        "ram_kv_mib": 8192
+      },
+      "concurrency": 1,
+      "output_budget_tokens": 8192,
+      "request": {
+        "input_tokens": 32771,
+        "accepted_output_tokens": 8192,
+        "client_ttft_seconds": 16.76430769498984
+      },
+      "before": {
+        "labels": {
+          "engine": "0",
+          "model_name": "apex-flash-1-abliterated-awq"
+        },
+        "epoch_sha256": "cb2531d048030967af09520c86e6811a357a83b5cd702bd3ffad0113498347dd",
+        "prefill_seconds": {
+          "count": 0.0,
+          "sum": 0.0
+        },
+        "computed_prompt_tokens": {
+          "count": 0.0,
+          "sum": 0.0
+        },
+        "prompt_tokens": {
+          "count": 0.0,
+          "sum": 0.0
+        },
+        "output_tokens": {
+          "count": 0.0,
+          "sum": 0.0
+        },
+        "prefix_queries": 0.0,
+        "prefix_hits": 0.0
+      },
+      "after": {
+        "labels": {
+          "engine": "0",
+          "model_name": "apex-flash-1-abliterated-awq"
+        },
+        "epoch_sha256": "cb2531d048030967af09520c86e6811a357a83b5cd702bd3ffad0113498347dd",
+        "prefill_seconds": {
+          "count": 1.0,
+          "sum": 15.822838627005694
+        },
+        "computed_prompt_tokens": {
+          "count": 1.0,
+          "sum": 32771.0
+        },
+        "prompt_tokens": {
+          "count": 1.0,
+          "sum": 32771.0
+        },
+        "output_tokens": {
+          "count": 1.0,
+          "sum": 8192.0
+        },
+        "prefix_queries": 32771.0,
+        "prefix_hits": 0.0
+      },
+      "source": {
+        "file": "source-03ce381718c79e107f21a71d.json",
+        "sha256": "5ad62333581aac26756d220f1806dc89d5927fcfeb5e0bc7f2501bbd4fdf14b3",
+        "json_pointer": "/waves/0"
+      },
+      "measurement": {
+        "request_count": 1,
+        "input_tokens": 32771,
+        "processed_prompt_tokens": 32771,
+        "cached_prompt_tokens": 0,
+        "accepted_output_tokens": 8192,
+        "backend_prefill_seconds": 15.822838627005694,
+        "prefill_tok_s": 2071.1201556507035
+      }
+    },
+    {
+      "id": "apex-awq-fast-long-output-cached_prefix",
+      "profile": "apex-abliterated-awq-dflash2-pp3-fast",
+      "wave": "cached_prefix",
+      "model": {
+        "model": "svbmrgd/apex-flash-1-abliterated-AWQ",
+        "revision": "7ea31e3d22c6622c999d3de74d1569efce815943",
+        "served_name": "apex-flash-1-abliterated-awq"
+      },
+      "configuration": {
+        "context": 524288,
+        "max_sessions": 4,
+        "draft_mode": "dflash2",
+        "draft_tokens": 3,
+        "chunk_size": 512,
+        "parallelism": "pipeline_parallel",
+        "pipeline_layer_partition": [
+          17,
+          14,
+          14
+        ],
+        "gpu_memory_utilization": 0.985,
+        "kv_dtype": "fp8_e4m3",
+        "draft_kv_dtype": "int8_per_token_head",
+        "ram_kv_mib": 8192
+      },
+      "concurrency": 1,
+      "output_budget_tokens": 8192,
+      "request": {
+        "input_tokens": 32771,
+        "accepted_output_tokens": 8192,
+        "client_ttft_seconds": 7.892349433997879
+      },
+      "before": {
+        "labels": {
+          "engine": "0",
+          "model_name": "apex-flash-1-abliterated-awq"
+        },
+        "epoch_sha256": "cb2531d048030967af09520c86e6811a357a83b5cd702bd3ffad0113498347dd",
+        "prefill_seconds": {
+          "count": 1.0,
+          "sum": 15.822838627005694
+        },
+        "computed_prompt_tokens": {
+          "count": 1.0,
+          "sum": 32771.0
+        },
+        "prompt_tokens": {
+          "count": 1.0,
+          "sum": 32771.0
+        },
+        "output_tokens": {
+          "count": 1.0,
+          "sum": 8192.0
+        },
+        "prefix_queries": 32771.0,
+        "prefix_hits": 0.0
+      },
+      "after": {
+        "labels": {
+          "engine": "0",
+          "model_name": "apex-flash-1-abliterated-awq"
+        },
+        "epoch_sha256": "cb2531d048030967af09520c86e6811a357a83b5cd702bd3ffad0113498347dd",
+        "prefill_seconds": {
+          "count": 2.0,
+          "sum": 23.051874608005164
+        },
+        "computed_prompt_tokens": {
+          "count": 2.0,
+          "sum": 47878.0
+        },
+        "prompt_tokens": {
+          "count": 2.0,
+          "sum": 65542.0
+        },
+        "output_tokens": {
+          "count": 2.0,
+          "sum": 16384.0
+        },
+        "prefix_queries": 65542.0,
+        "prefix_hits": 17664.0
+      },
+      "source": {
+        "file": "source-03ce381718c79e107f21a71d.json",
+        "sha256": "5ad62333581aac26756d220f1806dc89d5927fcfeb5e0bc7f2501bbd4fdf14b3",
+        "json_pointer": "/waves/1"
+      },
+      "measurement": {
+        "request_count": 1,
+        "input_tokens": 32771,
+        "processed_prompt_tokens": 15107,
+        "cached_prompt_tokens": 17664,
+        "accepted_output_tokens": 8192,
+        "backend_prefill_seconds": 7.22903598099947,
+        "prefill_tok_s": 2089.7668845066864
+      }
+    }
+  ]
+}
