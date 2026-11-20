@@ -1,0 +1,58 @@
+{
+  "models": [
+    {
+      "name": "HY4 Flash 4.875",
+      "repo": "SourceHat-Labs/HY4-Flash-EXL3-4.875bpw",
+      "revision": "d7ce7d4365c4911e6b654207451eef0c84348e6b",
+      "public_archive": "runtime/hy4-exl3-serving-source.tar.gz",
+      "source": "hy4/source",
+      "profile": "hy4/4.875bpw/REFERENCE-PROFILE.json",
+      "guide": "hy4/4.875bpw/SERVING.md"
+    },
+    {
+      "name": "HY4 Flash 8.0",
+      "repo": "SourceHat-Labs/HY4-Flash-EXL3-8.0bpw",
+      "revision": "662f38e2cab492ded41833fa9d9c005720119f90",
+      "public_archive": "runtime/hy4-exl3-serving-source.tar.gz",
+      "source": "hy4/source",
+      "profile": "hy4/8.0bpw/REFERENCE-PROFILE.json",
+      "guide": "hy4/8.0bpw/SERVING.md"
+    },
+    {
+      "name": "Sage S2.1 Flash 4.25",
+      "repo": "SourceHat-Labs/Sage-S2.1-Flash-EXL3-4.25bpw",
+      "revision": "87f82b89e304dc995da1ae4ff5e8ad1ee3bd764e",
+      "public_archive": "runtime/sage-exl3-serving-source.tar.gz",
+      "source": "sage/4.25bpw/source",
+      "profile": "sage/4.25bpw/REFERENCE-PROFILE.json",
+      "guide": "sage/4.25bpw/SERVING.md"
+    },
+    {
+      "name": "SenseNova Loop 9B 3.0",
+      "repo": "SourceHat-Labs/SenseNova-Loop-9B-EXL3-3.0bpw",
+      "revision": "ab54f1cdd26a66696007fc2d94d437916f908ef5",
+      "public_archive": "runtime/exllamav3-sensenova-source.tar.gz",
+      "source": "sensenova/3.0bpw/source",
+      "profile": "sensenova/3.0bpw/REFERENCE-PROFILE.json",
+      "guide": "sensenova/3.0bpw/SERVING.md"
+    },
+    {
+      "name": "SenseNova Loop 9B 5.25",
+      "repo": "SourceHat-Labs/SenseNova-Loop-9B-EXL3-5.25bpw",
+      "revision": "b6470e539a589b4b97e16b46f9cd0128bb0cf327",
+      "public_archive": "runtime/exllamav3-sensenova-source.tar.gz",
+      "source": "sensenova/5.25bpw/source",
+      "profile": "sensenova/5.25bpw/REFERENCE-PROFILE.json",
+      "guide": "sensenova/5.25bpw/SERVING.md"
+    },
+    {
+      "name": "SenseNova Loop 9B 8.0",
+      "repo": "SourceHat-Labs/SenseNova-Loop-9B-EXL3-8.0bpw",
+      "revision": "fd7791abcda85e6e1a9bf77e992f96f9aba0de5a",
+      "public_archive": "runtime/exllamav3-sensenova-source.tar.gz",
+      "source": "sensenova/8.0bpw/source",
+      "profile": "sensenova/8.0bpw/REFERENCE-PROFILE.json",
+      "guide": "sensenova/8.0bpw/SERVING.md"
+    }
+  ]
+}

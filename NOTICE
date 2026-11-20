@@ -1,0 +1,15 @@
+CMP 170HX Model Recipes
+Copyright (c) 2026 MCP Capital LLC and contributors
+
+Original recipe engineering, documentation, benchmark exports and standalone
+preparation/launch helpers by MCP Capital LLC, released under its SourceHat brand.
+SourceHat is a brand owned by MCP Capital LLC.
+https://github.com/SourceHat/cmp-170hx-model-recipes
+
+Original documentation and data: CC BY 4.0.
+Original standalone code and configuration templates: Apache-2.0.
+See LICENSE for scope and LICENSES/ for the complete terms.
+
+Upstream model and runtime creators retain their own copyright, attribution
+and license notices. See THIRD_PARTY.md and the notices shipped in runtimes/.
+Their inclusion does not imply endorsement by SourceHat or the upstream authors.

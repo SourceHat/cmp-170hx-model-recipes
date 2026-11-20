@@ -1,0 +1,30 @@
+{
+  "backend": "exllamav3",
+  "model_dir": "MODEL_DIRECTORY",
+  "gpu_count": 3,
+  "parallelism": "layer_split",
+  "transport": "p2p",
+  "cache_mode": "Q8",
+  "shared_cache_tokens": 1048576,
+  "native_context": 1048576,
+  "max_request_tokens": 524288,
+  "max_sessions": 8,
+  "draft_mode": "disabled",
+  "chunk_size": 2048,
+  "reserve_per_device_gib": [
+    1,
+    1,
+    1
+  ],
+  "env": {
+    "EXL3_SAGE_BATCHED_POOL": "1",
+    "EXL3_SAGE_BATCHED_INDEXER": "1"
+  },
+  "tuning": {
+    "batched_indexer": true,
+    "cpu_paths": {
+      "1": "blocking_wait",
+      "4": "blocking_wait"
+    }
+  }
+}

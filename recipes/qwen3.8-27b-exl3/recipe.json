@@ -1,0 +1,141 @@
+{
+  "format_version": 1,
+  "id": "qwen3.8-27b-exl3",
+  "title": "Qwen3.8-27B - EXL3 6 bpw, MTP1",
+  "short_name": "Qwen3.8-27B",
+  "model": {
+    "hf_repo": "turboderp/Qwen3.8-27B-exl3",
+    "revision": "9e4c23cfb23697165b8e2f6da2a1df995f66353c",
+    "served_name": "qwen3.8-27b",
+    "quantization": "EXL3 6 bpw"
+  },
+  "runtime": {
+    "id": "tabby",
+    "engine": "TabbyAPI / ExLlamaV3",
+    "version": "ExLlamaV3 1.5.3",
+    "tabby_revision": "be74bf0a00bcb3a518e6feb7606f150c189be637",
+    "exllama_revision": "d3739fd393337b1ff4d6c2a342b12f0c87a9592f",
+    "torch": "2.14.0",
+    "python": "3.12",
+    "patches": [
+      "runtimes/tabby/tabbyapi.patch",
+      "runtimes/tabby/exllamav3.patch"
+    ]
+  },
+  "hardware": {
+    "accelerator": "NVIDIA CMP 170HX",
+    "architecture": "SM80",
+    "card_count": 1,
+    "vram_gib_per_card": 64,
+    "power_limit_watts_per_card_as_tested": 200
+  },
+  "serving": {
+    "context_tokens": 262144,
+    "max_requests": 8,
+    "rope": "native",
+    "parallelism": "single_card",
+    "prefill_chunk_tokens": 2048,
+    "output_chunk_tokens": null,
+    "speculation": {
+      "method": "mtp",
+      "depth": 1
+    },
+    "kv": {
+      "main_dtype": "Q8",
+      "draft_dtype": "Q8",
+      "shared_gpu_pool_tokens": 917504,
+      "host_kv_budget_mib": 0,
+      "host_recurrent_budget_mib": 7168
+    }
+  },
+  "launch": {
+    "argv": [
+      "bash",
+      "recipes/qwen3.8-27b-exl3/launch.sh"
+    ],
+    "environment": {
+      "EXLLAMA_NO_P2P_COPY": "1",
+      "NCCL_P2P_DISABLE": "1",
+      "MESHIFY_HOST_BACKING": "ordinary",
+      "PYTORCH_ALLOC_CONF": "pinned_max_round_threshold_mb:1"
+    }
+  },
+  "engine_config": {
+    "network": {
+      "host": "@HOST@",
+      "port": "@PORT@",
+      "disable_auth": true,
+      "allowed_origins": [],
+      "disable_fetch_requests": true,
+      "api_servers": [
+        "oai"
+      ],
+      "sse_ping_interval": 15
+    },
+    "logging": {
+      "log_prompt": false,
+      "log_requests": false,
+      "log_live_status": false
+    },
+    "model": {
+      "model_dir": "@MODEL_PARENT@",
+      "model_name": "qwen3.8-27b",
+      "backend": "exllamav3",
+      "max_seq_len": 262144,
+      "cache_size": 917504,
+      "cache_mode": "Q8",
+      "max_batch_size": 8,
+      "chunk_size": 2048,
+      "tensor_parallel": false,
+      "tensor_parallel_backend": "native",
+      "gpu_split_auto": true,
+      "autosplit_reserve": [
+        4096
+      ],
+      "vision": false,
+      "warmup": true,
+      "output_chunking": true,
+      "inline_model_loading": false,
+      "recurrent_checkpoint_interval": 2048,
+      "recurrent_checkpoint_interval_pp": 32768
+    },
+    "draft_model": {
+      "draft_mode": "mtp",
+      "draft_cache_mode": "Q8",
+      "draft_num_tokens": 1,
+      "dynamic_draft": false,
+      "draft_gpu_split": [
+        60.0
+      ]
+    },
+    "sampling": {},
+    "memory": {
+      "sysmem_kv_cache": 0,
+      "sysmem_recurrent_cache": 7168
+    }
+  },
+  "qualification": {
+    "status": "measured on the reference host; portable export not GPU-requalified",
+    "context_evidence": "Historical native-context and cache-restoration validation used 16 slots. The current eight-slot recipe has a separate matched approximately 32k-input / 256-output C1/C8 performance comparison; this is not a new maximum-context qualification.",
+    "native_near_limit_retested": null,
+    "ram_history_restoration_retested": null
+  },
+  "notes": [
+    "The context limit is per request; the KV pool is shared across requests and retained prefixes.",
+    "Maximum-history counts are capacity arithmetic, not a long-context concurrent speed measurement.",
+    "Current eight-slot C1/C8 performance is measured at approximately 32k input and 256 accepted output tokens; historical 16-slot/three-replica measurements remain separate."
+  ],
+  "source_receipts": [
+    {
+      "file": "qwen3.8-27b-exl3.json",
+      "sha256": "38008c139c9be232b9c365b3328702b0fdddf422b10bd8ed0feaed405ac331d9",
+      "kind": "selected-serving-profile"
+    },
+    {
+      "file": "source-e18d36de0771b15b1c6245a4.json",
+      "sha256": "60c00f71b1d079401ac67483907a466780dfac16440194bbc052ec23d8b1926b",
+      "kind": "historical-three-replica-decode"
+    }
+  ],
+  "benchmark_file": "benchmarks.json"
+}

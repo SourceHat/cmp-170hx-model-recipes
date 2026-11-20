@@ -1,0 +1,177 @@
+{
+  "format_version": 1,
+  "recipe": "apex-abliterated-exl3-mtp1-tp3",
+  "resident_pool_tokens": 1374976,
+  "baseline_pool_tokens": 1083136,
+  "increase_tokens": 291840,
+  "increase_percent": 26.943984873552353,
+  "context_tokens": 524288,
+  "slots": 4,
+  "main_cache": "Q8",
+  "draft_cache": "Q8",
+  "mtp_depth": 1,
+  "adaptive_mtp": false,
+  "autosplit_reserve_mib_by_selected_rank": [
+    2560,
+    2336,
+    2848
+  ],
+  "independent_loads": [
+    {
+      "job_id": "apex-abliterated-exl3-mtp1-tp3-1792129755811336963",
+      "qualification": {
+        "path": "apex-1374976-load1-full.json",
+        "sha256": "cf54e28cc7939ffc71b4d7e86283bd3a862a7d2d8b1de42a60e51fc95a177c53"
+      },
+      "lifecycle": {
+        "path": "apex-1374976-load1-lifecycle.json",
+        "sha256": "37cc6fbcb980f68c107d2580419e39f52bd8cb0abf331bf91aed9281cf0469de"
+      },
+      "context_input_tokens": 523712,
+      "distinct_history_input_tokens": 1312746,
+      "pool_fraction": 0.9547410282070378,
+      "active_slots": 4,
+      "prefix_reused_tokens": 1311744,
+      "recurrent_restores": 4,
+      "all_qualification_phases_passed": true,
+      "tool_round_trip": true,
+      "cancellation": true,
+      "mixed_prefill_decode": true,
+      "output_growth_slots": 4,
+      "physical_min_free_bytes_by_rank": [
+        695271424,
+        647036928,
+        305201152
+      ],
+      "physical_peak_occupied_bytes_by_rank": [
+        68024205312,
+        68072439808,
+        68414275584
+      ],
+      "cache_payload_bytes": {
+        "component_bytes": {
+          "main": 16939704320,
+          "draft": 1539973120
+        },
+        "total_bytes": 18479677440,
+        "bytes_per_token": 13440
+      },
+      "resident_decode_replay": null
+    },
+    {
+      "job_id": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212",
+      "qualification": {
+        "path": "apex-1374976-load2-hot-full.json",
+        "sha256": "eb0ee235db14dbe9397574bc6dd3c1ceef70ed913ca672bf11a00c861171c8b9"
+      },
+      "lifecycle": {
+        "path": "apex-1374976-load2-hot-lifecycle.json",
+        "sha256": "6ebb07ee3b1cf40acf58a3c984ff06253c46c205bd75904cebff2f92d5ac54cb"
+      },
+      "context_input_tokens": 523694,
+      "distinct_history_input_tokens": 1312405,
+      "pool_fraction": 0.954493023878235,
+      "active_slots": 4,
+      "prefix_reused_tokens": 1311488,
+      "recurrent_restores": 4,
+      "all_qualification_phases_passed": true,
+      "tool_round_trip": true,
+      "cancellation": true,
+      "mixed_prefill_decode": true,
+      "output_growth_slots": 4,
+      "physical_min_free_bytes_by_rank": [
+        674299904,
+        623968256,
+        284229632
+      ],
+      "physical_peak_occupied_bytes_by_rank": [
+        68045176832,
+        68095508480,
+        68435247104
+      ],
+      "cache_payload_bytes": {
+        "component_bytes": {
+          "main": 16939704320,
+          "draft": 1539973120
+        },
+        "total_bytes": 18479677440,
+        "bytes_per_token": 13440
+      },
+      "resident_decode_replay": {
+        "repeated_min_output_tokens": 272,
+        "repeated_decode_overlap_seconds": 14.272373551000783,
+        "prefix_reused_tokens": 1311488
+      }
+    }
+  ],
+  "physical_free_guard_mib": 256,
+  "measured_boundary_is_exhaustive": false,
+  "portable_export_gpu_requalified": false,
+  "timing_scope": "Capacity qualification; retained headline throughput belongs to its earlier test geometry. Later backend completion-rate probes use a different timer and are not a synchronized aggregate.",
+  "performance_probes": [
+    {
+      "prompt_tokens": 2048,
+      "concurrency": 1,
+      "baseline_per_request_median_tps": 24.56,
+      "trial_per_request_median_tps": 23.7,
+      "change_percent": -3.5016286644951156,
+      "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792129755811336963"
+    },
+    {
+      "prompt_tokens": 2048,
+      "concurrency": 4,
+      "baseline_per_request_median_tps": 17.215,
+      "trial_per_request_median_tps": 19.045,
+      "change_percent": 10.630264304385717,
+      "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792129755811336963"
+    },
+    {
+      "prompt_tokens": 32768,
+      "concurrency": 1,
+      "baseline_per_request_median_tps": 32.65,
+      "trial_per_request_median_tps": 32.93,
+      "change_percent": 0.8575803981623276,
+      "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792129755811336963"
+    },
+    {
+      "prompt_tokens": 32768,
+      "concurrency": 4,
+      "baseline_per_request_median_tps": 22.744999999999997,
+      "trial_per_request_median_tps": 21.4,
+      "change_percent": -5.9133875577049855,
+      "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792129755811336963"
+    },
+    {
+      "prompt_tokens": 2048,
+      "concurrency": 1,
+      "baseline_per_request_median_tps": 24.56,
+      "trial_per_request_median_tps": 37.12,
+      "change_percent": 51.14006514657981,
+      "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212"
+    },
+    {
+      "prompt_tokens": 2048,
+      "concurrency": 4,
+      "baseline_per_request_median_tps": 17.215,
+      "trial_per_request_median_tps": 23.6,
+      "change_percent": 37.089747313389495,
+      "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212"
+    },
+    {
+      "prompt_tokens": 32768,
+      "concurrency": 1,
+      "baseline_per_request_median_tps": 32.65,
+      "trial_per_request_median_tps": 33.96,
+      "change_percent": 4.012251148545176,
+      "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212"
+    },
+    {
+      "prompt_tokens": 32768,
+      "concurrency": 4,
+      "baseline_per_request_median_tps": 22.744999999999997,
+      "trial_per_request_median_tps": 20.005000000000003,
+      "change_percent": -12.046603649153642,
+      "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212"
+    }
+  ]
+}

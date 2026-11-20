@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.dll
+*.safetensors
+*.gguf
+*.pt
+*.bin
+*.tar.gz
+.env
+.venv/
+build/
+dist/
+*.egg-info/

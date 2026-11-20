@@ -1,0 +1,183 @@
+{
+  "format_version": 1,
+  "profile": "strata-q6-split",
+  "model_shards": [
+    {
+      "file": "UD-Q6_K_XL/Qwen3.8-Flash-Next-UD-Q6_K_XL-00001-of-00006.gguf",
+      "bytes": 10946624,
+      "sha256": "8bdc6bad55b6699f46f60708829932ff4018d7ac9bd309c388534fa31753bdb7",
+      "tensors": 0,
+      "payload_rehashed": false
+    },
+    {
+      "file": "UD-Q6_K_XL/Qwen3.8-Flash-Next-UD-Q6_K_XL-00002-of-00006.gguf",
+      "bytes": 682434912,
+      "sha256": "494ca4ed3dbf97bc28da88af3890b8877b9032f909812d00c0526a9ca5e91d2e",
+      "tensors": 4,
+      "payload_rehashed": false
+    },
+    {
+      "file": "UD-Q6_K_XL/Qwen3.8-Flash-Next-UD-Q6_K_XL-00003-of-00006.gguf",
+      "bytes": 54400261312,
+      "sha256": "34efd79a80a1ce540a517a5d56171924b66ce1c38b04c904f17ad6d8ef17cf20",
+      "tensors": 1,
+      "payload_rehashed": false
+    },
+    {
+      "file": "UD-Q6_K_XL/Qwen3.8-Flash-Next-UD-Q6_K_XL-00004-of-00006.gguf",
+      "bytes": 49814108512,
+      "sha256": "0ea4b599880a5a52fcd9c188ba1443f646c69c96571904ddbd6a79246a01a997",
+      "tensors": 520,
+      "payload_rehashed": false
+    },
+    {
+      "file": "UD-Q6_K_XL/Qwen3.8-Flash-Next-UD-Q6_K_XL-00005-of-00006.gguf",
+      "bytes": 49419317344,
+      "sha256": "9948e81ae8368144b135a7403d8c0f2cf9a6c2f9f692313865855b2832e696c9",
+      "tensors": 530,
+      "payload_rehashed": false
+    },
+    {
+      "file": "UD-Q6_K_XL/Qwen3.8-Flash-Next-UD-Q6_K_XL-00006-of-00006.gguf",
+      "bytes": 14838313984,
+      "sha256": "e4ae255234f42b18012f6d6eec5bf615b57479b7e0a0233c47436a321ffeec3f",
+      "tensors": 169,
+      "payload_rehashed": false
+    }
+  ],
+  "quantization": {
+    "components": {
+      "output_head": {
+        "tensors": 1,
+        "elements": 635699200,
+        "payload_bytes": 675430400,
+        "unknown_byte_count": 0,
+        "formats": {
+          "Q8_0": 1
+        },
+        "effective_bpw": 8.5
+      },
+      "other_tensors": {
+        "tensors": 1078,
+        "elements": 4311999360,
+        "payload_bytes": 4830154240,
+        "unknown_byte_count": 0,
+        "formats": {
+          "BF16": 24,
+          "F32": 557,
+          "Q8_0": 497
+        },
+        "effective_bpw": 8.961326450660698
+      },
+      "ple_table": {
+        "tensors": 1,
+        "elements": 51200245760,
+        "payload_bytes": 54400261120,
+        "unknown_byte_count": 0,
+        "formats": {
+          "Q8_0": 1
+        },
+        "effective_bpw": 8.5
+      },
+      "routed_experts": {
+        "tensors": 144,
+        "elements": 120795955200,
+        "payload_bytes": 109248512000,
+        "unknown_byte_count": 0,
+        "formats": {
+          "Q6_K": 94,
+          "Q8_0": 50
+        },
+        "effective_bpw": 7.235243055555555
+      }
+    },
+    "bits_per_weight_scope": "Stored tensor payload including quantization scales; excludes GGUF metadata and padding",
+    "pack_conversions": {
+      "tensors": 460,
+      "exact": 264,
+      "rounded": 196,
+      "maximum_absolute_rounding_error": 0.014404296875,
+      "experts_and_ple_bytes_unchanged": true
+    }
+  },
+  "ple_view": {
+    "bytes": 54400261216,
+    "sha256": "cc8073a9baee2c5a0580d2c26adfa69e935922061388fbc9204f2e70bddb7407",
+    "source_offset": 192,
+    "tensor_bytes": 54400261120,
+    "type": "Q8_0",
+    "lossless": true
+  },
+  "memory": {
+    "measurement_gpu_ordinals": [
+      0,
+      1
+    ],
+    "sampled_peak_vram_mib_per_card": [
+      61330.0,
+      62722.0
+    ],
+    "eight_bit_main_and_draft_verified": true,
+    "audited_state_count": 85,
+    "host_kv_allocated_bytes": 23530132480,
+    "allocated_batch_slots": 6,
+    "batch_mtp_enabled": false,
+    "resident_expert_cache_mib": 104187,
+    "resident_expert_slots": 24576
+  },
+  "verification": {
+    "tool_round_trip_passed": true,
+    "kernel_parity": {
+      "passed": true,
+      "checks": [
+        {
+          "check": "native_expert_parity",
+          "exit_code": 0
+        },
+        {
+          "check": "native_grouped_parity",
+          "exit_code": 0
+        },
+        {
+          "check": "prefill_mmq_kquant_test",
+          "exit_code": 0
+        }
+      ]
+    },
+    "legacy_completions": "CPU-verified adapter after GPU trial; wrapper not distributed in this archive.",
+    "near_limit_context_qualified": false,
+    "general_quality_qualified": false
+  },
+  "source_receipts": [
+    {
+      "file": "source-a6ca5cadbbfcca483ffa2ecf.json",
+      "sha256": "e325fa62dd58620fb58eae531169354d23014ba4168298edd3a14ace2b0595af",
+      "json_pointer": "/configurations/strata-q6-split"
+    },
+    {
+      "file": "source-a7fd8ac42c6ccda1cdae00a7.json",
+      "sha256": "48d7a1f9b03716e305c4b1cde5fd2fb9b443583eff4068a7d9acfacc2ec26399",
+      "json_pointer": "/quantizations/strata-q6"
+    },
+    {
+      "file": "source-a09ff2978cf39d9e1a637761.json",
+      "sha256": "96e3475092fb2032c95b5609afe3df8150358a20e7f45af717c672a979ba96b5",
+      "json_pointer": "/strata-q6"
+    },
+    {
+      "file": "source-8e32902a80c7cb4c335c04ea.json",
+      "sha256": "d5e9cc902cc8ace1dd00563fbe68c0e1f7143cfbd8d9f210d4937073cb0f87ce",
+      "json_pointer": ""
+    },
+    {
+      "file": "source-46b04b04c2ee137f9e9ac0e4.json",
+      "sha256": "84dacba08913ff8729d6090547367ccd1b0d2ff30d7ff0a3ee4a773280af0711",
+      "json_pointer": ""
+    },
+    {
+      "file": "source-763a059756ebec5dd05d7d26.json",
+      "sha256": "f000f67d17e3d2d742e84c61cda8b76effa5e46ca3a15524b6c750a1b51da446",
+      "json_pointer": ""
+    }
+  ]
+}

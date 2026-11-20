@@ -1,0 +1,42 @@
+diff --git a/src/program/generate.cpp b/src/program/generate.cpp
+index ff3f2e1..efabbf2 100644
+--- a/src/program/generate.cpp
++++ b/src/program/generate.cpp
+@@ -8741,6 +8741,37 @@ int main(int argc, char** argv) {
+                                          "card this full\n", (long long) xcache.slots());
+             }
+         }
++        // Inspect allocated KV states without retaining request content.
++        if (const char* path = std::getenv("MESHIFY_STRATA_KV_AUDIT")) {
++            if (FILE* audit = std::fopen(path, "w")) {
++                auto state = [&](const strata::core::QsaState& q, const char* arm, int dev, int slot, int layer) {
++                    if (q.max_cells <= 0) return;
++                    std::fprintf(audit,
++                        "{\"arm\":\"%s\",\"device\":%d,\"slot\":%d,\"layer\":%d,"
++                        "\"max_cells\":%lld,\"resident_pages\":%lld,\"logical_pages\":%lld,"
++                        "\"mode\":%d,\"int8\":%s,\"q4\":%s,\"hybrid\":%s,"
++                        "\"kv_heads\":%lld,\"head_dim\":%lld}\n",
++                        arm, dev, slot, layer, (long long) q.max_cells, (long long) q.n_slots,
++                        (long long) q.n_pages, q.kv_mode, q.kv_int8 ? "true" : "false",
++                        q.kv_q4 ? "true" : "false", q.kv_hybrid ? "true" : "false",
++                        (long long) g.n_head_kv, (long long) g.head_dim);
++                };
++                auto session = [&](const strata::core::SessionState& ses, int dev, int slot) {
++                    for (int64_t i = ses.qsa_ord0; i < ses.qsa_ord0 + ses.qsa_alloc; ++i)
++                        state(ses.qsa_states[i], "main", dev, slot, (int) i);
++                };
++                session(ss, 0, -1);
++                for (const auto& st : stages) session(st->ss, st->dev, -1);
++                for (size_t k = 0; k < bslot_ss.size(); ++k)
++                    for (size_t b = 0; b < bslot_ss[k].size(); ++b)
++                        session(*bslot_ss[k][b], k == 0 ? 0 : stages[k - 1]->dev, (int) b);
++                if (use_mtp) state(mtp.kv_state(), "draft", stages.empty() ? 0 : stages.back()->dev, -1, 0);
++                std::fprintf(audit, "{\"host_kv_allocated_bytes\":%llu,\"batch_slots\":%d,\"batch_mtp\":%s}\n",
++                             (unsigned long long) strata::core::qsa_kv_host_bytes(), o.batch,
++                             batch_mtp ? "true" : "false");
++                std::fclose(audit);
++            }
++        }
+         // what the server's Monitor tab shows (servers before 0.1.8 skip unknown lines until READY)
+         {
+             size_t free_b = 0, total_b = 0;

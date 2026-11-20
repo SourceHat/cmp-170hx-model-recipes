@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "data": "data/results.json",
+  "figures": [
+    {
+      "id": "01-baseline-generation",
+      "title": "Retained baseline generation speed",
+      "alt": "Thirty baseline observations and six medians. At 2k, 8k and 32k input targets, 2k-output medians are 19.23, 20.09 and 18.94 tokens per second; 8k-output medians are 25.47, 24.09 and 24.29. All six cells have five observations.",
+      "caption": "Each small point is one successful primary observation in the same baseline process; large diamonds are medians of five, and lines span the observed minimum to maximum. These are accepted generation tokens per second, excluding prefill, not confidence intervals.",
+      "numeric_inputs": [
+        "baseline.primary_observations",
+        "baseline.primary_summary"
+      ],
+      "desktop": {
+        "svg": "figures/01-baseline-generation.svg",
+        "png": "figures/01-baseline-generation.png",
+        "pdf": "figures/01-baseline-generation.pdf",
+        "width_px": 2160,
+        "height_px": 1224,
+        "aspect_ratio": 1.7647058823529411
+      },
+      "mobile": {
+        "svg": "figures/01-baseline-generation-mobile.svg",
+        "png": "figures/01-baseline-generation-mobile.png",
+        "pdf": "figures/01-baseline-generation-mobile.pdf",
+        "width_px": 864,
+        "height_px": 1908,
+        "aspect_ratio": 0.4528301886792453
+      }
+    },
+    {
+      "id": "02-service-costs",
+      "title": "Long-input waiting and concurrent completion",
+      "alt": "The 131,072-token input waited 202.74 seconds for first output and finished in 543.40 seconds. The 516,031-token input waited 897.37 seconds and finished in 1,267.89 seconds. Four shorter requests completed at 51.84 aggregate tokens per second; near-full input plus three shorter companions completed at 49.91, including prefill.",
+      "caption": "Individual requests are split into time before first output and remaining request time. The other panel reports whole-batch output tokens per second including prefill and scheduling. Every request produced 8,192 tokens; each batch produced 32,768. Cases and batches ran once, with prefix reuse permitted. The mixed batch followed the individual near-full request; four fresh maximum-length histories were not tested.",
+      "numeric_inputs": [
+        "baseline.long_context_observations",
+        "baseline.concurrent_batches"
+      ],
+      "desktop": {
+        "svg": "figures/02-service-costs.svg",
+        "png": "figures/02-service-costs.png",
+        "pdf": "figures/02-service-costs.pdf",
+        "width_px": 2160,
+        "height_px": 1332,
+        "aspect_ratio": 1.6216216216216215
+      },
+      "mobile": {
+        "svg": "figures/02-service-costs-mobile.svg",
+        "png": "figures/02-service-costs-mobile.png",
+        "pdf": "figures/02-service-costs-mobile.pdf",
+        "width_px": 864,
+        "height_px": 2124,
+        "aspect_ratio": 0.4067796610169491
+      }
+    },
+    {
+      "id": "03-candidate-comparison",
+      "title": "Incomplete batched-candidate comparison",
+      "alt": "Three complete five-observation candidate cells changed generation speed by minus 0.89, plus 1.47 and minus 0.88 percent. The next cell showed plus 3.93 percent over only four completed observations, before a request failed. Both 32k-input cells were not reached. No complete cell met the minimum plus 5 percent speed criterion.",
+      "caption": "Solid markers have five successful candidate observations; the hollow diamond has four and is incomplete after the next request failed. Missing cells were not reached. The +5% reference is only the minimum speed criterion, alongside within-run variation, correctness and required concurrency. No overall gain or candidate concurrency cost was measured.",
+      "numeric_inputs": [
+        "candidate.comparison",
+        "protocol.minimum_generation_gain_percent"
+      ],
+      "desktop": {
+        "svg": "figures/03-candidate-comparison.svg",
+        "png": "figures/03-candidate-comparison.png",
+        "pdf": "figures/03-candidate-comparison.pdf",
+        "width_px": 2160,
+        "height_px": 1404,
+        "aspect_ratio": 1.5384615384615385
+      },
+      "mobile": {
+        "svg": "figures/03-candidate-comparison-mobile.svg",
+        "png": "figures/03-candidate-comparison-mobile.png",
+        "pdf": "figures/03-candidate-comparison-mobile.pdf",
+        "width_px": 864,
+        "height_px": 1926,
+        "aspect_ratio": 0.4485981308411215
+      }
+    }
+  ]
+}

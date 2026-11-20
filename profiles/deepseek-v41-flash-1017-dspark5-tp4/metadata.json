@@ -1,0 +1,45 @@
+{
+  "format_version": 1,
+  "id": "deepseek-v41-flash-1017-dspark5-tp4",
+  "kind": "qualified-native-reference-profile",
+  "profile": "profile.json",
+  "source_profile_sha256": "ff2a2883c4d54f190e3964f6abf18184b9f43fb05d27a1fa46a68348598914fc",
+  "configuration_date": "2026-10-26",
+  "hardware": {
+    "accelerator": "NVIDIA CMP 170HX",
+    "card_count": 4,
+    "usable_vram_gib_per_card": 64,
+    "requested_power_cap_watts_per_card": 200
+  },
+  "runtime": {
+    "engine": "vLLM backport and vllm-exl3; qualified native compatibility entry point",
+    "base_image_pin": "sha256:349690323ab9aba712111529ed1ca60730199205d8202f67895ffde85b451be3",
+    "vllm_distribution_label": "0.13.0",
+    "torch": "2.13.0+cu130",
+    "transformers": "5.17.0",
+    "compatibility_runtime_seal_sha256": "f379f5a0143db72c5c015bebab73235c17827ad7c80feb9c7cab88cdc31a0881",
+    "clean_container_gpu_requalified": false,
+    "uses_original_tp3_docker_launcher": false,
+    "entrypoint": "meshify_deepseek_perf/server.py",
+    "baseline_interpreter_and_native_plugin_preserved": true
+  },
+  "kv": {
+    "sizing": "automatic maximum",
+    "gpu_memory_utilization": 0.98391,
+    "literal_resident_token_pool": null,
+    "host_budget_mib_total": 8192,
+    "cache_hit_counts_retained": false
+  },
+  "qualification": {
+    "baseline_primary_observations": 30,
+    "baseline_measured_requests": 40,
+    "primary_repeats_within_one_process": 5,
+    "long_and_concurrency_repeats": 1,
+    "between_run_drift_measured": false,
+    "four_fresh_maximum_context_histories_tested": false,
+    "candidate_adopted": false,
+    "gpu_stall_cause_resolved": false,
+    "startup_compatibility_repair_verified": true
+  },
+  "source_verification": "../../data/deepseek-1017-20261026/source-verification.json"
+}

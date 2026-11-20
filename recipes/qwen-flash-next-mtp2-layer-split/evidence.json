@@ -1,0 +1,316 @@
+{
+  "format_version": 1,
+  "recipe": "qwen-flash-next-mtp2-layer-split",
+  "memory_observations": [
+    {
+      "label": "focused-stock-runtime",
+      "preferred": true,
+      "tested_context_tokens": 262144,
+      "tested_kv_pool_tokens": 1356032,
+      "cards": [
+        {
+          "reference_ordinal": 0,
+          "peak_used_mib": 61796.0
+        },
+        {
+          "reference_ordinal": 1,
+          "peak_used_mib": 61954.0
+        }
+      ],
+      "main_gpu_kv_payload_bytes": 22911516672,
+      "draft_gpu_kv_payload_bytes": 1909293056,
+      "host_kv_allocated_bytes": 0,
+      "cache_precision_audit": {
+        "passed": true,
+        "layers": [
+          {
+            "key": "(3, 0)",
+            "device": "cuda:0",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(7, 0)",
+            "device": "cuda:0",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(11, 0)",
+            "device": "cuda:0",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(15, 0)",
+            "device": "cuda:0",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(19, 0)",
+            "device": "cuda:0",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(23, 0)",
+            "device": "cuda:0",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(27, 0)",
+            "device": "cuda:1",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(31, 0)",
+            "device": "cuda:1",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(35, 0)",
+            "device": "cuda:1",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(39, 0)",
+            "device": "cuda:1",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(43, 0)",
+            "device": "cuda:1",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(47, 0)",
+            "device": "cuda:1",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(0, 0)",
+            "device": "cuda:1",
+            "bytes": 1909293056,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          }
+        ],
+        "quantization_bits": 8,
+        "storage_dtypes_are_packing_and_scale_dtypes": true
+      },
+      "source": {
+        "file": "source-a6ca5cadbbfcca483ffa2ecf.json",
+        "sha256": "e325fa62dd58620fb58eae531169354d23014ba4168298edd3a14ace2b0595af",
+        "json_pointer": "/configurations/flash-baseline"
+      }
+    }
+  ],
+  "verification": {
+    "tool_round_trip": {
+      "passed": true,
+      "approximate_input_tokens": 2002,
+      "call_usage": {
+        "prompt_tokens": 2274,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_time": 2.84,
+        "prompt_tokens_per_sec": 800.7,
+        "completion_tokens": 62,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 41,
+          "rejected_prediction_tokens": 1
+        },
+        "completion_time": 0.74,
+        "completion_tokens_per_sec": 83.96,
+        "total_tokens": 2336,
+        "total_time": 3.59
+      },
+      "result_usage": {
+        "prompt_tokens": 2085,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_time": 1.67,
+        "prompt_tokens_per_sec": 1248.5,
+        "completion_tokens": 45,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 29,
+          "rejected_prediction_tokens": 3
+        },
+        "completion_time": 0.53,
+        "completion_tokens_per_sec": 84.48,
+        "total_tokens": 2130,
+        "total_time": 2.21
+      },
+      "tool_call_and_result_roundtrip": true
+    },
+    "native_near_limit_context_retested": false
+  },
+  "quantization": {
+    "observed_formats": {
+      "output_head": "EXL3 6 bpw",
+      "mtp_experts": "EXL3 6 bpw",
+      "source": {
+        "file": "source-6aef4a407afad568a9719594.json",
+        "sha256": "96f6144ee1599e13026e8a082f1ddaf5d3fa0d02d84f456fd07f45f78cd72cb8",
+        "json_pointer": "/flash-baseline"
+      }
+    }
+  },
+  "selection_rationale": "MTP2 layer split provides a larger shared KV pool and lower cold first-token latency than the measured TP2 alternatives. Depth/layout comparisons are included in the numerical evidence.",
+  "source_receipts": [
+    {
+      "file": "qwen-flash-next-mtp2-layer-split.json",
+      "sha256": "19a0b841b20c13118a255636256219e4220e695198de9e6c7b539213a9bf9f1d"
+    },
+    {
+      "file": "source-a6ca5cadbbfcca483ffa2ecf.json",
+      "sha256": "e325fa62dd58620fb58eae531169354d23014ba4168298edd3a14ace2b0595af"
+    },
+    {
+      "file": "source-6aef4a407afad568a9719594.json",
+      "sha256": "96f6144ee1599e13026e8a082f1ddaf5d3fa0d02d84f456fd07f45f78cd72cb8"
+    },
+    {
+      "file": "source-c100d24c337382f80c423e5a.json",
+      "sha256": "b9b81e0006aedcf27175f4a491330fd2ca7a8a5c164d284d941172b836c67998"
+    },
+    {
+      "file": "source-f5a9859cdbd6041259777651.json",
+      "sha256": "8eb24947cf1d0ab06f9113b38df9a7da853add1fb4f8f61ca1dc61ed7642cf2c"
+    },
+    {
+      "file": "source-7903eda2277dc84d4a059fa3.json",
+      "sha256": "7a68159cf9e1b46e17600c7c4eb9f1339f00ec850af32eb9e8055b00f6c43d30"
+    },
+    {
+      "file": "source-d2ae5222ec5e65ffa4fe7aa4.json",
+      "sha256": "dba13dd5ae4a9454887dd9fcb5a30aea0ff27340a202f18f04cb74566f5bfd83"
+    }
+  ]
+}

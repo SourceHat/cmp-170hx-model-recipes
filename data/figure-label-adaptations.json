@@ -1,0 +1,83 @@
+{
+  "scope": "Text labels and matching raster/PDF views only. Every plotted path, line, marker, rectangle and reference coordinate is unchanged.",
+  "figures": [
+    {
+      "file": "figures/deepseek-1017-20261026/01-baseline-generation-mobile.svg",
+      "source_sha256": "e3270b23a40588be8d52126ab5b676c020a1ed174c2734c2a370d3af96730cad",
+      "sha256": "579729cf39ed0a0f87e019a3ce98b7fbceaae4cbe8fd2e28c570401e7e5a285b",
+      "geometry_unchanged": true,
+      "geometry_sha256": "4365ee67472c0fe8c2d7b5e019a564b5b50774e7ea10260df180685d6e5a7963",
+      "labels": [
+        {
+          "before": "SOURCEHAT LABS  /  DEEPSEEK FOLLOW-UP  /  26 OCT 2026",
+          "after": "SOURCEHAT LABS  /  DEEPSEEK V4.1 FLASH 1017"
+        }
+      ]
+    },
+    {
+      "file": "figures/deepseek-1017-20261026/01-baseline-generation.svg",
+      "source_sha256": "74f72da4655e3542df3cb07cf4d2673fcf73ec9ae3eb3ba78877180f792c43d1",
+      "sha256": "3af630636357e65363ace3f647f9cea9842b17b84bb67625496b751eeae27b79",
+      "geometry_unchanged": true,
+      "geometry_sha256": "b80b33f50a34b87c5e545a35f76a5cb2f907120bc0c3aa7f0268c4d2733ede86",
+      "labels": [
+        {
+          "before": "SOURCEHAT LABS  /  DEEPSEEK FOLLOW-UP  /  26 OCT 2026",
+          "after": "SOURCEHAT LABS  /  DEEPSEEK V4.1 FLASH 1017"
+        }
+      ]
+    },
+    {
+      "file": "figures/deepseek-1017-20261026/02-service-costs-mobile.svg",
+      "source_sha256": "1728ac9ad7bd41e37996e875658071618ac4d4d0de635a0b74faebc09b97e7e6",
+      "sha256": "47a3b770863e976eabac62f589a5f6c961c7ae6a589903dbb4938904e3831964",
+      "geometry_unchanged": true,
+      "geometry_sha256": "39db26bbe1d1bb2a7172b5310f7ab09ad721e04428df3785f56033dfb15dddf4",
+      "labels": [
+        {
+          "before": "SOURCEHAT LABS  /  DEEPSEEK FOLLOW-UP  /  26 OCT 2026",
+          "after": "SOURCEHAT LABS  /  DEEPSEEK V4.1 FLASH 1017"
+        }
+      ]
+    },
+    {
+      "file": "figures/deepseek-1017-20261026/02-service-costs.svg",
+      "source_sha256": "beea130f67fa34b4abc209c72d5a6d76854fb07a411b6ecadb73487fee303949",
+      "sha256": "780b6312e34681a19bfd79393e21923fd9f541be049366d737e315c26339b30f",
+      "geometry_unchanged": true,
+      "geometry_sha256": "004fbf5434f4d2ea0a5909f43e23f9f11daf6a096f5ef63ce04708b7db5215fa",
+      "labels": [
+        {
+          "before": "SOURCEHAT LABS  /  DEEPSEEK FOLLOW-UP  /  26 OCT 2026",
+          "after": "SOURCEHAT LABS  /  DEEPSEEK V4.1 FLASH 1017"
+        }
+      ]
+    },
+    {
+      "file": "figures/deepseek-1017-20261026/03-candidate-comparison-mobile.svg",
+      "source_sha256": "5e924eb397368c6eed938027b013a27e47cd0c19b35aa61fe4331a9548d0a0d5",
+      "sha256": "f048ed7196a5e428bf11d128124de7266e4c8ab28a45bbfee9a660021d821dab",
+      "geometry_unchanged": true,
+      "geometry_sha256": "4bd993db1d4a3dc9b19313d2c7bf91842a4bf80099e2224978920c5f810f066b",
+      "labels": [
+        {
+          "before": "SOURCEHAT LABS  /  DEEPSEEK FOLLOW-UP  /  26 OCT 2026",
+          "after": "SOURCEHAT LABS  /  DEEPSEEK V4.1 FLASH 1017"
+        }
+      ]
+    },
+    {
+      "file": "figures/deepseek-1017-20261026/03-candidate-comparison.svg",
+      "source_sha256": "6a8c3d6a071997e13af70d95f3eccff3851791574b0a873a49721d0075ec849b",
+      "sha256": "9c9f6509647d28510530e204c6e5b28b13968de90c2fbd0b4b94c68674cfaf5c",
+      "geometry_unchanged": true,
+      "geometry_sha256": "4fdb47e866d26cdaaac1aa6acc1628ce16f2c3ad0ded67b4da2697eedafccb88",
+      "labels": [
+        {
+          "before": "SOURCEHAT LABS  /  DEEPSEEK FOLLOW-UP  /  26 OCT 2026",
+          "after": "SOURCEHAT LABS  /  DEEPSEEK V4.1 FLASH 1017"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "format_version": 1,
+  "name": "Strata",
+  "version": "0.1.42",
+  "repository": "https://github.com/Niko1221/Strata",
+  "revision": "61b3fb5dd3f1e8ec09cf7e4e05208bc6d3c46406",
+  "llama_cpp": {
+    "repository": "https://github.com/ggml-org/llama.cpp",
+    "revision": "3cf03257f219afbe7334045ff7c6a06ac68c627d"
+  },
+  "allocation_instrumentation": {
+    "file": "archive/runtime/kv-allocation.patch",
+    "sha256": "9f5948bc88438e3d0b483afb109f0d3c8fe9cfa7dc1f82725f724bfeda7634d1",
+    "original_patch_sha256": "51f569c0a12ba3a7d1988f5f81d59b34da73bc7eaeab9a82bb3062304f8eea12",
+    "difference_from_original": "Introductory comment generalized; executable code unchanged.",
+    "license": "MIT",
+    "license_file": "archive/runtime/LICENSE.Strata.txt",
+    "purpose": "Metadata-only main/draft KV precision and capacity audit."
+  },
+  "limitations": [
+    "Historical build identities and native configuration templates; no Strata runtime installer or launcher is supplied.",
+    "The original serving wrapper supplied benchmark accounting and a subsequently CPU-verified legacy completions adapter; it is not included.",
+    "No fresh GPU reproduction of this portable archive has been performed."
+  ]
+}

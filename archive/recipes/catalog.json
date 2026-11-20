@@ -1,0 +1,13 @@
+{
+  "format_version": 1,
+  "recipes": [
+    {
+      "id": "apex-abliterated-awq-dflash2-pp3-balanced",
+      "path": "archive/recipes/apex-abliterated-awq-dflash2-pp3-balanced/recipe.json"
+    },
+    {
+      "id": "deepseek-v41-flash-dspark5-tp3",
+      "path": "archive/recipes/deepseek-v41-flash-dspark5-tp3/recipe.json"
+    }
+  ]
+}

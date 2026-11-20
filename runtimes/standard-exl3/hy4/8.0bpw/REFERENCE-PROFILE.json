@@ -1,0 +1,80 @@
+{
+  "variant": "8p0-tp3",
+  "ranks": 3,
+  "block_ranks": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+  ],
+  "embedding_rank": 0,
+  "head_rank": 2,
+  "vision_rank": 0,
+  "transport": "direct CUDA P2P",
+  "shared_q8_tokens": 1400064,
+  "concurrent_requests": 4,
+  "default_context": 524288,
+  "native_context": 1048576,
+  "rope": "source",
+  "off_gpu_engram_tables": 4,
+  "head": "BF16",
+  "draft": "native DFly2",
+  "tuning": {
+    "section_graph_widths": [
+      1
+    ],
+    "partial_replay_widths": [
+      2,
+      3
+    ],
+    "long_decode": {
+      "1": "sliding_graphs"
+    },
+    "four_lane_sections": {
+      "1024": "section_replay",
+      "2048": "section_replay",
+      "256": "section_replay",
+      "512": "section_replay"
+    },
+    "grouped_replay_history_limit": 256,
+    "head_lane_slices": true
+  }
+}

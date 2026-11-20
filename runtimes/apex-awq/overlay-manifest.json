@@ -1,0 +1,121 @@
+{
+  "format_version": 1,
+  "runtime": "apex-awq",
+  "files": [
+    {
+      "target": "vllm/models/glm5next/common/model.py",
+      "file": "runtimes/apex-awq/overlay/vllm/models/glm5next/common/model.py",
+      "sha256": "01f76ec87d0bad7ff1c39305f32811bfe3dbb2d31d401ce5d65ed96dea746f1d"
+    },
+    {
+      "target": "vllm/v1/kv_cache_interface.py",
+      "file": "runtimes/apex-awq/overlay/vllm/v1/kv_cache_interface.py",
+      "sha256": "415e8abd48ae4f5f665ec409759f653ea4f7e26ade1ffc59c26f990e5cf52ae9"
+    },
+    {
+      "target": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py",
+      "file": "runtimes/apex-awq/overlay/vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py",
+      "sha256": "6fc39cf9c0ff6418412854c3c311bddfe70527f4676cf35141117ca4740c2aac"
+    },
+    {
+      "target": "vllm/v1/core/kv_cache_utils.py",
+      "file": "runtimes/apex-awq/overlay/vllm/v1/core/kv_cache_utils.py",
+      "sha256": "0e9d6037f2ef0f63e2537b13ba59109fc50148c9f7ecc84c0f8b5d71eac539b0"
+    },
+    {
+      "target": "vllm/v1/attention/ops/meshify_glm_nope_sm80.py",
+      "file": "runtimes/apex-awq/overlay/vllm/v1/attention/ops/meshify_glm_nope_sm80.py",
+      "sha256": "dc6431ee9a99d490ab4d1762aa27eb425e524268b97e33089b43d828c4b43dbb"
+    },
+    {
+      "target": "vllm/v1/attention/ops/meshify_triton_mla_sparse.py",
+      "file": "runtimes/apex-awq/overlay/vllm/v1/attention/ops/meshify_triton_mla_sparse.py",
+      "sha256": "9f024c3b3b20d59c6fa4bba8bf0daa275a0a21da4a8200971b4130166de7aeb7"
+    },
+    {
+      "target": "vllm/v1/attention/backends/mla/flashmla_sparse.py",
+      "file": "runtimes/apex-awq/overlay/vllm/v1/attention/backends/mla/flashmla_sparse.py",
+      "sha256": "c769a7b712e4d1415c9acf107844f84db4766b066758435bd527eecca0fbcd39"
+    },
+    {
+      "target": "vllm/model_executor/layers/fused_moe/oracle/int_wna16.py",
+      "file": "runtimes/apex-awq/overlay/vllm/model_executor/layers/fused_moe/oracle/int_wna16.py",
+      "sha256": "9ccbcd48d0f137341adbb964cf58ef30390500e9afe40795b7bb4e687ef29f1a"
+    },
+    {
+      "target": "vllm/models/glm5next/common/attention.py",
+      "file": "runtimes/apex-awq/overlay/vllm/models/glm5next/common/attention.py",
+      "sha256": "fdcd5264cec69939f624fc0e1cebcd616632e38b87c68cebd78670de37f12727"
+    },
+    {
+      "target": "vllm/models/glm5next/nvidia/ops/kpool_compress.py",
+      "file": "runtimes/apex-awq/overlay/vllm/models/glm5next/nvidia/ops/kpool_compress.py",
+      "sha256": "05c1980f47ae03add08feb2089fe4628a30583e37d65bfdd27bbaf57b347b5ae"
+    },
+    {
+      "target": "vllm/models/glm5next/nvidia/ops/sm80_indexer.py",
+      "file": "runtimes/apex-awq/overlay/vllm/models/glm5next/nvidia/ops/sm80_indexer.py",
+      "sha256": "47286c8bfc590852752f540f4e928f40024084154770261887329f0cd9422b7f"
+    },
+    {
+      "target": "vllm/utils/deep_gemm.py",
+      "file": "runtimes/apex-awq/overlay/vllm/utils/deep_gemm.py",
+      "sha256": "c761c2b951c4316b73c3258c1c09220079289880e0e3781ab00a55a2c95406a6"
+    },
+    {
+      "target": "vllm/v1/worker/gpu/spec_decode/dflash2/speculator.py",
+      "file": "runtimes/apex-awq/overlay/vllm/v1/worker/gpu/spec_decode/dflash2/speculator.py",
+      "sha256": "f9f5b5d2623e09fb9f16d4a2e1353c7014d6a01939563e511d9f3eeec7c8163d"
+    },
+    {
+      "target": "vllm/v1/worker/gpu/spec_decode/dflash/speculator.py",
+      "file": "runtimes/apex-awq/overlay/vllm/v1/worker/gpu/spec_decode/dflash/speculator.py",
+      "sha256": "36d5bccd28eb64de1af348cbdd4d630bfd7d781479be472570e14c0865826058"
+    },
+    {
+      "target": "vllm/v1/worker/gpu/spec_decode/eagle/eagle3_utils.py",
+      "file": "runtimes/apex-awq/overlay/vllm/v1/worker/gpu/spec_decode/eagle/eagle3_utils.py",
+      "sha256": "201ee875fcc3d076a8fc1f3876dcbf85736b221a368555243a8987ff26a1674e"
+    },
+    {
+      "target": "vllm/model_executor/models/qwen3_dflash2.py",
+      "file": "runtimes/apex-awq/overlay/vllm/model_executor/models/qwen3_dflash2.py",
+      "sha256": "11ac6ba8c6db702375970e68cd042b98783a5c43b87f9bfa27e88463316bf499"
+    },
+    {
+      "target": "vllm/model_executor/models/qwen3_dflash.py",
+      "file": "runtimes/apex-awq/overlay/vllm/model_executor/models/qwen3_dflash.py",
+      "sha256": "3e63a04df42b64eebbbac149e08305cda1e496d258d1ac5b98e84f62924bee4f"
+    },
+    {
+      "target": "vllm/model_executor/model_loader/default_loader.py",
+      "file": "runtimes/apex-awq/overlay/vllm/model_executor/model_loader/default_loader.py",
+      "sha256": "d17ab54969489de2338bea88190b4af78c8a1f66e866796f612ff554eea3cca9"
+    },
+    {
+      "target": "vllm/model_executor/models/interfaces.py",
+      "file": "runtimes/apex-awq/overlay/vllm/model_executor/models/interfaces.py",
+      "sha256": "43678960e9f24e97e38a0207e63296e9553a6f9f71dd9a4bed16e9ebd9e4a04b"
+    },
+    {
+      "target": "vllm/parser/abstract_parser.py",
+      "file": "runtimes/apex-awq/overlay/vllm/parser/abstract_parser.py",
+      "sha256": "bc4a036025695de3c31c649e86c65672b1bf273157aba2ecc24304bb9795c489"
+    },
+    {
+      "target": "vllm/parser/glm47_moe.py",
+      "file": "runtimes/apex-awq/overlay/vllm/parser/glm47_moe.py",
+      "sha256": "4f4389358c8a7770a303c34db211d3c6af425e2258421ab9737591a5a56f5118"
+    },
+    {
+      "target": "vllm/parser/engine/adapters.py",
+      "file": "runtimes/apex-awq/overlay/vllm/parser/engine/adapters.py",
+      "sha256": "6130d52fb06960e948d5c111c97b2a93ac6fd3120d72ea2985e959b6a667d543"
+    },
+    {
+      "target": "vllm/v1/attention/backends/triton_attn.py",
+      "file": "runtimes/apex-awq/overlay/vllm/v1/attention/backends/triton_attn.py",
+      "sha256": "e382d8dc8b32a2ad0701c2d797b56ac55e02d0779c9820d69385d7cfd75ae8ac"
+    }
+  ]
+}

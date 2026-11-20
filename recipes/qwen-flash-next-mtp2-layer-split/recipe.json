@@ -1,0 +1,145 @@
+{
+  "format_version": 1,
+  "id": "qwen-flash-next-mtp2-layer-split",
+  "title": "Qwen3.8-Flash-Next - MTP2 layer split",
+  "short_name": "Qwen3.8-Flash-Next",
+  "model": {
+    "hf_repo": "turboderp/Qwen3.8-Flash-Next-exl3",
+    "revision": "d2e238feca4c1c4d966943117356d8a42c2f4dcb",
+    "served_name": "qwen3.8-flash-next",
+    "quantization": "EXL3 6.05 bpw"
+  },
+  "runtime": {
+    "id": "tabby",
+    "engine": "TabbyAPI / ExLlamaV3",
+    "version": "ExLlamaV3 1.5.3",
+    "tabby_revision": "be74bf0a00bcb3a518e6feb7606f150c189be637",
+    "exllama_revision": "d3739fd393337b1ff4d6c2a342b12f0c87a9592f",
+    "torch": "2.14.0",
+    "python": "3.12",
+    "patches": [
+      "runtimes/tabby/tabbyapi.patch",
+      "runtimes/tabby/exllamav3.patch"
+    ]
+  },
+  "hardware": {
+    "accelerator": "NVIDIA CMP 170HX",
+    "architecture": "SM80",
+    "card_count": 2,
+    "vram_gib_per_card": 64,
+    "power_limit_watts_per_card_as_tested": 200
+  },
+  "serving": {
+    "context_tokens": 262144,
+    "max_requests": 6,
+    "rope": "native",
+    "parallelism": "layer_split",
+    "prefill_chunk_tokens": 512,
+    "output_chunk_tokens": 4096,
+    "speculation": {
+      "method": "mtp",
+      "depth": 2
+    },
+    "kv": {
+      "main_dtype": "Q8",
+      "draft_dtype": "Q8",
+      "shared_gpu_pool_tokens": 1356032,
+      "host_kv_budget_mib": 0,
+      "host_recurrent_budget_mib": 16384
+    }
+  },
+  "launch": {
+    "argv": [
+      "bash",
+      "recipes/qwen-flash-next-mtp2-layer-split/launch.sh"
+    ],
+    "environment": {
+      "EXLLAMA_NO_P2P_COPY": "1",
+      "NCCL_P2P_DISABLE": "1",
+      "MESHIFY_HOST_BACKING": "ordinary",
+      "PYTORCH_ALLOC_CONF": "pinned_max_round_threshold_mb:1"
+    }
+  },
+  "engine_config": {
+    "network": {
+      "host": "@HOST@",
+      "port": "@PORT@",
+      "disable_auth": true,
+      "allowed_origins": [],
+      "disable_fetch_requests": true,
+      "api_servers": [
+        "oai"
+      ],
+      "sse_ping_interval": 15
+    },
+    "logging": {
+      "log_prompt": false,
+      "log_requests": false,
+      "log_live_status": false
+    },
+    "model": {
+      "model_dir": "@MODEL_PARENT@",
+      "model_name": "qwen3.8-flash-next",
+      "backend": "exllamav3",
+      "max_seq_len": 262144,
+      "cache_size": 1356032,
+      "cache_mode": "Q8",
+      "max_batch_size": 6,
+      "chunk_size": 512,
+      "tensor_parallel": false,
+      "tensor_parallel_backend": "native",
+      "gpu_split_auto": true,
+      "autosplit_reserve": [
+        2048,
+        2048
+      ],
+      "vision": false,
+      "warmup": true,
+      "output_chunking": true,
+      "inline_model_loading": false,
+      "recurrent_checkpoint_interval": 2048,
+      "recurrent_checkpoint_interval_pp": 32768,
+      "ngram_ram": true
+    },
+    "draft_model": {
+      "draft_mode": "mtp",
+      "draft_cache_mode": "Q8",
+      "draft_num_tokens": 2,
+      "dynamic_draft": false,
+      "draft_gpu_split": [
+        0,
+        62.0
+      ]
+    },
+    "sampling": {},
+    "memory": {
+      "sysmem_kv_cache": 0,
+      "sysmem_recurrent_cache": 16384
+    }
+  },
+  "qualification": {
+    "status": "measured on the reference host; portable export not GPU-requalified",
+    "context_evidence": "Actual native Q8 allocation and 2k correctness with six requests; native model limit retained. Prior native 32k comparison and scaled-view allocation/placement evidence are preserved separately; no new near-limit or speed repeat.",
+    "native_near_limit_retested": false,
+    "ram_history_restoration_retested": null
+  },
+  "notes": [
+    "The context limit is per request; the KV pool is shared across requests and retained prefixes.",
+    "Maximum-history counts are capacity arithmetic, not a long-context concurrent speed measurement.",
+    "PLE/n-gram weights are resident in host RAM; host memory is uncapped.",
+    "The native 262,144-token limit was retained without a new near-limit native-context test."
+  ],
+  "source_receipts": [
+    {
+      "file": "qwen-flash-next-mtp2-layer-split.json",
+      "sha256": "19a0b841b20c13118a255636256219e4220e695198de9e6c7b539213a9bf9f1d",
+      "kind": "selected-serving-profile"
+    },
+    {
+      "file": "source-6aef4a407afad568a9719594.json",
+      "sha256": "96f6144ee1599e13026e8a082f1ddaf5d3fa0d02d84f456fd07f45f78cd72cb8",
+      "kind": "stock-runtime-cold-waves"
+    }
+  ],
+  "benchmark_file": "benchmarks.json"
+}

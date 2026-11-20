@@ -1,0 +1,27 @@
+name: Validate recipes
+on:
+  push:
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python scripts/validate.py
+      - name: Check the pinned ExLlama patch and prepare CPU source tests
+        run: |
+          mkdir -p .local
+          git clone --no-checkout https://github.com/turboderp-org/exllamav3.git .local/scheduler-base
+          git -C .local/scheduler-base checkout --detach d3739fd393337b1ff4d6c2a342b12f0c87a9592f
+          git -C .local/scheduler-base apply --check "$GITHUB_WORKSPACE/runtimes/tabby/exllamav3.patch"
+      - name: Check the pinned TabbyAPI lifecycle patch
+        run: |
+          git clone --no-checkout https://github.com/theroyallab/tabbyAPI.git .local/tabby-base
+          git -C .local/tabby-base checkout --detach be74bf0a00bcb3a518e6feb7606f150c189be637
+          git -C .local/tabby-base apply --check "$GITHUB_WORKSPACE/runtimes/tabby/tabbyapi.patch"
+      - run: python -m unittest discover -s tests -v
+      - run: python scripts/build_docs.py && git diff --exit-code

@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "purpose": "live-service scheduling checks, separate from recipe benchmarks",
+  "hardware": "NVIDIA CMP 170HX, SM80, 64 GiB usable VRAM per card",
+  "scheduler": {
+    "mixed_prefill_chunk_tokens": 256,
+    "mixed_time_fraction": 0.25,
+    "solo_prefill_chunk_tokens": 512
+  },
+  "runtime_patch_sha256": "0a6c0ff47198bf3f3563ac05b33bfe6ebd8329dc061f9ea9f92a527748b1c8a3",
+  "definitions": {
+    "backend_generation_tokens_per_second": "accepted_output_tokens / unrounded backend generation wall seconds, rounded to two decimals by the backend; the exported duration is already rounded",
+    "backend_generation_seconds": "backend generation wall interval; includes scheduling delays and is not isolated GPU kernel time",
+    "client_first_text_seconds": "request send to first nonempty streamed completion text",
+    "events_also_reporting_prefill": "generator deliveries with output token counts and at least one prefill progress event"
+  },
+  "limitations": [
+    "The background traffic and cache state were uncontrolled.",
+    "These are single-run live checks; they do not provide an isolated before/after speedup.",
+    "The verification request itself had a short context; background prompts were long.",
+    "No model-quality comparison or full-cache endurance trial was performed.",
+    "The long-context observations use different ordinary requests, concurrency and cache states; they are not matched repetitions or model-quality evaluations."
+  ],
+  "cpu_tests_passed": 28,
+  "checks": [
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "workload": "synthetic short text completion during uncontrolled long-prompt production traffic",
+      "repetitions": 1,
+      "temperature": 0,
+      "min_completion_tokens": 256,
+      "max_completion_tokens": 256,
+      "prompt_tokens": 22,
+      "cached_prompt_tokens": 0,
+      "accepted_output_tokens": 256,
+      "backend_prefill_seconds": 0.53,
+      "backend_generation_seconds": 9.17,
+      "backend_generation_tokens_per_second": 27.91,
+      "client_first_text_seconds": 6.141020711016608,
+      "client_total_seconds": 15.521494353015441,
+      "draft_accepted_tokens": 150,
+      "draft_rejected_tokens": 168,
+      "generation_event_count": 106,
+      "events_also_reporting_prefill": 4,
+      "trace_status": "complete",
+      "trace_truncated": false,
+      "trace_requeued": false,
+      "request_error": null,
+      "page_table_audit_valid": true
+    },
+    {
+      "recipe": "apex-abliterated-exl3-mtp1-tp3",
+      "workload": "synthetic short text completion during uncontrolled long-prompt production traffic",
+      "repetitions": 1,
+      "temperature": 0,
+      "min_completion_tokens": 256,
+      "max_completion_tokens": 256,
+      "prompt_tokens": 22,
+      "cached_prompt_tokens": 0,
+      "accepted_output_tokens": 256,
+      "backend_prefill_seconds": 1.2,
+      "backend_generation_seconds": 12.05,
+      "backend_generation_tokens_per_second": 21.24,
+      "client_first_text_seconds": 14.147699444991304,
+      "client_total_seconds": 27.510802437987877,
+      "draft_accepted_tokens": 128,
+      "draft_rejected_tokens": 0,
+      "generation_event_count": 128,
+      "events_also_reporting_prefill": 4,
+      "trace_status": "complete",
+      "trace_truncated": false,
+      "trace_requeued": false,
+      "request_error": null,
+      "page_table_audit_valid": true
+    }
+  ],
+  "production_observations": [
+    {
+      "recipe": "apex-abliterated-exl3-mtp1-tp3",
+      "observation_index": 1,
+      "workload": "ordinary live production; prompts and responses excluded",
+      "prompt_tokens": 110746,
+      "cached_prompt_tokens": 65536,
+      "accepted_output_tokens": 109,
+      "backend_prefill_seconds": 135.91,
+      "backend_generation_seconds": 4.22,
+      "backend_generation_tokens_per_second": 25.81,
+      "backend_queue_seconds": 0.85,
+      "draft_accepted_tokens": 51,
+      "draft_rejected_tokens": 7,
+      "end_reason": "stop_token"
+    },
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "observation_index": 1,
+      "workload": "ordinary live production; prompts and responses excluded",
+      "prompt_tokens": 163687,
+      "cached_prompt_tokens": 0,
+      "accepted_output_tokens": 1035,
+      "backend_prefill_seconds": 206.8,
+      "backend_generation_seconds": 48.95,
+      "backend_generation_tokens_per_second": 21.14,
+      "backend_queue_seconds": 0.02,
+      "draft_accepted_tokens": 651,
+      "draft_rejected_tokens": 501,
+      "end_reason": "stop_token"
+    },
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "observation_index": 2,
+      "workload": "ordinary live production; prompts and responses excluded",
+      "prompt_tokens": 163767,
+      "cached_prompt_tokens": 32768,
+      "accepted_output_tokens": 1141,
+      "backend_prefill_seconds": 357.31,
+      "backend_generation_seconds": 66.86,
+      "backend_generation_tokens_per_second": 17.07,
+      "backend_queue_seconds": 0.1,
+      "draft_accepted_tokens": 638,
+      "draft_rejected_tokens": 871,
+      "end_reason": "stop_token"
+    }
+  ],
+  "concurrency_checks": [
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "endpoint": "completions",
+      "concurrency": 2,
+      "workload": "two simultaneous short synthetic requests, existing live traffic uncontrolled",
+      "prompt_tokens_per_request": [
+        22,
+        22
+      ],
+      "accepted_output_tokens_per_request": [
+        384,
+        384
+      ],
+      "backend_generation_tokens_per_second_per_request": [
+        39.1,
+        40.95
+      ],
+      "backend_generation_seconds_per_request": [
+        9.82,
+        9.38
+      ],
+      "same_iteration_deliveries": 167,
+      "same_iteration_advancing_deliveries": 167,
+      "errors": [
+        null,
+        null
+      ]
+    },
+    {
+      "recipe": "apex-abliterated-exl3-mtp1-tp3",
+      "endpoint": "completions",
+      "concurrency": 2,
+      "workload": "two simultaneous short synthetic requests, existing live traffic uncontrolled",
+      "prompt_tokens_per_request": [
+        22,
+        22
+      ],
+      "accepted_output_tokens_per_request": [
+        384,
+        384
+      ],
+      "backend_generation_tokens_per_second_per_request": [
+        21.82,
+        22.11
+      ],
+      "backend_generation_seconds_per_request": [
+        17.6,
+        17.37
+      ],
+      "same_iteration_deliveries": 212,
+      "same_iteration_advancing_deliveries": 212,
+      "errors": [
+        null,
+        null
+      ]
+    }
+  ],
+  "gateway_checks": [
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "gateway": "LiteLLM",
+      "endpoint": "responses",
+      "concurrency": 2,
+      "workload": "two short synthetic requests during uncontrolled live production traffic",
+      "temperature": 0,
+      "max_output_tokens_per_request": 384,
+      "input_tokens_per_request": [
+        70,
+        70
+      ],
+      "output_tokens_per_request": [
+        384,
+        384
+      ],
+      "first_reasoning_progress_seconds_per_request": [
+        6.164388495,
+        6.16515219
+      ],
+      "overlapping_progress_interval_seconds": 19.117936042,
+      "progress_events_in_overlap_per_request": [
+        135,
+        136
+      ],
+      "reasoning_delta_events_per_request": [
+        36,
+        46
+      ],
+      "answer_delta_events_per_request": [
+        101,
+        91
+      ],
+      "terminal_status_per_request": [
+        "incomplete",
+        "incomplete"
+      ],
+      "errors": [
+        null,
+        null
+      ]
+    }
+  ],
+  "disconnect_check": {
+    "endpoint": "chat_completions",
+    "tool_schema_present": true,
+    "stream_closed_after_first_model_delta": true,
+    "status": "cancelled",
+    "accepted_output_tokens_before_cancellation": 14,
+    "requested_output_budget_tokens": 512
+  },
+  "response_adapter_sha256": "b6a28deb8c28c83e22ece3c9ac4029369a90e79bac833ff0fe1b3d502d1a7270",
+  "current_cpu_verification": {
+    "scheduler_source_tests": 10,
+    "responses_compatibility_tests": 10,
+    "recipe_tests": 18,
+    "total": 38,
+    "sdk_schema_validated_events": 8
+  }
+}

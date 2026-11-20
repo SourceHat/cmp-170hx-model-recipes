@@ -1,0 +1,82 @@
+{
+  "format_version": 1,
+  "id": "strata-q4-single",
+  "name": "Strata IQ4 / single card",
+  "status": "archived",
+  "archive_reason": "EXL3/MTP2 layer split remained selected after review of resident KV capacity, host-backed operation and the retained 32k workload results.",
+  "recommended_recipe": "qwen-flash-next-mtp2-layer-split",
+  "launcher_supported": false,
+  "model": {
+    "name": "Qwen 3.8 Flash Next",
+    "repository": "unsloth/Qwen3.8-Flash-Next-GGUF",
+    "revision": "38bb39ee97821de2c9009abb7e93950eec396e66",
+    "quantization": "UD-IQ4_XS",
+    "shards": [
+      "UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00001-of-00003.gguf",
+      "UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00002-of-00003.gguf",
+      "UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00003-of-00003.gguf"
+    ],
+    "mtp": {
+      "repository": "Qwen/Qwen3.8-Flash-Next",
+      "revision": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+      "expert_format": "Q2_0",
+      "stored_expert_bits_per_weight": 2.25,
+      "dense_formats": [
+        "Q8_0",
+        "BF16",
+        "F32"
+      ]
+    }
+  },
+  "runtime_file": "archive/runtime.json",
+  "build": {
+    "settings": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CMAKE_CUDA_ARCHITECTURES": "80",
+      "STRATA_ENABLE_CUDA": "ON",
+      "STRATA_MMQ_KQUANTS": "OFF",
+      "STRATA_NATIVE_EXPERTS": "ON",
+      "STRATA_Q6K_EXPERTS": "OFF",
+      "STRATA_PREFILL_MMQ": "OFF"
+    },
+    "recorded_binary_bytes": 58766648,
+    "recorded_binary_sha256": "fa6e1e4ee92e4f81d391aafc926423e6168417ac80237c06218297d78e8ca14e"
+  },
+  "hardware": {
+    "card_model": "NVIDIA CMP 170HX",
+    "card_count": 1,
+    "usable_vram_gib_per_card": 64,
+    "measurement_power_limit_watts_per_card": 200
+  },
+  "serving": {
+    "context_tokens": 262144,
+    "max_requests": 8,
+    "kv": {
+      "main_dtype": "INT8",
+      "draft_dtype": "INT8",
+      "resident_gpu_tokens_per_batch_slot": 32768,
+      "resident_batch_gpu_tokens": 262144,
+      "logical_batch_tokens": 2097152,
+      "separate_solo_gpu_tokens": 32768,
+      "separate_solo_logical_tokens": 262144,
+      "observed_host_allocation_bytes": 30173934592
+    },
+    "speculation": {
+      "requested_spec_tokens": 4,
+      "observed_max_verification_tokens": 6,
+      "native_mtp_max_tokens": 4,
+      "prompt_lookup_ngram": 3,
+      "batch_mtp_enabled": false
+    }
+  },
+  "configuration_file": "engine-config.json",
+  "benchmark_file": "benchmarks.json",
+  "evidence_file": "evidence.json",
+  "limitations": [
+    "Only approximately 32k-input / 256-output performance workloads were measured.",
+    "The configured context is not a near-limit context, retrieval or general quality qualification.",
+    "Logical host-backed capacity is not fully resident GPU KV and does not prove maximum-context concurrency.",
+    "The separate solo workspace must not be added to the batch pool.",
+    "Strata host-backed active KV differs from the optional evicted-prefix RAM tier in the recommended Tabby recipes."
+  ]
+}

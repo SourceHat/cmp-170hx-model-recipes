@@ -1,0 +1,53 @@
+{
+  "format_version": 1,
+  "records": [
+    {
+      "recipe": "deepseek-v41-flash-dspark5-tp3",
+      "repository": "sfxnz/DeepSeek-V4.1-Flash-EXL3",
+      "revision": "982b70452f399814f56b46272fd30394ae10d58c",
+      "declared_routed_expert_bits_per_weight": 2.0,
+      "codebook": "MCG",
+      "other_tensors": "Source/native tensor types; not an overall 2.0 bpw average.",
+      "evidence_type": "Publisher declaration at the recipe-pinned artifact revision; not a new tensor payload audit.",
+      "source": {
+        "url": "https://huggingface.co/sfxnz/DeepSeek-V4.1-Flash-EXL3/raw/982b70452f399814f56b46272fd30394ae10d58c/README.md",
+        "sha256": "9a2dc4fc61bf2213ec8102c209a206847d1dc7e86c8b6d1053dee9bada4ec97c"
+      },
+      "scope": "Quantization identity only. Upstream model-card benchmark results are not measurements from this collection."
+    },
+    {
+      "recipe": "apex-abliterated-exl3-mtp1-tp3",
+      "repository": "SloptimistPrime/apex-flash-1-abliterated-EXL3-4bit-DGX-Spark",
+      "revision": "a4c922dc57dae44a9569ec82a08a2f311636e2a6",
+      "evidence_type": "Retained tensor payload/parameter audit, cross-checked against the installed safetensors file sizes and header lengths; no inference.",
+      "formula": "8 * stored weight bytes / full logical parameter count for the same tensor scope",
+      "main_weights": {
+        "scope": "All retained main checkpoint tensors, including vision, excluding the native MTP head; includes scales and other quantization payload.",
+        "tensor_payload_bytes": 171618809848,
+        "logical_parameters": 313890438974,
+        "effective_bits_per_weight": 4.373979925198434
+      },
+      "complete_checkpoint": {
+        "scope": "Main tensors plus the native MTP head.",
+        "safetensors_file_count": 23,
+        "file_bytes_including_headers": 175642473288,
+        "header_bytes": 19493712,
+        "tensor_payload_bytes": 175622979576,
+        "logical_parameters": 321323031390,
+        "effective_file_bits_per_weight": 4.372981856375359,
+        "effective_payload_bits_per_weight": 4.3724965201847805
+      },
+      "routed_experts": {
+        "payload_bytes": 152648955648,
+        "logical_parameters": 304405807104,
+        "payload_bits_per_logical_parameter": 4.011722564697266
+      },
+      "source": {
+        "file": "source-5d27bfdc7cb337223fdd8360.json",
+        "sha256": "c4755be4e0abed7a7a38d3645b36b8d82cad3650efed0c86428a0cf75c7df762",
+        "json_pointer": "/EXL3"
+      },
+      "scope": "Weight storage calculation, not active MoE parameter count, GPU runtime memory, KV cache size or an inference measurement."
+    }
+  ]
+}

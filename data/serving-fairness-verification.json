@@ -1,0 +1,746 @@
+{
+  "schema_version": 1,
+  "purpose": "Live serving fairness, resumed MTP and adaptive-draft checks; separate from historical controlled benchmarks",
+  "exllamav3_patch_sha256": "edcf402be7da566ca6d3535d60e8f07a5c43e22f4bac27fc8f089dcc093f9c55",
+  "cpu_tests_passed": 64,
+  "definitions": {
+    "backend_generation_tokens_per_second": "Accepted output tokens / unrounded sum of backend generation intervals. Queue and resume-prefill intervals are separate; displayed backend seconds are rounded.",
+    "client_output_tokens_per_total_second": "Accepted output tokens / client request-send-to-stream-close seconds. Includes queue, prefill, generation, network and gateway overhead.",
+    "client_first_progress_seconds": "Client send to first nonempty completion text, or first reasoning/text delta for Responses.",
+    "same_generator_deliveries": "Identical captured monotonic delivery timestamps for both native requests.",
+    "resumed_requests": "Submitted opt-in traces with at least one generation requeue; prefill-only rotations are counted separately by prefill_yields.",
+    "ram_kv_token_slots": "floor(host KV budget MiB * 2^20 / aggregate main/draft page bytes) * 256; not guaranteed distinct history capacity."
+  },
+  "protocol": {
+    "sampling": "temperature 0; native checks set min_tokens equal to max_tokens",
+    "pair_output_budget_per_request": 256,
+    "saturation_long_request_output_budget": 1536,
+    "saturation_short_request_output_budget": 128,
+    "saturation_submission": "slots + 1 synthetic long prompts, then a short prompt after physical slots fill",
+    "context_qualification": "These maintenance checks do not qualify near-limit context or model quality."
+  },
+  "limitations": [
+    "Ordinary production traffic and cache state were uncontrolled. Each wave is a single live check, not repeated independent measurements.",
+    "Native completion and LiteLLM Responses prompts have different tokenization/chat wrapping. Do not interpret their difference as isolated gateway overhead.",
+    "Freshly restarted caches, adaptive drafting and scheduling changes are confounded; these observations do not establish a causal before/after speedup.",
+    "Short Responses requests can end incomplete at the deliberate token limit while emitting reasoning; event count is not output token count.",
+    "Backend generation rates omit the additional queue/prefill intervals of a yielded request; client total rates expose those waits.",
+    "Fairness adds resumable slot rotation. It does not add GPU replicas, KV capacity or attention bandwidth.",
+    "Scheduler counter deltas and peak active/pending counts are engine-wide and can include ordinary production traffic; per-request rows and traces identify only the synthetic checks."
+  ],
+  "models": [
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "request_context_tokens": 262144,
+      "physical_request_slots": 8,
+      "shared_gpu_kv_tokens": 866560,
+      "maximum_draft_depth": 3,
+      "adaptive_draft": true,
+      "adaptive_confidence_target": 0.4,
+      "ram_kv_page_bytes": 9469952,
+      "ram_kv_page_slots": 907,
+      "ram_kv_token_slots": 232192,
+      "host_recurrent_budget_bytes": 17179869184,
+      "checks": [
+        {
+          "workload": "native_completions_pair",
+          "submitted_requests": 2,
+          "repetitions": 1,
+          "requests": [
+            {
+              "http_status": 200,
+              "input_tokens": 32,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 256,
+              "client_first_progress_seconds": 1.1704103979864158,
+              "client_total_seconds": 6.6526268829766195,
+              "client_output_tokens_per_total_second": 38.481039821288846,
+              "error": null,
+              "backend_generation_seconds": 5.52,
+              "backend_generation_tokens_per_second": 46.37,
+              "backend_prefill_seconds": 0.18,
+              "draft_accepted_tokens": 171,
+              "draft_rejected_tokens": 77
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 32,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 256,
+              "client_first_progress_seconds": 1.1702006090199575,
+              "client_total_seconds": 6.652460589015391,
+              "client_output_tokens_per_total_second": 38.482001745746494,
+              "error": null,
+              "backend_generation_seconds": 5.52,
+              "backend_generation_tokens_per_second": 46.36,
+              "backend_prefill_seconds": 0.09,
+              "draft_accepted_tokens": 171,
+              "draft_rejected_tokens": 77
+            }
+          ],
+          "results": {
+            "all_http_200": true,
+            "all_progress": true,
+            "page_table_valid": true,
+            "client_generation_intervals_overlap": true,
+            "same_generator_deliveries": 85
+          }
+        },
+        {
+          "workload": "litellm_responses_pair",
+          "submitted_requests": 2,
+          "repetitions": 1,
+          "requests": [
+            {
+              "http_status": 200,
+              "input_tokens": 84,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 256,
+              "client_first_progress_seconds": 1.5176801189954858,
+              "client_total_seconds": 8.13503652397776,
+              "client_output_tokens_per_total_second": 31.46881999182772,
+              "error": null,
+              "terminal_status": "incomplete",
+              "reasoning_deliveries": 108,
+              "answer_deliveries": 0
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 84,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 256,
+              "client_first_progress_seconds": 1.5172732069913764,
+              "client_total_seconds": 8.13490933799767,
+              "client_output_tokens_per_total_second": 31.469311993956648,
+              "error": null,
+              "terminal_status": "incomplete",
+              "reasoning_deliveries": 108,
+              "answer_deliveries": 0
+            }
+          ],
+          "results": {
+            "all_http_200": true,
+            "all_progress": true,
+            "page_table_valid": true,
+            "client_generation_intervals_overlap": true
+          }
+        },
+        {
+          "workload": "oversubscribed_native_wave",
+          "submitted_requests": 10,
+          "repetitions": 1,
+          "requests": [
+            {
+              "http_status": 200,
+              "input_tokens": 8461,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 75.09697125697858,
+              "client_total_seconds": 181.87176955098403,
+              "client_output_tokens_per_total_second": 8.445510833221501,
+              "error": null,
+              "backend_generation_seconds": 70.23,
+              "backend_generation_tokens_per_second": 21.87,
+              "backend_prefill_seconds": 54.52,
+              "draft_accepted_tokens": 1044,
+              "draft_rejected_tokens": 428
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 8461,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 75.09696897899266,
+              "client_total_seconds": 196.78344998101238,
+              "client_output_tokens_per_total_second": 7.805534460078876,
+              "error": null,
+              "backend_generation_seconds": 64.68,
+              "backend_generation_tokens_per_second": 23.75,
+              "backend_prefill_seconds": 54.5,
+              "draft_accepted_tokens": 1036,
+              "draft_rejected_tokens": 458
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 8461,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 75.09693941401201,
+              "client_total_seconds": 190.79145737100043,
+              "client_output_tokens_per_total_second": 8.050674915770449,
+              "error": null,
+              "backend_generation_seconds": 67.35,
+              "backend_generation_tokens_per_second": 22.81,
+              "backend_prefill_seconds": 74.83,
+              "draft_accepted_tokens": 1049,
+              "draft_rejected_tokens": 408
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 8461,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 75.41499351299717,
+              "client_total_seconds": 181.13816164198215,
+              "client_output_tokens_per_total_second": 8.479715075368212,
+              "error": null,
+              "backend_generation_seconds": 69.36,
+              "backend_generation_tokens_per_second": 22.14,
+              "backend_prefill_seconds": 62.92,
+              "draft_accepted_tokens": 1054,
+              "draft_rejected_tokens": 390
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 8461,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 82.10780899401288,
+              "client_total_seconds": 198.5725086349994,
+              "client_output_tokens_per_total_second": 7.735209725447727,
+              "error": null,
+              "backend_generation_seconds": 58.96,
+              "backend_generation_tokens_per_second": 26.05,
+              "backend_prefill_seconds": 61.36,
+              "draft_accepted_tokens": 1047,
+              "draft_rejected_tokens": 399
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 8461,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 117.49056185499649,
+              "client_total_seconds": 212.14556513298885,
+              "client_output_tokens_per_total_second": 7.240311618284923,
+              "error": null,
+              "backend_generation_seconds": 62.68,
+              "backend_generation_tokens_per_second": 24.5,
+              "backend_prefill_seconds": 73.66,
+              "draft_accepted_tokens": 1017,
+              "draft_rejected_tokens": 519
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 8461,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 117.49063341101282,
+              "client_total_seconds": 219.90476037800545,
+              "client_output_tokens_per_total_second": 6.984841971404765,
+              "error": null,
+              "backend_generation_seconds": 65.27,
+              "backend_generation_tokens_per_second": 23.53,
+              "backend_prefill_seconds": 78.45,
+              "draft_accepted_tokens": 1048,
+              "draft_rejected_tokens": 404
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 8461,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 117.49051729601342,
+              "client_total_seconds": 209.74309148002067,
+              "client_output_tokens_per_total_second": 7.323244780848067,
+              "error": null,
+              "backend_generation_seconds": 66.53,
+              "backend_generation_tokens_per_second": 23.09,
+              "backend_prefill_seconds": 57.13,
+              "draft_accepted_tokens": 1040,
+              "draft_rejected_tokens": 441
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 8461,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 117.49029234598856,
+              "client_total_seconds": 199.55627994899987,
+              "client_output_tokens_per_total_second": 7.697076736410159,
+              "error": null,
+              "backend_generation_seconds": 68.26,
+              "backend_generation_tokens_per_second": 22.5,
+              "backend_prefill_seconds": 79.72,
+              "draft_accepted_tokens": 1032,
+              "draft_rejected_tokens": 475
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 32,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 128,
+              "client_first_progress_seconds": 9.925593182997545,
+              "client_total_seconds": 12.672434104984859,
+              "client_output_tokens_per_total_second": 10.100664082336763,
+              "error": null,
+              "backend_generation_seconds": 2.76,
+              "backend_generation_tokens_per_second": 46.3,
+              "backend_prefill_seconds": 1.54,
+              "draft_accepted_tokens": 87,
+              "draft_rejected_tokens": 29
+            }
+          ],
+          "results": {
+            "all_http_200": true,
+            "output_counts_match": true,
+            "monotonic_output_counts": true,
+            "short_started_before_last_long_finished": true,
+            "page_table_valid": true,
+            "prefill_yields": 46,
+            "generation_yields": 16,
+            "resumed_requests": 9,
+            "peak_active": 8,
+            "peak_pending": 10,
+            "short_started_before_first_long_progress": true
+          },
+          "cache_audit": {
+            "page_table_valid": true,
+            "recurrent": {
+              "stashes_anchored": 86,
+              "stashes_stranded": 1,
+              "stash_bytes_anchored": 13324611584,
+              "stash_bytes_stranded": 154937344,
+              "kv_pages_complete": 838,
+              "kv_pages_unresumable": 57
+            }
+          },
+          "resumed_output_traces": [
+            {
+              "accepted_output_tokens": 128,
+              "status": "complete",
+              "resumed": false,
+              "generator_deliveries": 41,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 482,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 492,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 487,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 500,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 489,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 504,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 496,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 519,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 488,
+              "counts_monotonic": true
+            }
+          ]
+        }
+      ],
+      "cancellation_and_tool_round_trip": {
+        "cancelled": true,
+        "cancel_output_tokens": 2,
+        "tool_http": 200,
+        "tool_arguments_match": true,
+        "tool_result_round_trip": true
+      }
+    },
+    {
+      "recipe": "apex-abliterated-exl3-mtp1-tp3",
+      "request_context_tokens": 524288,
+      "physical_request_slots": 4,
+      "shared_gpu_kv_tokens": 1083136,
+      "maximum_draft_depth": 1,
+      "adaptive_draft": false,
+      "adaptive_confidence_target": null,
+      "ram_kv_page_bytes": 3440640,
+      "ram_kv_page_slots": 2496,
+      "ram_kv_token_slots": 638976,
+      "host_recurrent_budget_bytes": 17179869184,
+      "checks": [
+        {
+          "workload": "native_completions_pair",
+          "submitted_requests": 2,
+          "repetitions": 1,
+          "requests": [
+            {
+              "http_status": 200,
+              "input_tokens": 33,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 256,
+              "client_first_progress_seconds": 0.21651215499150567,
+              "client_total_seconds": 7.5477373889880255,
+              "client_output_tokens_per_total_second": 33.917449270757366,
+              "error": null,
+              "backend_generation_seconds": 7.37,
+              "backend_generation_tokens_per_second": 34.72,
+              "backend_prefill_seconds": 0.16,
+              "draft_accepted_tokens": 115,
+              "draft_rejected_tokens": 26
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 33,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 256,
+              "client_first_progress_seconds": 0.42980410301242955,
+              "client_total_seconds": 8.04148889100179,
+              "client_output_tokens_per_total_second": 31.834900659560333,
+              "error": null,
+              "backend_generation_seconds": 7.68,
+              "backend_generation_tokens_per_second": 33.34,
+              "backend_prefill_seconds": 0.14,
+              "draft_accepted_tokens": 105,
+              "draft_rejected_tokens": 46
+            }
+          ],
+          "results": {
+            "all_http_200": true,
+            "all_progress": true,
+            "page_table_valid": true,
+            "client_generation_intervals_overlap": true,
+            "same_generator_deliveries": 140
+          }
+        },
+        {
+          "workload": "litellm_responses_pair",
+          "submitted_requests": 2,
+          "repetitions": 1,
+          "requests": [
+            {
+              "http_status": 200,
+              "input_tokens": 45,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 256,
+              "client_first_progress_seconds": 0.4395430159929674,
+              "client_total_seconds": 6.4042517009947915,
+              "client_output_tokens_per_total_second": 39.97344451034533,
+              "error": null,
+              "terminal_status": "incomplete",
+              "reasoning_deliveries": 142,
+              "answer_deliveries": 0
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 45,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 256,
+              "client_first_progress_seconds": 0.4393044009921141,
+              "client_total_seconds": 6.403906641993672,
+              "client_output_tokens_per_total_second": 39.975598382599436,
+              "error": null,
+              "terminal_status": "incomplete",
+              "reasoning_deliveries": 142,
+              "answer_deliveries": 0
+            }
+          ],
+          "results": {
+            "all_http_200": true,
+            "all_progress": true,
+            "page_table_valid": true,
+            "client_generation_intervals_overlap": true
+          }
+        },
+        {
+          "workload": "oversubscribed_native_wave",
+          "submitted_requests": 6,
+          "repetitions": 1,
+          "requests": [
+            {
+              "http_status": 200,
+              "input_tokens": 7852,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 57.73944848199608,
+              "client_total_seconds": 163.88364895700943,
+              "client_output_tokens_per_total_second": 9.372503051862905,
+              "error": null,
+              "backend_generation_seconds": 57.18,
+              "backend_generation_tokens_per_second": 26.86,
+              "backend_prefill_seconds": 62.2,
+              "draft_accepted_tokens": 767,
+              "draft_rejected_tokens": 2
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 7852,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 77.86439335398609,
+              "client_total_seconds": 168.23296731198207,
+              "client_output_tokens_per_total_second": 9.130196206737189,
+              "error": null,
+              "backend_generation_seconds": 62.62,
+              "backend_generation_tokens_per_second": 24.53,
+              "backend_prefill_seconds": 73.3,
+              "draft_accepted_tokens": 767,
+              "draft_rejected_tokens": 2
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 7852,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 78.29005145499832,
+              "client_total_seconds": 156.92710514101782,
+              "client_output_tokens_per_total_second": 9.787984036407986,
+              "error": null,
+              "backend_generation_seconds": 63.01,
+              "backend_generation_tokens_per_second": 24.38,
+              "backend_prefill_seconds": 56.09,
+              "draft_accepted_tokens": 767,
+              "draft_rejected_tokens": 2
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 7852,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 80.03442322902265,
+              "client_total_seconds": 160.0422730850114,
+              "client_output_tokens_per_total_second": 9.597464284852453,
+              "error": null,
+              "backend_generation_seconds": 64.2,
+              "backend_generation_tokens_per_second": 23.92,
+              "backend_prefill_seconds": 56.67,
+              "draft_accepted_tokens": 767,
+              "draft_rejected_tokens": 2
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 7852,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 1536,
+              "client_first_progress_seconds": 90.64123402899713,
+              "client_total_seconds": 171.86755829898175,
+              "client_output_tokens_per_total_second": 8.937114224477234,
+              "error": null,
+              "backend_generation_seconds": 56.89,
+              "backend_generation_tokens_per_second": 27.0,
+              "backend_prefill_seconds": 49.69,
+              "draft_accepted_tokens": 767,
+              "draft_rejected_tokens": 2
+            },
+            {
+              "http_status": 200,
+              "input_tokens": 33,
+              "cached_input_tokens": 0,
+              "accepted_output_tokens": 128,
+              "client_first_progress_seconds": 12.309455953014549,
+              "client_total_seconds": 16.2969207020069,
+              "client_output_tokens_per_total_second": 7.854244512844522,
+              "error": null,
+              "backend_generation_seconds": 4.01,
+              "backend_generation_tokens_per_second": 31.88,
+              "backend_prefill_seconds": 1.77,
+              "draft_accepted_tokens": 53,
+              "draft_rejected_tokens": 22
+            }
+          ],
+          "results": {
+            "all_http_200": true,
+            "output_counts_match": true,
+            "monotonic_output_counts": true,
+            "short_started_before_last_long_finished": true,
+            "page_table_valid": true,
+            "prefill_yields": 15,
+            "generation_yields": 10,
+            "resumed_requests": 5,
+            "peak_active": 4,
+            "peak_pending": 6,
+            "short_started_before_first_long_progress": true
+          },
+          "cache_audit": {
+            "page_table_valid": true,
+            "recurrent": {
+              "stashes_anchored": 43,
+              "stashes_stranded": 0,
+              "stash_bytes_anchored": 6419865600,
+              "stash_bytes_stranded": 0,
+              "kv_pages_complete": 199,
+              "kv_pages_unresumable": 9
+            }
+          },
+          "resumed_output_traces": [
+            {
+              "accepted_output_tokens": 128,
+              "status": "complete",
+              "resumed": false,
+              "generator_deliveries": 75,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 769,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 769,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 769,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 769,
+              "counts_monotonic": true
+            },
+            {
+              "accepted_output_tokens": 1536,
+              "status": "complete",
+              "resumed": true,
+              "generator_deliveries": 769,
+              "counts_monotonic": true
+            }
+          ]
+        }
+      ],
+      "cancellation_and_tool_round_trip": {
+        "cancelled": true,
+        "cancel_output_tokens": 1,
+        "tool_http": 200,
+        "tool_arguments_match": true,
+        "tool_result_round_trip": true
+      }
+    }
+  ],
+  "preliminary_checks_under_competing_load": [
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "route": "native",
+      "workload": "short two-request check before final reload, competing Apex loading and uncontrolled long-context traffic",
+      "requests": [
+        {
+          "http_status": 200,
+          "input_tokens": 32,
+          "cached_input_tokens": 0,
+          "accepted_output_tokens": 256,
+          "client_first_progress_seconds": 0.9445122570032254,
+          "client_total_seconds": 21.014941603003535,
+          "client_output_tokens_per_total_second": 12.181808773782722,
+          "error": null,
+          "backend_generation_seconds": 20.21,
+          "backend_generation_tokens_per_second": 12.66,
+          "backend_prefill_seconds": 0.69,
+          "draft_accepted_tokens": 171,
+          "draft_rejected_tokens": 83
+        },
+        {
+          "http_status": 200,
+          "input_tokens": 32,
+          "cached_input_tokens": 0,
+          "accepted_output_tokens": 256,
+          "client_first_progress_seconds": 1.9985183039971162,
+          "client_total_seconds": 22.42738029899192,
+          "client_output_tokens_per_total_second": 11.41461894287791,
+          "error": null,
+          "backend_generation_seconds": 20.63,
+          "backend_generation_tokens_per_second": 12.41,
+          "backend_prefill_seconds": 1.68,
+          "draft_accepted_tokens": 171,
+          "draft_rejected_tokens": 84
+        }
+      ],
+      "results": {
+        "all_http_200": true,
+        "all_progress": true,
+        "page_table_valid": true,
+        "client_generation_intervals_overlap": true,
+        "same_generator_deliveries": 79
+      }
+    },
+    {
+      "recipe": "qwen27-orca-mtp3-native",
+      "route": "gateway",
+      "workload": "short two-request check before final reload, competing Apex loading and uncontrolled long-context traffic",
+      "requests": [
+        {
+          "http_status": 200,
+          "input_tokens": 84,
+          "cached_input_tokens": 0,
+          "accepted_output_tokens": 256,
+          "client_first_progress_seconds": 3.946779958991101,
+          "client_total_seconds": 28.381247634999454,
+          "client_output_tokens_per_total_second": 9.02004039048317,
+          "error": null,
+          "terminal_status": "incomplete",
+          "reasoning_deliveries": 104,
+          "answer_deliveries": 0
+        },
+        {
+          "http_status": 200,
+          "input_tokens": 84,
+          "cached_input_tokens": 0,
+          "accepted_output_tokens": 256,
+          "client_first_progress_seconds": 5.629476033005631,
+          "client_total_seconds": 29.855174064985476,
+          "client_output_tokens_per_total_second": 8.574728100488285,
+          "error": null,
+          "terminal_status": "incomplete",
+          "reasoning_deliveries": 105,
+          "answer_deliveries": 0
+        }
+      ],
+      "results": {
+        "all_http_200": true,
+        "all_progress": true,
+        "page_table_valid": true,
+        "client_generation_intervals_overlap": true
+      }
+    }
+  ]
+}

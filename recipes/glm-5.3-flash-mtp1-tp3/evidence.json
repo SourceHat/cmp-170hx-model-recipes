@@ -1,0 +1,866 @@
+{
+  "format_version": 1,
+  "recipe": "glm-5.3-flash-mtp1-tp3",
+  "memory_observations": [
+    {
+      "label": "focused-stock-runtime",
+      "preferred": true,
+      "tested_context_tokens": 524288,
+      "tested_kv_pool_tokens": 1829376,
+      "cards": [
+        {
+          "reference_ordinal": 0,
+          "peak_used_mib": 63065.0
+        },
+        {
+          "reference_ordinal": 1,
+          "peak_used_mib": 62463.0
+        },
+        {
+          "reference_ordinal": 2,
+          "peak_used_mib": 63281.0
+        }
+      ],
+      "main_gpu_kv_payload_bytes": 22537912320,
+      "draft_gpu_kv_payload_bytes": 2048901120,
+      "host_kv_allocated_bytes": 0,
+      "cache_precision_audit": {
+        "passed": true,
+        "layers": [
+          {
+            "key": "model.language_model.layers.7.self_attn",
+            "device": "1",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.15.self_attn",
+            "device": "1",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.23.self_attn",
+            "device": "1",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.35.self_attn",
+            "device": "1",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.27.self_attn",
+            "device": "2",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.39.self_attn",
+            "device": "2",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.3.self_attn",
+            "device": "0",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.11.self_attn",
+            "device": "0",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.19.self_attn",
+            "device": "0",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.31.self_attn",
+            "device": "0",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.43.self_attn",
+            "device": "0",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(0, 0)",
+            "device": "cuda:2",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          }
+        ],
+        "quantization_bits": 8,
+        "storage_dtypes_are_packing_and_scale_dtypes": true
+      },
+      "source": {
+        "file": "source-a6ca5cadbbfcca483ffa2ecf.json",
+        "sha256": "e325fa62dd58620fb58eae531169354d23014ba4168298edd3a14ace2b0595af",
+        "json_pointer": "/configurations/glm-baseline"
+      }
+    }
+  ],
+  "verification": {
+    "tool_round_trip": {
+      "passed": true,
+      "approximate_input_tokens": 2053,
+      "call_usage": {
+        "prompt_tokens": 2212,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_time": 7.91,
+        "prompt_tokens_per_sec": 279.65,
+        "completion_tokens": 18,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 9,
+          "rejected_prediction_tokens": 0
+        },
+        "completion_time": 0.9,
+        "completion_tokens_per_sec": 20.11,
+        "total_tokens": 2230,
+        "total_time": 8.82
+      },
+      "result_usage": {
+        "prompt_tokens": 2078,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_time": 3.55,
+        "prompt_tokens_per_sec": 585.35,
+        "completion_tokens": 14,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 7,
+          "rejected_prediction_tokens": 0
+        },
+        "completion_time": 0.26,
+        "completion_tokens_per_sec": 53.82,
+        "total_tokens": 2092,
+        "total_time": 3.82
+      },
+      "tool_call_and_result_roundtrip": true
+    },
+    "target_reference_correctness": {
+      "passed": true,
+      "matched_greedy_target_reference": false,
+      "matched_checked_target_answers": true,
+      "identical_prompts_and_sampling": true,
+      "complete_checked_answers": true,
+      "correctness_protocol": "serving_short_json_v2",
+      "correctness_gate": "complete_checked_payloads"
+    },
+    "capacity": {
+      "capacity_evidence_kind": "predicted_pool_verified_by_smoke",
+      "stable_pool_smoke_passed": true,
+      "maximum_resident_pool_tokens": 1829376,
+      "cache_boundary_measured": false,
+      "exhaustive_boundary_search": false,
+      "successful_geometry_reloaded": false,
+      "final_maximum_context_concurrent_pressure_passed": false,
+      "sizing_strategy": "one_prediction_then_changed_correction_on_memory_failure"
+    },
+    "context": {
+      "passed": true,
+      "context_tokens": 524288,
+      "actual_long_request_prompt_tokens": 522281,
+      "resident_pool_tokens": 1829376,
+      "configured_slots": 4,
+      "useful_long_context_retrieval": true,
+      "history_restoration_tested": false,
+      "retention_pressure_tested": false,
+      "qualification_policy": "serving_smoke_v2",
+      "qualification_level": "context_smoke",
+      "requests": [
+        {
+          "usage": {
+            "prompt_tokens": 522281,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "prompt_time": 829.02,
+            "prompt_tokens_per_sec": 630.0,
+            "completion_tokens": 39,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 19,
+              "rejected_prediction_tokens": 1
+            },
+            "completion_time": 1.05,
+            "completion_tokens_per_sec": 37.03,
+            "total_tokens": 522320,
+            "total_time": 830.08
+          },
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 522281,
+            "prompt_ms": 829020.0,
+            "prompt_per_token_ms": 1.5873064499761622,
+            "prompt_per_second": 629.9980700103737,
+            "predicted_n": 39,
+            "predicted_ms": 1050.0,
+            "predicted_per_token_ms": 26.923076923076923,
+            "predicted_per_second": 37.14285714285714,
+            "draft_n": 20,
+            "draft_n_accepted": 19
+          },
+          "elapsed_seconds": 872.1022561059999,
+          "ttft_seconds": 871.3275845869994,
+          "finish_reason": "stop",
+          "cancelled": false,
+          "last_prefill_progress": {
+            "total": 522280,
+            "cache": 0,
+            "processed": 522280,
+            "time_ms": 829299
+          }
+        },
+        {
+          "usage": {
+            "prompt_tokens": 27,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "prompt_time": 39.83,
+            "prompt_tokens_per_sec": 0.68,
+            "completion_tokens": 2,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 1,
+              "rejected_prediction_tokens": 0
+            },
+            "completion_time": 0.4,
+            "completion_tokens_per_sec": 4.98,
+            "total_tokens": 29,
+            "total_time": 40.27
+          },
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 27,
+            "prompt_ms": 39830.0,
+            "prompt_per_token_ms": 1475.1851851851852,
+            "prompt_per_second": 0.6778809942254581,
+            "predicted_n": 2,
+            "predicted_ms": 400.0,
+            "predicted_per_token_ms": 200.0,
+            "predicted_per_second": 5.0,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          },
+          "elapsed_seconds": 40.892034022999724,
+          "ttft_seconds": 40.8903410920002,
+          "finish_reason": "stop",
+          "cancelled": false,
+          "last_prefill_progress": {
+            "total": 26,
+            "cache": 0,
+            "processed": 26,
+            "time_ms": 40372
+          }
+        },
+        {
+          "usage": {
+            "prompt_tokens": 27,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "prompt_time": 0.12,
+            "prompt_tokens_per_sec": 225.0,
+            "completion_tokens": 2,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 1,
+              "rejected_prediction_tokens": 0
+            },
+            "completion_time": 0.4,
+            "completion_tokens_per_sec": 4.98,
+            "total_tokens": 29,
+            "total_time": 40.26
+          },
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 27,
+            "prompt_ms": 120.0,
+            "prompt_per_token_ms": 4.444444444444445,
+            "prompt_per_second": 225.00000000000003,
+            "predicted_n": 2,
+            "predicted_ms": 400.0,
+            "predicted_per_token_ms": 200.0,
+            "predicted_per_second": 5.0,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          },
+          "elapsed_seconds": 40.89169405899975,
+          "ttft_seconds": 40.889984639999966,
+          "finish_reason": "stop",
+          "cancelled": false,
+          "last_prefill_progress": {
+            "total": 26,
+            "cache": 0,
+            "processed": 26,
+            "time_ms": 669
+          }
+        },
+        {
+          "usage": {
+            "prompt_tokens": 27,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "prompt_time": 0.12,
+            "prompt_tokens_per_sec": 225.0,
+            "completion_tokens": 2,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 1,
+              "rejected_prediction_tokens": 0
+            },
+            "completion_time": 0.32,
+            "completion_tokens_per_sec": 6.25,
+            "total_tokens": 29,
+            "total_time": 0.45
+          },
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 27,
+            "prompt_ms": 120.0,
+            "prompt_per_token_ms": 4.444444444444445,
+            "prompt_per_second": 225.00000000000003,
+            "predicted_n": 2,
+            "predicted_ms": 320.0,
+            "predicted_per_token_ms": 160.0,
+            "predicted_per_second": 6.25,
+            "draft_n": 1,
+            "draft_n_accepted": 1
+          },
+          "elapsed_seconds": 40.89151325800049,
+          "ttft_seconds": 40.890752987999804,
+          "finish_reason": "stop",
+          "cancelled": false,
+          "last_prefill_progress": {
+            "total": 26,
+            "cache": 0,
+            "processed": 26,
+            "time_ms": 446
+          }
+        }
+      ],
+      "cache_precision_audit": {
+        "passed": true,
+        "layers": [
+          {
+            "key": "model.language_model.layers.7.self_attn",
+            "device": "1",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.15.self_attn",
+            "device": "1",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.23.self_attn",
+            "device": "1",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.35.self_attn",
+            "device": "1",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.27.self_attn",
+            "device": "2",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.39.self_attn",
+            "device": "2",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.3.self_attn",
+            "device": "0",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.11.self_attn",
+            "device": "0",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.19.self_attn",
+            "device": "0",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.31.self_attn",
+            "device": "0",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "model.language_model.layers.43.self_attn",
+            "device": "0",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          },
+          {
+            "key": "(0, 0)",
+            "device": "cuda:2",
+            "bytes": 2048901120,
+            "k_bits": 8,
+            "v_bits": 8,
+            "storage_dtypes": [
+              "torch.int32",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16",
+              "torch.float16"
+            ]
+          }
+        ],
+        "quantization_bits": 8,
+        "storage_dtypes_are_packing_and_scale_dtypes": true
+      },
+      "allocator_cards": [
+        {
+          "selected_rank": 0,
+          "reference_ordinal": 0,
+          "allocated_bytes": 64311520768,
+          "reserved_bytes": 65280147456,
+          "peak_allocated_bytes": 65238146048,
+          "peak_reserved_bytes": 65280147456,
+          "free_bytes": 1240530944,
+          "gpu_bytes": {
+            "kv": 10244505600,
+            "module_tensors": 2405741772
+          },
+          "cache_layers": [
+            {
+              "key": "model.language_model.layers.3.self_attn",
+              "device": "0",
+              "bytes": 2048901120,
+              "k_bits": 8,
+              "v_bits": 8,
+              "storage_dtypes": [
+                "torch.int32",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16"
+              ]
+            },
+            {
+              "key": "model.language_model.layers.11.self_attn",
+              "device": "0",
+              "bytes": 2048901120,
+              "k_bits": 8,
+              "v_bits": 8,
+              "storage_dtypes": [
+                "torch.int32",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16"
+              ]
+            },
+            {
+              "key": "model.language_model.layers.19.self_attn",
+              "device": "0",
+              "bytes": 2048901120,
+              "k_bits": 8,
+              "v_bits": 8,
+              "storage_dtypes": [
+                "torch.int32",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16"
+              ]
+            },
+            {
+              "key": "model.language_model.layers.31.self_attn",
+              "device": "0",
+              "bytes": 2048901120,
+              "k_bits": 8,
+              "v_bits": 8,
+              "storage_dtypes": [
+                "torch.int32",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16"
+              ]
+            },
+            {
+              "key": "model.language_model.layers.43.self_attn",
+              "device": "0",
+              "bytes": 2048901120,
+              "k_bits": 8,
+              "v_bits": 8,
+              "storage_dtypes": [
+                "torch.int32",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16"
+              ]
+            }
+          ]
+        },
+        {
+          "selected_rank": 1,
+          "reference_ordinal": 1,
+          "allocated_bytes": 63670201856,
+          "reserved_bytes": 64632127488,
+          "peak_allocated_bytes": 64601015808,
+          "peak_reserved_bytes": 64632127488,
+          "free_bytes": 2214461440,
+          "gpu_bytes": {
+            "kv": 8195604480,
+            "module_tensors": 2382295264
+          },
+          "cache_layers": [
+            {
+              "key": "model.language_model.layers.7.self_attn",
+              "device": "1",
+              "bytes": 2048901120,
+              "k_bits": 8,
+              "v_bits": 8,
+              "storage_dtypes": [
+                "torch.int32",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16"
+              ]
+            },
+            {
+              "key": "model.language_model.layers.15.self_attn",
+              "device": "1",
+              "bytes": 2048901120,
+              "k_bits": 8,
+              "v_bits": 8,
+              "storage_dtypes": [
+                "torch.int32",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16"
+              ]
+            },
+            {
+              "key": "model.language_model.layers.23.self_attn",
+              "device": "1",
+              "bytes": 2048901120,
+              "k_bits": 8,
+              "v_bits": 8,
+              "storage_dtypes": [
+                "torch.int32",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16"
+              ]
+            },
+            {
+              "key": "model.language_model.layers.35.self_attn",
+              "device": "1",
+              "bytes": 2048901120,
+              "k_bits": 8,
+              "v_bits": 8,
+              "storage_dtypes": [
+                "torch.int32",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16"
+              ]
+            }
+          ]
+        },
+        {
+          "selected_rank": 2,
+          "reference_ordinal": 2,
+          "allocated_bytes": 57430855168,
+          "reserved_bytes": 58403586048,
+          "peak_allocated_bytes": 58361669120,
+          "peak_reserved_bytes": 58403586048,
+          "free_bytes": 565248000,
+          "gpu_bytes": {
+            "kv": 4097802240,
+            "module_tensors": 2087001940
+          },
+          "cache_layers": [
+            {
+              "key": "model.language_model.layers.27.self_attn",
+              "device": "2",
+              "bytes": 2048901120,
+              "k_bits": 8,
+              "v_bits": 8,
+              "storage_dtypes": [
+                "torch.int32",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16"
+              ]
+            },
+            {
+              "key": "model.language_model.layers.39.self_attn",
+              "device": "2",
+              "bytes": 2048901120,
+              "k_bits": 8,
+              "v_bits": 8,
+              "storage_dtypes": [
+                "torch.int32",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16",
+                "torch.float16"
+              ]
+            }
+          ]
+        }
+      ],
+      "source": {
+        "file": "source-87daf198c7d9c5e2c93ad919.json",
+        "sha256": "1e9d90b9831973015a6d3f422d392cb7e142b53137bfe40902bc5ad2ac63f2ba",
+        "json_pointer": ""
+      }
+    }
+  },
+  "quantization": {
+    "observed_formats": {
+      "output_head": "EXL3 6 bpw",
+      "mtp_experts": "-",
+      "source": {
+        "file": "source-6aef4a407afad568a9719594.json",
+        "sha256": "96f6144ee1599e13026e8a082f1ddaf5d3fa0d02d84f456fd07f45f78cd72cb8",
+        "json_pointer": "/glm-baseline"
+      }
+    }
+  },
+  "selection_rationale": "Native MTP1/TP3. Additional mHC fusion did not establish a useful concurrent-serving gain in the recorded comparisons.",
+  "source_receipts": [
+    {
+      "file": "glm-5.3-flash-mtp1-tp3.json",
+      "sha256": "fc9dc2c7841c1cd11843b5f02f80de3b75fefbf748c5f15ff6fc2d109c8c851b"
+    },
+    {
+      "file": "source-a6ca5cadbbfcca483ffa2ecf.json",
+      "sha256": "e325fa62dd58620fb58eae531169354d23014ba4168298edd3a14ace2b0595af"
+    },
+    {
+      "file": "source-6aef4a407afad568a9719594.json",
+      "sha256": "96f6144ee1599e13026e8a082f1ddaf5d3fa0d02d84f456fd07f45f78cd72cb8"
+    },
+    {
+      "file": "source-7419c98729f86c1aed84b571.json",
+      "sha256": "00d14b60ade449eb51146f7a0fec0e5b609dfb941f41ba4a3b50067aca5acfa7"
+    },
+    {
+      "file": "source-87daf198c7d9c5e2c93ad919.json",
+      "sha256": "1e9d90b9831973015a6d3f422d392cb7e142b53137bfe40902bc5ad2ac63f2ba"
+    }
+  ]
+}

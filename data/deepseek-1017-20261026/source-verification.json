@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "sourceReports": [
+    {
+      "role": "final_decision",
+      "sha256": "a1739ed6a2e4c41be29662f16361bbcf8342e333508de06b75726a99ee9ccf03"
+    },
+    {
+      "role": "baseline",
+      "sha256": "309156c03e17f37cb6295182c9766fc8b264b68bd4d8853742380c7d5fd37a42"
+    },
+    {
+      "role": "candidate_retry",
+      "sha256": "645bb1678a72b446b8681522fea371d11bb5b711320bb539a0d8d705a57a23dc"
+    },
+    {
+      "role": "comparison",
+      "sha256": "8a7dbb1942e06bf92374c969d531b830dc56c836d3c9b9665a7bdc23594a4b0e"
+    },
+    {
+      "role": "first_candidate_record",
+      "sha256": "dadb70f1d83cde4eb42d9b9e93c02f0c480a07bf1b70b6ba7dbfe4aa64b45420"
+    },
+    {
+      "role": "candidate_rejection",
+      "sha256": "3f1e40f48ab6172bbfec23abb65c828bc107943a292039825620d9ed1d31eb9c"
+    },
+    {
+      "role": "deployment_check",
+      "sha256": "f8b509d74e8659df86b4330640e307113db303e3875a8897ad49b0d6351538af"
+    },
+    {
+      "role": "startup_repair",
+      "sha256": "21f7245ed2596e9ef923aa7ca55f4378a40d864c94e726df115c52da2658e80a"
+    }
+  ],
+  "sourceReportCount": 8,
+  "normalizedJsonExports": 2,
+  "csvExports": 8,
+  "sourceExtractionMatches": true,
+  "originalProfileSha256": "ff2a2883c4d54f190e3964f6abf18184b9f43fb05d27a1fa46a68348598914fc"
+}

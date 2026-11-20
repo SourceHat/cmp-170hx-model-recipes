@@ -1,0 +1,215 @@
+{
+  "format_version": 1,
+  "profile": "strata-q6-split",
+  "protocol": {
+    "sampling": {
+      "temperature": 0,
+      "seed": 20261008,
+      "min_tokens": "requested output budget",
+      "max_tokens": "requested output budget",
+      "reasoning_effort_requested": "low"
+    },
+    "input_target_tokens": 32768,
+    "output_budget_tokens_per_request": 256,
+    "notes": [
+      "One cold wave per mode; no confidence intervals or repeatability claim.",
+      "Accepted reasoning tokens are included in completion counts.",
+      "Shared decode starts after the last request begins generation and ends before the first completion.",
+      "Whole-wave throughput includes prefill, queueing and generation.",
+      "Reported prefill timers can cover only a short backend phase; isolated high rates are not full-prompt performance claims."
+    ]
+  },
+  "points": [
+    {
+      "measurement_id": "strata-q6-split-single-cold",
+      "workload": "matched-coding-v1",
+      "mode": "single",
+      "concurrency": 1,
+      "input_target_tokens": 32768,
+      "input_tokens_per_request": [
+        32769
+      ],
+      "output_budget_tokens_per_request": 256,
+      "accepted_output_tokens_per_request": [
+        256
+      ],
+      "cached_tokens_per_request": [
+        0
+      ],
+      "cache_state": "cold",
+      "repetitions": 1,
+      "performance_measurements_qualified": true,
+      "shared_decode_valid": true,
+      "shared_decode_interval_seconds": 2.98501389,
+      "shared_decode_accepted_tokens": 255,
+      "shared_decode_accepted_tokens_per_request": [
+        255
+      ],
+      "decode_tok_s_aggregate": 85.42673816502744,
+      "decode_tok_s_per_request": [
+        85.42673816502744
+      ],
+      "ttft_seconds_per_request": [
+        18.30595663600252
+      ],
+      "ttft_median_seconds": 18.30595663600252,
+      "ttft_slowest_seconds": 18.30595663600252,
+      "elapsed_seconds": 21.298710470990045,
+      "end_to_end_accepted_tok_s": 12.019507018919542,
+      "cold_prefill_reported": [
+        {
+          "processed_prompt_tokens": 32769,
+          "cached_prompt_tokens": 0,
+          "backend_prefill_seconds": 18.2698,
+          "prefill_tok_s": 1793.615693658387,
+          "source": "backend_prefill_timer"
+        }
+      ],
+      "draft_acceptance": {
+        "accepted": 161,
+        "proposed": 218,
+        "ratio": 0.7385321100917431
+      },
+      "timing_source": "generator_boundary_shared_window",
+      "unqualified_decode_observation": null,
+      "source": {
+        "file": "source-a6ca5cadbbfcca483ffa2ecf.json",
+        "sha256": "e325fa62dd58620fb58eae531169354d23014ba4168298edd3a14ace2b0595af",
+        "json_pointer": "/configurations/strata-q6-split/single"
+      },
+      "wave_source": {
+        "file": "source-3f6203ee5fe06f6185c22639.json",
+        "sha256": "8d259deb18801540c9447fdd2466473a9903d07a723bfac7dd5895e2191b424e",
+        "json_pointer": ""
+      }
+    },
+    {
+      "measurement_id": "strata-q6-split-concurrent-cold",
+      "workload": "matched-coding-v1",
+      "mode": "concurrent",
+      "concurrency": 6,
+      "input_target_tokens": 32768,
+      "input_tokens_per_request": [
+        32770,
+        32770,
+        32770,
+        32770,
+        32770,
+        32770
+      ],
+      "output_budget_tokens_per_request": 256,
+      "accepted_output_tokens_per_request": [
+        256,
+        256,
+        256,
+        256,
+        256,
+        256
+      ],
+      "cached_tokens_per_request": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "cache_state": "cold",
+      "repetitions": 1,
+      "performance_measurements_qualified": true,
+      "shared_decode_valid": true,
+      "shared_decode_interval_seconds": 8.413050939,
+      "shared_decode_accepted_tokens": 1505,
+      "shared_decode_accepted_tokens_per_request": [
+        251,
+        251,
+        251,
+        250,
+        251,
+        251
+      ],
+      "decode_tok_s_aggregate": 178.8887302492535,
+      "decode_tok_s_per_request": [
+        29.834598865490122,
+        29.834598865490122,
+        29.834598865490122,
+        29.71573592180291,
+        29.834598865490122,
+        29.834598865490122
+      ],
+      "ttft_seconds_per_request": [
+        37.400342905006255,
+        18.757922756005428,
+        74.58656735499972,
+        93.191959615011,
+        111.81588743599423,
+        55.986597909010015
+      ],
+      "ttft_median_seconds": 65.28658263200487,
+      "ttft_slowest_seconds": 111.81588743599423,
+      "elapsed_seconds": 120.33921011000348,
+      "end_to_end_accepted_tok_s": 12.763919578630476,
+      "cold_prefill_reported": [
+        {
+          "processed_prompt_tokens": 32770,
+          "cached_prompt_tokens": 0,
+          "backend_prefill_seconds": 18.2702,
+          "prefill_tok_s": 1793.6311589364102,
+          "source": "backend_prefill_timer"
+        },
+        {
+          "processed_prompt_tokens": 32770,
+          "cached_prompt_tokens": 0,
+          "backend_prefill_seconds": 0.0209,
+          "prefill_tok_s": 1567942.5837320576,
+          "source": "backend_prefill_timer"
+        },
+        {
+          "processed_prompt_tokens": 32770,
+          "cached_prompt_tokens": 0,
+          "backend_prefill_seconds": 18.2669,
+          "prefill_tok_s": 1793.9551867038194,
+          "source": "backend_prefill_timer"
+        },
+        {
+          "processed_prompt_tokens": 32770,
+          "cached_prompt_tokens": 0,
+          "backend_prefill_seconds": 18.2727,
+          "prefill_tok_s": 1793.3857612722804,
+          "source": "backend_prefill_timer"
+        },
+        {
+          "processed_prompt_tokens": 32770,
+          "cached_prompt_tokens": 0,
+          "backend_prefill_seconds": 18.2826,
+          "prefill_tok_s": 1792.414645619332,
+          "source": "backend_prefill_timer"
+        },
+        {
+          "processed_prompt_tokens": 32770,
+          "cached_prompt_tokens": 0,
+          "backend_prefill_seconds": 18.267400000000002,
+          "prefill_tok_s": 1793.9060840623185,
+          "source": "backend_prefill_timer"
+        }
+      ],
+      "draft_acceptance": {
+        "accepted": 0,
+        "proposed": 0,
+        "ratio": null
+      },
+      "timing_source": "generator_boundary_shared_window",
+      "unqualified_decode_observation": null,
+      "source": {
+        "file": "source-a6ca5cadbbfcca483ffa2ecf.json",
+        "sha256": "e325fa62dd58620fb58eae531169354d23014ba4168298edd3a14ace2b0595af",
+        "json_pointer": "/configurations/strata-q6-split/concurrent"
+      },
+      "wave_source": {
+        "file": "source-cf1d9416f4fb1e22d8f67a6d.json",
+        "sha256": "fe56b27796a7b5d23d641cde9f1143ed8f04a8f98cd106d59a4cf31161436406",
+        "json_pointer": ""
+      }
+    }
+  ]
+}

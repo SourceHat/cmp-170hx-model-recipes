@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns2="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="345.6pt" height="849.6pt" viewBox="0 0 345.6 849.6" version="1.1" role="img" aria-labelledby="02-service-costs-mobile-title 02-service-costs-mobile-description">
+ <title id="02-service-costs-mobile-title">Long-input waiting and concurrent completion</title><desc id="02-service-costs-mobile-description">The 131,072-token input waited 202.74 seconds for first output and finished in 543.40 seconds. The 516,031-token input waited 897.37 seconds and finished in 1,267.89 seconds. Four shorter requests completed at 51.84 aggregate tokens per second; near-full input plus three shorter companions completed at 49.91, including prefill. Individual requests are split into time before first output and remaining request time. The other panel reports whole-batch output tokens per second including prefill and scheduling. Every request produced 8,192 tokens; each batch produced 32,768. Cases and batches ran once, with prefix reuse permitted. The mixed batch followed the individual near-full request; four fresh maximum-length histories were not tested.</desc><metadata>
+  <rdf:RDF>
+   <ns2:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:title>Long-input waiting and concurrent completion</dc:title>
+    <dc:description>The 131,072-token input waited 202.74 seconds for first output and finished in 543.40 seconds. The 516,031-token input waited 897.37 seconds and finished in 1,267.89 seconds. Four shorter requests completed at 51.84 aggregate tokens per second; near-full input plus three shorter companions completed at 49.91, including prefill.</dc:description>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <ns2:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </ns2:Agent>
+    </dc:creator>
+   </ns2:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 849.6  L 345.6 849.6  L 345.6 0  L 0 0  z " style="fill: #f7f8f5" />
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 89.856 374.047579  L 328.32 374.047579  L 328.32 199.656  L 89.856 199.656  z " style="fill: #f7f8f5" />
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 89.856 374.047579  L 89.856 199.656  " clip-path="url(#p61b9617f89)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_2" />
+     <g id="text_1">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="89.856" y="388.327852" transform="rotate(-0 89.856 388.327852)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 134.016 374.047579  L 134.016 199.656  " clip-path="url(#p61b9617f89)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_4" />
+     <g id="text_2">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="134.016" y="388.327852" transform="rotate(-0 134.016 388.327852)">5</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 178.176 374.047579  L 178.176 199.656  " clip-path="url(#p61b9617f89)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_6" />
+     <g id="text_3">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="178.176" y="388.327852" transform="rotate(-0 178.176 388.327852)">10</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 222.336 374.047579  L 222.336 199.656  " clip-path="url(#p61b9617f89)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_8" />
+     <g id="text_4">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="222.336" y="388.327852" transform="rotate(-0 222.336 388.327852)">15</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 266.496 374.047579  L 266.496 199.656  " clip-path="url(#p61b9617f89)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_10" />
+     <g id="text_5">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="266.496" y="388.327852" transform="rotate(-0 266.496 388.327852)">20</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 310.656 374.047579  L 310.656 199.656  " clip-path="url(#p61b9617f89)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_12" />
+     <g id="text_6">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="310.656" y="388.327852" transform="rotate(-0 310.656 388.327852)">25</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="209.088" y="410.440645" transform="rotate(-0 209.088 410.440645)">Client request time (minutes)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_13" />
+     <g id="text_8">
+      <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(43.097875 247.370875)">131,072</text>
+      <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(23.541937 259.343042)">input tokens</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_14" />
+     <g id="text_9">
+      <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(43.097875 323.1933)">516,031</text>
+      <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(23.541937 335.165468)">input tokens</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 89.856 233.776092  L 119.700037 233.776092  L 119.700037 264.105062  L 89.856 264.105062  z " clip-path="url(#p61b9617f89)" style="fill: #a9583c" />
+   </g>
+   <g id="patch_4">
+    <path d="M 119.700037 233.776092  L 169.844412 233.776092  L 169.844412 264.105062  L 119.700037 264.105062  z " clip-path="url(#p61b9617f89)" style="fill: #246b60" />
+   </g>
+   <g id="patch_5">
+    <path d="M 89.856 309.598517  L 221.948302 309.598517  L 221.948302 339.927487  L 89.856 339.927487  z " clip-path="url(#p61b9617f89)" style="fill: #a9583c" />
+   </g>
+   <g id="patch_6">
+    <path d="M 221.948302 309.598517  L 276.489898 309.598517  L 276.489898 339.927487  L 221.948302 339.927487  z " clip-path="url(#p61b9617f89)" style="fill: #246b60" />
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #ffffff" x="104.778019" y="251.528467" transform="rotate(-0 104.778019 251.528467)">3.38</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #ffffff" x="144.772225" y="251.528467" transform="rotate(-0 144.772225 251.528467)">5.68</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(174.260412 246.63845)">9.06</text>
+    <text style="font-size: 9.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(174.260412 257.908289)">min total</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #ffffff" x="155.902151" y="327.350893" transform="rotate(-0 155.902151 327.350893)">14.96</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #ffffff" x="249.2191" y="327.350893" transform="rotate(-0 249.2191 327.350893)">6.18</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 9.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(280.905898 322.460876)">21.13</text>
+    <text style="font-size: 9.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(280.905898 333.730715)">min total</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #101820" x="89.856" y="176.656" transform="rotate(-0 89.856 176.656)">Individual long-input requests</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_7">
+     <path d="M 50.7132 438.343481  L 61.1632 438.343481  L 61.1632 431.693481  L 50.7132 431.693481  z " style="fill: #a9583c" />
+    </g>
+    <g id="text_17">
+     <text style="font-size: 9.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #101820" x="68.7632" y="438.343481" transform="rotate(-0 68.7632 438.343481)">Before first output</text>
+    </g>
+    <g id="patch_8">
+     <path d="M 50.7132 452.009008  L 61.1632 452.009008  L 61.1632 445.359008  L 50.7132 445.359008  z " style="fill: #246b60" />
+    </g>
+    <g id="text_18">
+     <text style="font-size: 9.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #101820" x="68.7632" y="452.009008" transform="rotate(-0 68.7632 452.009008)">After first output</text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_9">
+    <path d="M 89.856 696.672  L 328.32 696.672  L 328.32 522.280421  L 89.856 522.280421  z " style="fill: #f7f8f5" />
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_7">
+     <g id="line2d_15">
+      <path d="M 89.856 696.672  L 89.856 522.280421  " clip-path="url(#pc19aef1511)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_16" />
+     <g id="text_19">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="89.856" y="710.952273" transform="rotate(-0 89.856 710.952273)">0</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_17">
+      <path d="M 162.117818 696.672  L 162.117818 522.280421  " clip-path="url(#pc19aef1511)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_18" />
+     <g id="text_20">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="162.117818" y="710.952273" transform="rotate(-0 162.117818 710.952273)">20</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_19">
+      <path d="M 234.379636 696.672  L 234.379636 522.280421  " clip-path="url(#pc19aef1511)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_20" />
+     <g id="text_21">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="234.379636" y="710.952273" transform="rotate(-0 234.379636 710.952273)">40</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_21">
+      <path d="M 306.641455 696.672  L 306.641455 522.280421  " clip-path="url(#pc19aef1511)" style="fill: none; stroke: #dce1da; stroke-width: 0.8; stroke-linecap: square" />
+     </g>
+     <g id="line2d_22" />
+     <g id="text_22">
+      <text style="font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #101820" x="306.641455" y="710.952273" transform="rotate(-0 306.641455 710.952273)">60</text>
+     </g>
+    </g>
+    <g id="text_23">
+     <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(144.881516 733.889529)">Aggregate output tokens/s</text>
+     <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(135.406906 745.861697)">Includes prefill and scheduling</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_3">
+     <g id="line2d_23" />
+     <g id="text_24">
+      <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(22.952406 569.995296)">Four shorter</text>
+      <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(40.669281 581.967464)">requests</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_24" />
+     <g id="text_25">
+      <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(31.810844 645.817721)">Near-full +</text>
+      <text style="font-size: 11px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #101820" transform="translate(20.498031 657.789889)">three shorter</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 89.856 556.400513  L 277.154434 556.400513  L 277.154434 586.729483  L 89.856 586.729483  z " clip-path="url(#pc19aef1511)" style="fill: #21465c" />
+   </g>
+   <g id="patch_11">
+    <path d="M 89.856 632.222938  L 270.187001 632.222938  L 270.187001 662.551908  L 89.856 662.551908  z " clip-path="url(#pc19aef1511)" style="fill: #21465c" />
+   </g>
+   <g id="text_26">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #21465c" x="281.128834" y="574.670466" transform="rotate(-0 281.128834 574.670466)">51.84</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 9.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #ffffff" x="97.082182" y="574.023494" transform="rotate(-0 97.082182 574.023494)">632 s wall time</text>
+   </g>
+   <g id="text_28">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #21465c" x="274.161401" y="650.492892" transform="rotate(-0 274.161401 650.492892)">49.91</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 9.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #ffffff" x="97.082182" y="649.845919" transform="rotate(-0 97.082182 649.845919)">657 s wall time</text>
+   </g>
+   <g id="text_30">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #101820" x="89.856" y="499.280421" transform="rotate(-0 89.856 499.280421)">Whole-batch completion</text>
+   </g>
+  </g>
+  <g id="text_31">
+   <text style="font-size: 8.2px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #566360" x="12.096" y="27.209824" transform="rotate(-0 12.096 27.209824)">SOURCEHAT LABS  /  DEEPSEEK V4.1 FLASH 1017</text>
+  </g>
+  <g id="text_32">
+   <text style="font-size: 20px; font-family: 'Liberation Serif', 'DejaVu Serif', 'Bitstream Vera Serif', 'Computer Modern Roman', 'New Century Schoolbook', 'Century Schoolbook L', 'Utopia', 'ITC Bookman', 'Bookman', 'Nimbus Roman No9 L', 'Times New Roman', 'Times', 'Palatino', 'Charter', serif; fill: #101820" transform="translate(12.096 67.322075)">Long context carries</text>
+   <text style="font-size: 20px; font-family: 'Liberation Serif', 'DejaVu Serif', 'Bitstream Vera Serif', 'Computer Modern Roman', 'New Century Schoolbook', 'Century Schoolbook L', 'Utopia', 'ITC Bookman', 'Bookman', 'Nimbus Roman No9 L', 'Times New Roman', 'Times', 'Palatino', 'Charter', serif; fill: #101820" transform="translate(12.096 87.6877)">a waiting cost</text>
+  </g>
+  <g id="text_33">
+   <text style="font-size: 10.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 132.558687)">Individual requests and four-request batches.</text>
+   <text style="font-size: 10.5px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 145.861592)">Each request generated 8,192 accepted tokens.</text>
+  </g>
+  <g id="text_34">
+   <text style="font-size: 9.1px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 788.016933)">One observation per long-input case and batch. Prefix</text>
+   <text style="font-size: 9.1px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 799.973125)">reuse was permitted; the mixed batch followed the</text>
+   <text style="font-size: 9.1px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 811.929316)">individual near-full request. This did not test four</text>
+   <text style="font-size: 9.1px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #566360" transform="translate(12.096 823.885507)">fresh maximum-length histories.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p61b9617f89">
+   <rect x="89.856" y="199.656" width="238.464" height="174.391579" />
+  </clipPath>
+  <clipPath id="pc19aef1511">
+   <rect x="89.856" y="522.280421" width="238.464" height="174.391579" />
+  </clipPath>
+ </defs>
+</svg>

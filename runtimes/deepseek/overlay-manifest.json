@@ -1,0 +1,256 @@
+{
+  "format_version": 1,
+  "runtime": "deepseek",
+  "files": [
+    {
+      "target": "vllm/distributed/device_communicators/cuda_communicator.py",
+      "file": "runtimes/deepseek/overlay/vllm/distributed/device_communicators/cuda_communicator.py",
+      "sha256": "78828b9e7c53eca21700d595c865cf01cc4b6729d8f18344504affb3ee8cfba5"
+    },
+    {
+      "target": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py",
+      "file": "runtimes/deepseek/overlay/vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py",
+      "sha256": "b94192ce7879c66b6fbcad77135a33822e6366d7932253f1a4832fc0e08e18c2"
+    },
+    {
+      "target": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py",
+      "file": "runtimes/deepseek/overlay/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py",
+      "sha256": "23eec40478c24d8017ceab725d6e0dbc00ef8fd91662502363b7e59590219f41"
+    },
+    {
+      "target": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py",
+      "file": "runtimes/deepseek/overlay/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py",
+      "sha256": "7ff0fbb7bc5b713e38da9631b805b1b28dd56288f76179cbaa41ca2a55501003"
+    },
+    {
+      "target": "vllm/entrypoints/generate/base/protocol.py",
+      "file": "runtimes/deepseek/overlay/vllm/entrypoints/generate/base/protocol.py",
+      "sha256": "f2018c1cfcea80a909ef6ee379da4f64f2467b846c2febfc1c06a6fca2efca34"
+    },
+    {
+      "target": "vllm/entrypoints/openai/chat_completion/protocol.py",
+      "file": "runtimes/deepseek/overlay/vllm/entrypoints/openai/chat_completion/protocol.py",
+      "sha256": "a81c8e4c7c1208f3094bd54555975f65d6ec231ed3ab87a74e8f058fc1864a51"
+    },
+    {
+      "target": "vllm/model_executor/kernels/linear/mxfp8/marlin.py",
+      "file": "runtimes/deepseek/overlay/vllm/model_executor/kernels/linear/mxfp8/marlin.py",
+      "sha256": "eae4def7c330fe383420e4bb18b66192908c372b5ae46da1cade4606d77513ae"
+    },
+    {
+      "target": "vllm/model_executor/layers/fused_moe/moe_align_block_size.py",
+      "file": "runtimes/deepseek/overlay/vllm/model_executor/layers/fused_moe/moe_align_block_size.py",
+      "sha256": "c310b1a576141fecff217bcc6e9fcf6ecbc868f5a9570533c5872c868ade180f"
+    },
+    {
+      "target": "vllm/model_executor/layers/fused_moe/stable_moe_align.py",
+      "file": "runtimes/deepseek/overlay/vllm/model_executor/layers/fused_moe/stable_moe_align.py",
+      "sha256": "bbfb4d1145a8c41649e9ca8754f39e42f9fdfb3bf8b5d3479a5fd07ed6691c06"
+    },
+    {
+      "target": "vllm/model_executor/layers/sparse_attn_indexer.py",
+      "file": "runtimes/deepseek/overlay/vllm/model_executor/layers/sparse_attn_indexer.py",
+      "sha256": "a5ff80ba21cedef5cbbf4572ad40db24d2b47e331fb08846751b0882587a91d8"
+    },
+    {
+      "target": "vllm/model_executor/models/interfaces.py",
+      "file": "runtimes/deepseek/overlay/vllm/model_executor/models/interfaces.py",
+      "sha256": "6eb1927f1231e487271063a1afc52dd3b22a8ddb390ac7604d82b02e70097de9"
+    },
+    {
+      "target": "vllm/model_executor/models/qwen3_dspark.py",
+      "file": "runtimes/deepseek/overlay/vllm/model_executor/models/qwen3_dspark.py",
+      "sha256": "a9211984e2aca9e473cef0abbee57a587827758cbd56ac643943ba0e8cd3fb19"
+    },
+    {
+      "target": "vllm/models/deepseek_v4/nvidia/model.py",
+      "file": "runtimes/deepseek/overlay/vllm/models/deepseek_v4/nvidia/model.py",
+      "sha256": "3868783eb70149db921ae9c6585c8924ffa547c5b56e81787c0f5d521f833c88"
+    },
+    {
+      "target": "vllm/models/deepseek_v4_1/amd/rocm.py",
+      "file": "runtimes/deepseek/overlay/vllm/models/deepseek_v4_1/amd/rocm.py",
+      "sha256": "b2eaa3553e6b553fb9569212f2f5337361373c8c9ce93af4fb32d08158aa2745"
+    },
+    {
+      "target": "vllm/models/deepseek_v4_1/ampere/ampere_sparse.py",
+      "file": "runtimes/deepseek/overlay/vllm/models/deepseek_v4_1/ampere/ampere_sparse.py",
+      "sha256": "48aef48af48a066a0ae69bd25c7db2f278d1cede92b45ba5d555633a413e95f7"
+    },
+    {
+      "target": "vllm/models/deepseek_v4_1/common/engram.py",
+      "file": "runtimes/deepseek/overlay/vllm/models/deepseek_v4_1/common/engram.py",
+      "sha256": "e7fde5743d7fe0d6e8bc3c2d8f8ea0a764c80a28222579123355294a5a14641c"
+    },
+    {
+      "target": "vllm/models/deepseek_v4_1/common/exl3_head.py",
+      "file": "runtimes/deepseek/overlay/vllm/models/deepseek_v4_1/common/exl3_head.py",
+      "sha256": "f3ffd2f801b5ea0f61f728f4fb7c745bd8f5370a23c43a1a1165817d8930a4fd"
+    },
+    {
+      "target": "vllm/models/deepseek_v4_1/nvidia/dspark.py",
+      "file": "runtimes/deepseek/overlay/vllm/models/deepseek_v4_1/nvidia/dspark.py",
+      "sha256": "a59e5c9653bbad4f9d98da3e2e3027538a5e1bb44249d8d68e4c4a02cdd6c1fb"
+    },
+    {
+      "target": "vllm/models/deepseek_v4_1/nvidia/model.py",
+      "file": "runtimes/deepseek/overlay/vllm/models/deepseek_v4_1/nvidia/model.py",
+      "sha256": "d4bf8a6de544d0463a5edfb88767f878925c95853aadf35069fe768fbaa21556"
+    },
+    {
+      "target": "vllm/models/deepseek_v4_1/nvidia/vl_model.py",
+      "file": "runtimes/deepseek/overlay/vllm/models/deepseek_v4_1/nvidia/vl_model.py",
+      "sha256": "0ee453ed4160bf33adf407c875852fd2421f202b369cceebd512a6e72bf68e7d"
+    },
+    {
+      "target": "vllm/parser/deepseek_v4.py",
+      "file": "runtimes/deepseek/overlay/vllm/parser/deepseek_v4.py",
+      "sha256": "bbd1b55bdf8a5b76be784450861f5a082b02f234570479b963d1364c41e0b1de"
+    },
+    {
+      "target": "vllm/parser/engine/parser_engine_config.py",
+      "file": "runtimes/deepseek/overlay/vllm/parser/engine/parser_engine_config.py",
+      "sha256": "51cd63d6ff9ca334e1b16f7a97512a8a5db005969b4b29d83c1811d92667a0bb"
+    },
+    {
+      "target": "vllm/parser/engine/streaming_parser_engine.py",
+      "file": "runtimes/deepseek/overlay/vllm/parser/engine/streaming_parser_engine.py",
+      "sha256": "88ef50debb11e224e5d6c4cb6ff1cf99e7aec086391f35bae69baa82f4e23561"
+    },
+    {
+      "target": "vllm/tokenizers/deepseek_v41.py",
+      "file": "runtimes/deepseek/overlay/vllm/tokenizers/deepseek_v41.py",
+      "sha256": "897b350f5426b54505abaea2429dc5f3263c6c1d241dd8358d5375100d9164a2"
+    },
+    {
+      "target": "vllm/tokenizers/deepseek_v41_encoding.py",
+      "file": "runtimes/deepseek/overlay/vllm/tokenizers/deepseek_v41_encoding.py",
+      "sha256": "b731d429eb34c170faf12f24cde45e107f7d5c9bc78d6ffa69ac0dde8aed29b4"
+    },
+    {
+      "target": "vllm/v1/attention/ops/candidate_mqa_sm80.py",
+      "file": "runtimes/deepseek/overlay/vllm/v1/attention/ops/candidate_mqa_sm80.py",
+      "sha256": "3cd9b70a41253a5808beb4a09dfe98f88bb103fa9b7f9863df44e449259c456f"
+    },
+    {
+      "target": "vllm/v1/attention/ops/rocm_aiter_mla_sparse.py",
+      "file": "runtimes/deepseek/overlay/vllm/v1/attention/ops/rocm_aiter_mla_sparse.py",
+      "sha256": "a88af06e8c03fdec821d93101301b344f8f2bd6252ece6a51717b9ac0173e6ab"
+    },
+    {
+      "target": "vllm/v1/worker/gpu/spec_decode/autoregressive/speculator.py",
+      "file": "runtimes/deepseek/overlay/vllm/v1/worker/gpu/spec_decode/autoregressive/speculator.py",
+      "sha256": "d751cd3745e063861f636d7004b1a53ca614d137107b2ec92eb1a8fe0f696b37"
+    },
+    {
+      "target": "vllm/v1/worker/gpu/spec_decode/dflash/speculator.py",
+      "file": "runtimes/deepseek/overlay/vllm/v1/worker/gpu/spec_decode/dflash/speculator.py",
+      "sha256": "8c1ea71674edaac4a650ccf312ee09da896f84a659c339aed6af1698188212a7"
+    },
+    {
+      "target": "vllm/v1/worker/gpu/spec_decode/dspark/utils.py",
+      "file": "runtimes/deepseek/overlay/vllm/v1/worker/gpu/spec_decode/dspark/utils.py",
+      "sha256": "f4b11438b1e37003b91aa22a674a2ed0d133f766754442ed00f8629c1cde4cec"
+    },
+    {
+      "target": "vllm/v1/worker/gpu/spec_decode/multi_module_mtp/speculator.py",
+      "file": "runtimes/deepseek/overlay/vllm/v1/worker/gpu/spec_decode/multi_module_mtp/speculator.py",
+      "sha256": "d9d4735b9b33829332b0e845b6d3073b2f0436045ed693b25c6434f351644127"
+    },
+    {
+      "target": "vllm/v1/worker/gpu/spec_decode/speculator.py",
+      "file": "runtimes/deepseek/overlay/vllm/v1/worker/gpu/spec_decode/speculator.py",
+      "sha256": "ade3d30e4be30450b6bfc1caa070857bc4d4703c96391f5fd96cd44093747174"
+    },
+    {
+      "target": "glm53_exl3_plugin/__init__.py",
+      "file": "runtimes/deepseek/overlay/glm53_exl3_plugin/__init__.py",
+      "sha256": "c673c0a7a8d27ce61089877bc48d87813afe13320aae520cd52f17d16d41d2d0"
+    },
+    {
+      "target": "glm53_exl3_plugin/exl3.py",
+      "file": "runtimes/deepseek/overlay/glm53_exl3_plugin/exl3.py",
+      "sha256": "034c817010681456d1813a0f7bd2c8801062421b74be0a3abd39f7dba7ffe3fa"
+    },
+    {
+      "target": "meshify_v41_disk_engram.py",
+      "file": "runtimes/deepseek/overlay/meshify_v41_disk_engram.py",
+      "sha256": "c1018615af6c19dbfe025b47a58d03a0697ee6930f1d21ecde49e9892f7875bd"
+    },
+    {
+      "target": "v41_disk_rows.py",
+      "file": "runtimes/deepseek/overlay/v41_disk_rows.py",
+      "sha256": "a69d0e1658421584cccdfecdf9806164128a61a6e2d8fb57acf27c357abaed52"
+    },
+    {
+      "target": "vllm_exl3/__init__.py",
+      "file": "runtimes/deepseek/overlay/vllm_exl3/__init__.py",
+      "sha256": "b8b987094476605b7721168c1d2c1167d8a0ff4519b1f70ad186fbe5a90ddbfc"
+    },
+    {
+      "target": "vllm_exl3/batch_invariant_mxfp4.py",
+      "file": "runtimes/deepseek/overlay/vllm_exl3/batch_invariant_mxfp4.py",
+      "sha256": "abbfa8e23c16e0eff524f354b8a612040621bfaa1db16640c96d6749769cbe87"
+    },
+    {
+      "target": "vllm_exl3/dequant.py",
+      "file": "runtimes/deepseek/overlay/vllm_exl3/dequant.py",
+      "sha256": "c0b24b26129eb2281d0de14aaf484abbe947be01fb80b7f3e7de0ed9974aa671"
+    },
+    {
+      "target": "vllm_exl3/exl3.py",
+      "file": "runtimes/deepseek/overlay/vllm_exl3/exl3.py",
+      "sha256": "35704c4fd343ef74a9ce3bcdac17476cf8db31711fffb6a8db623785fee8e68a"
+    },
+    {
+      "target": "vllm_exl3/prefill_policy.py",
+      "file": "runtimes/deepseek/overlay/vllm_exl3/prefill_policy.py",
+      "sha256": "0504f737127e639cc7751b9880b325915b3a6cbaac9d9f6bcbffe8a35fe2a637"
+    },
+    {
+      "target": "vllm_exl3/runtime_policy.py",
+      "file": "runtimes/deepseek/overlay/vllm_exl3/runtime_policy.py",
+      "sha256": "4092c56f5f873d36f8ec07a8e054ed2e5f95c414b3bca384f7f694f4a9004137"
+    },
+    {
+      "target": "vllm_exl3-0.4.2.dist-info/METADATA",
+      "file": "runtimes/deepseek/overlay/vllm_exl3-0.4.2.dist-info/METADATA",
+      "sha256": "a1fc31bf04615b82ddb214d9978c7365f86b32641c7f682b5ab56d408191d048"
+    },
+    {
+      "target": "vllm_exl3-0.4.2.dist-info/WHEEL",
+      "file": "runtimes/deepseek/overlay/vllm_exl3-0.4.2.dist-info/WHEEL",
+      "sha256": "c14c80f0e6ae95195b7f032d990b2f367806af140702f90a72f466762ce5262d"
+    },
+    {
+      "target": "vllm_exl3-0.4.2.dist-info/entry_points.txt",
+      "file": "runtimes/deepseek/overlay/vllm_exl3-0.4.2.dist-info/entry_points.txt",
+      "sha256": "5e804922841a2d7339f750d3a2461278188be7fbd71245d7683e5c9f9e2aa9f6"
+    },
+    {
+      "target": "vllm_exl3-0.4.2.dist-info/top_level.txt",
+      "file": "runtimes/deepseek/overlay/vllm_exl3-0.4.2.dist-info/top_level.txt",
+      "sha256": "82e80061c1555e7f879e7ef093d9996e26b677cf53052466abbf99f61647c800"
+    },
+    {
+      "target": "vllm_exl3-0.4.2.dist-info/licenses/LICENSE",
+      "file": "runtimes/deepseek/overlay/vllm_exl3-0.4.2.dist-info/licenses/LICENSE",
+      "sha256": "cf0b6664ce73f379c829d162e2c738dcd867448fbc2ee3962ef2b000297a6083"
+    },
+    {
+      "target": "vllm_exl3-0.4.2.dist-info/licenses/LICENSE.APACHE-2.0",
+      "file": "runtimes/deepseek/overlay/vllm_exl3-0.4.2.dist-info/licenses/LICENSE.APACHE-2.0",
+      "sha256": "230a88fc02af8381245b5d611f2bfe553975da6dfd64d61c15428cf4d9e9e6c5"
+    },
+    {
+      "target": "vllm_exl3-0.4.2.dist-info/licenses/NOTICE",
+      "file": "runtimes/deepseek/overlay/vllm_exl3-0.4.2.dist-info/licenses/NOTICE",
+      "sha256": "2a30702aef1ca3af34bc324c160cb0908841dad92dc7871b005cd177e4fa695b"
+    },
+    {
+      "target": "vllm_exl3-0.4.2.dist-info/licenses/THIRD_PARTY_NOTICES.md",
+      "file": "runtimes/deepseek/overlay/vllm_exl3-0.4.2.dist-info/licenses/THIRD_PARTY_NOTICES.md",
+      "sha256": "3c23458d09b0874676be2936ac1520232b02c94006ecd2818f5647b6cf3e6aaa"
+    }
+  ]
+}

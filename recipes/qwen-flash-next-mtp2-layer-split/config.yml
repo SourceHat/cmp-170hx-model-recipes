@@ -1,0 +1,47 @@
+network:
+  host: '@HOST@'
+  port: '@PORT@'
+  disable_auth: true
+  allowed_origins: []
+  disable_fetch_requests: true
+  api_servers:
+  - oai
+  sse_ping_interval: 15
+logging:
+  log_prompt: false
+  log_requests: false
+  log_live_status: false
+model:
+  model_dir: '@MODEL_PARENT@'
+  model_name: qwen3.8-flash-next
+  backend: exllamav3
+  max_seq_len: 262144
+  cache_size: 1356032
+  cache_mode: Q8
+  max_batch_size: 6
+  chunk_size: 512
+  tensor_parallel: false
+  tensor_parallel_backend: native
+  gpu_split_auto: true
+  autosplit_reserve:
+  - 2048
+  - 2048
+  vision: false
+  warmup: true
+  output_chunking: true
+  inline_model_loading: false
+  recurrent_checkpoint_interval: 2048
+  recurrent_checkpoint_interval_pp: 32768
+  ngram_ram: true
+draft_model:
+  draft_mode: mtp
+  draft_cache_mode: Q8
+  draft_num_tokens: 2
+  dynamic_draft: false
+  draft_gpu_split:
+  - 0
+  - 62.0
+sampling: {}
+memory:
+  sysmem_kv_cache: 0
+  sysmem_recurrent_cache: 16384

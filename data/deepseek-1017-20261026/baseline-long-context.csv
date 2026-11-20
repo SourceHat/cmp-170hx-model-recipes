@@ -1,0 +1,3 @@
+case_id,success,accepted_token_count,prompt_tokens,token_counts_match,input_target_tokens,output_ceiling,ttft_seconds,total_seconds,generation_tokens_per_second,warmup
+coding-131072-8192-r0,True,8192,131072,True,131072,8192,202.74481992097571,543.3995412039803,24.04489037965669,False
+coding-516032-8192-r0,True,8192,516031,True,516032,8192,897.3661823730217,1267.8933297040057,22.10635551250765,False

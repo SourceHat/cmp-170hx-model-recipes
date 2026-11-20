@@ -1,0 +1,22 @@
+{
+  "backend": "exllamav3",
+  "cache_mode": "Q8",
+  "chunk_size": 1024,
+  "draft_mode": "disabled",
+  "max_request_tokens": 262144,
+  "max_sessions": 4,
+  "model_dir": "MODEL_DIRECTORY",
+  "native_context": 524288,
+  "shared_cache_tokens": 262144,
+  "tuning": {
+    "prefill_chunk_size": 1024,
+    "residual": "mixed",
+    "router_replay_widths": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "cpu_paths": {}
+  }
+}

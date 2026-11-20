@@ -1,0 +1,148 @@
+{
+  "format_version": 1,
+  "recipe": "qwen3.8-27b-exl3",
+  "memory_observations": [],
+  "verification": {
+    "historical_validation": {
+      "checks_passed": [
+        "native_gpu0",
+        "native_gpu1",
+        "native_gpu2",
+        "aggregate",
+        "route",
+        "codex",
+        "claude"
+      ],
+      "context_tokens": 262144,
+      "gpu_cache_tokens": 917504,
+      "tested_slots_per_replica": 16,
+      "published_slots": 8,
+      "ram_restore": "passed, main/MTP pages and recurrent checkpoints",
+      "aggregate": {
+        "cold": {
+          "generated_tokens": 12288,
+          "wall_seconds": 45.3611008959997,
+          "end_to_end_output_tps": 270.89289627632587,
+          "output_tps_after_first_token": 448.85333516169584,
+          "includes_reasoning_tokens": true
+        },
+        "warm": {
+          "generated_tokens": 12288,
+          "wall_seconds": 26.62383367700022,
+          "end_to_end_output_tps": 461.5413448370266,
+          "output_tps_after_first_token": 683.652919142246,
+          "includes_reasoning_tokens": true
+        }
+      },
+      "native_context_stages": [
+        {
+          "tokens": 131072,
+          "report": "r10-native-gpu1-131072.json",
+          "passed": true,
+          "error": null,
+          "cold": {
+            "generated_tokens": 256,
+            "wall_seconds": 237.13433185599933,
+            "end_to_end_output_tps": 1.0795568823642834,
+            "output_tps_after_first_token": 27.53322881060092,
+            "includes_reasoning_tokens": true
+          },
+          "warm": {
+            "generated_tokens": 70,
+            "wall_seconds": 4.270540210000036,
+            "end_to_end_output_tps": 16.391368903654325,
+            "output_tps_after_first_token": 44.77719160183076,
+            "includes_reasoning_tokens": true
+          },
+          "replayed_history_tokens": [
+            59,
+            59
+          ]
+        },
+        {
+          "tokens": 261632,
+          "report": "r10-native-gpu1-261632.json",
+          "passed": true,
+          "error": null,
+          "cold": {
+            "generated_tokens": 256,
+            "wall_seconds": 455.13997179799844,
+            "end_to_end_output_tps": 0.5624643315520937,
+            "output_tps_after_first_token": 11.28430470815341,
+            "includes_reasoning_tokens": true
+          },
+          "warm": {
+            "generated_tokens": 70,
+            "wall_seconds": 7.136954459001572,
+            "end_to_end_output_tps": 9.808105180174106,
+            "output_tps_after_first_token": 15.840780538359542,
+            "includes_reasoning_tokens": true
+          },
+          "replayed_history_tokens": [
+            67,
+            67
+          ]
+        }
+      ],
+      "thermal_measurements": [
+        {
+          "gpu": 0,
+          "core_peak_c": 62.0,
+          "hbm_peak_c": 69.0,
+          "instant_peak_w": 206.01,
+          "enforced_limits_w": [
+            200.0
+          ],
+          "oom_kills": 0,
+          "swap_peak_bytes": 0,
+          "ram_peak_bytes": 20714000384
+        },
+        {
+          "gpu": 1,
+          "core_peak_c": 85.0,
+          "hbm_peak_c": 85.0,
+          "instant_peak_w": 298.94,
+          "enforced_limits_w": [
+            200.0
+          ],
+          "oom_kills": 0,
+          "swap_peak_bytes": 0,
+          "ram_peak_bytes": 26843545600
+        },
+        {
+          "gpu": 2,
+          "core_peak_c": 59.0,
+          "hbm_peak_c": 59.0,
+          "instant_peak_w": 204.74,
+          "enforced_limits_w": [
+            200.0
+          ],
+          "oom_kills": 0,
+          "swap_peak_bytes": 0,
+          "ram_peak_bytes": 20368670720
+        }
+      ],
+      "source": {
+        "file": "source-c2d567b03ac1b5f9ad0027ff.json",
+        "sha256": "476aaa266a9df1eeb0a19a73b80f87f1777b525dd0e43bb2104bbe0b181e2244",
+        "json_pointer": ""
+      }
+    }
+  },
+  "quantization": {},
+  "selection_rationale": "Standard Qwen 3.8 27B with native MTP1. Current eight-slot performance has a separate approximately 32k-input / 256-output C1/C8 comparison. Historical three-replica results and the C2 retention check retain their original geometry.",
+  "source_receipts": [
+    {
+      "file": "qwen3.8-27b-exl3.json",
+      "sha256": "38008c139c9be232b9c365b3328702b0fdddf422b10bd8ed0feaed405ac331d9"
+    },
+    {
+      "file": "source-c2d567b03ac1b5f9ad0027ff.json",
+      "sha256": "476aaa266a9df1eeb0a19a73b80f87f1777b525dd0e43bb2104bbe0b181e2244"
+    },
+    {
+      "file": "source-e18d36de0771b15b1c6245a4.json",
+      "sha256": "60c00f71b1d079401ac67483907a466780dfac16440194bbc052ec23d8b1926b"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "format_version": 1,
+  "profile": "strata-q4-single",
+  "model_shards": [
+    {
+      "file": "UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00001-of-00003.gguf",
+      "bytes": 10946624,
+      "sha256": "5ce89370720f8bf90890f439361282104c1aa1482d4013bb9a50923e758e71a4",
+      "tensors": 0,
+      "payload_rehashed": false
+    },
+    {
+      "file": "UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00002-of-00003.gguf",
+      "bytes": 49835229856,
+      "sha256": "577a38a2392b40ca2193cea502e1d92f60b8cd370675d308e0ec21885d9daaa7",
+      "tensors": 373,
+      "payload_rehashed": false
+    },
+    {
+      "file": "UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00003-of-00003.gguf",
+      "bytes": 43836407744,
+      "sha256": "d4634e6d84f0ebb0940be15c90d3790bf6464e3dea3a1cddc567dc0e83ad8833",
+      "tensors": 851,
+      "payload_rehashed": false
+    }
+  ],
+  "quantization": {
+    "components": {
+      "output_head": {
+        "tensors": 1,
+        "elements": 635699200,
+        "payload_bytes": 521472000,
+        "unknown_byte_count": 0,
+        "formats": {
+          "Q6_K": 1
+        },
+        "effective_bpw": 6.5625
+      },
+      "other_tensors": {
+        "tensors": 1078,
+        "elements": 4311999360,
+        "payload_bytes": 4830154240,
+        "unknown_byte_count": 0,
+        "formats": {
+          "BF16": 24,
+          "F32": 557,
+          "Q8_0": 497
+        },
+        "effective_bpw": 8.961326450660698
+      },
+      "ple_table": {
+        "tensors": 1,
+        "elements": 51200245760,
+        "payload_bytes": 28800138240,
+        "unknown_byte_count": 0,
+        "formats": {
+          "IQ4_NL": 1
+        },
+        "effective_bpw": 4.5
+      },
+      "routed_experts": {
+        "tensors": 144,
+        "elements": 120795955200,
+        "payload_bytes": 59519795200,
+        "unknown_byte_count": 0,
+        "formats": {
+          "IQ3_S": 94,
+          "IQ4_NL": 43,
+          "IQ4_XS": 2,
+          "Q8_0": 5
+        },
+        "effective_bpw": 3.9418402777777777
+      }
+    },
+    "bits_per_weight_scope": "Stored tensor payload including quantization scales; excludes GGUF metadata and padding",
+    "pack_conversions": {
+      "tensors": 460,
+      "exact": 264,
+      "rounded": 196,
+      "maximum_absolute_rounding_error": 0.014404296875,
+      "experts_and_ple_bytes_unchanged": true
+    }
+  },
+  "ple_view": {
+    "bytes": 28800138336,
+    "sha256": "ffe1da7a412ea9e890246b548705addc21e4cbab1ccb52899a07805c7043f601",
+    "source_offset": 528499744,
+    "tensor_bytes": 28800138240,
+    "type": "IQ4_NL",
+    "lossless": true
+  },
+  "memory": {
+    "measurement_gpu_ordinals": [
+      2
+    ],
+    "sampled_peak_vram_mib_per_card": [
+      64498.0
+    ],
+    "eight_bit_main_and_draft_verified": true,
+    "audited_state_count": 109,
+    "host_kv_allocated_bytes": 30173934592,
+    "allocated_batch_slots": 8,
+    "batch_mtp_enabled": false,
+    "resident_expert_cache_mib": 48690,
+    "resident_expert_slots": 21080
+  },
+  "verification": {
+    "tool_round_trip_passed": true,
+    "kernel_parity": null,
+    "legacy_completions": "CPU-verified adapter after GPU trial; wrapper not distributed in this archive.",
+    "near_limit_context_qualified": false,
+    "general_quality_qualified": false
+  },
+  "source_receipts": [
+    {
+      "file": "source-a6ca5cadbbfcca483ffa2ecf.json",
+      "sha256": "e325fa62dd58620fb58eae531169354d23014ba4168298edd3a14ace2b0595af",
+      "json_pointer": "/configurations/strata-q4-single"
+    },
+    {
+      "file": "source-a7fd8ac42c6ccda1cdae00a7.json",
+      "sha256": "48d7a1f9b03716e305c4b1cde5fd2fb9b443583eff4068a7d9acfacc2ec26399",
+      "json_pointer": "/quantizations/strata-q4"
+    },
+    {
+      "file": "source-a09ff2978cf39d9e1a637761.json",
+      "sha256": "96e3475092fb2032c95b5609afe3df8150358a20e7f45af717c672a979ba96b5",
+      "json_pointer": "/strata-q4"
+    },
+    {
+      "file": "source-ebf6f82a6d7710ba0655f823.json",
+      "sha256": "912c18e9ab57b4976e00373463625073fc7e4eabc75db92195562c1b47c0a2c5",
+      "json_pointer": ""
+    },
+    {
+      "file": "source-cfcb4fd1eb04e70d91e81f2a.json",
+      "sha256": "ef3fce780f0ac3a2208c21c9152b208a333d1bd7c2453db7ce623fe2c44c9690",
+      "json_pointer": ""
+    },
+    {
+      "file": "source-de3be1095e526c2a7494e671.json",
+      "sha256": "1adc243a0b7bdc35842b6b72726642d6ff4ffa4d5ceb6898cb6bd2503c2688b9",
+      "json_pointer": ""
+    }
+  ]
+}

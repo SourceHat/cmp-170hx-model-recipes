@@ -1,0 +1,241 @@
+{
+  "request_id": "kv-q8-capacity-20261015",
+  "passed": true,
+  "original_profile": {
+    "path": "apex-abliterated-exl3-mtp1-tp3.json",
+    "sha256": "8164a5c73a03471fce6be0de17b910e749bf16445aae21ad6ea2e09aaf587fcd"
+  },
+  "tested_profile": {
+    "path": "apex-1374976-r2560-2336-2848.json",
+    "sha256": "ea1d6d91a62fafcfbb3927dfed1e594a1d5a8251ad617e3bd62609ce714fcd10"
+  },
+  "original_pool_tokens": 1083136,
+  "validated_pool_tokens": 1374976,
+  "gain_tokens": 291840,
+  "gain_percent": 26.943984873552363,
+  "preserved_context": 524288,
+  "preserved_slots": 4,
+  "preserved_mtp_tokens": 1,
+  "preserved_dynamic_draft": false,
+  "main_and_draft_cache": "Q8",
+  "physical_margin_mib_required": 256,
+  "gpu_indices": [
+    0,
+    1,
+    2
+  ],
+  "independent_loads": [
+    {
+      "job_id": "apex-abliterated-exl3-mtp1-tp3-1792129755811336963",
+      "lifecycle": {
+        "path": "apex-1374976-load1-lifecycle.json",
+        "sha256": "37cc6fbcb980f68c107d2580419e39f52bd8cb0abf331bf91aed9281cf0469de"
+      },
+      "qualification": {
+        "path": "apex-1374976-load1-full.json",
+        "sha256": "cf54e28cc7939ffc71b4d7e86283bd3a862a7d2d8b1de42a60e51fc95a177c53"
+      },
+      "harness": {
+        "path": "qualify-e56908b5fd6528e4830c9d7da5b50faaeced5f950f9da68f50627c77bbbaec0b.py",
+        "sha256": "e56908b5fd6528e4830c9d7da5b50faaeced5f950f9da68f50627c77bbbaec0b"
+      },
+      "memory": {
+        "started_at": 1792129755.686381,
+        "ended_at": 1792133923.586711,
+        "samples": 413520,
+        "max_sample_gap_seconds": 0.1214230330006103,
+        "all_records_cover_selected_gpus": true,
+        "gpus": {
+          "0": {
+            "uuid": "reference-gpu-0",
+            "total_bytes": 68719476736,
+            "min_free_bytes": 695271424,
+            "max_used_bytes": 68024205312,
+            "driver_reserved_bytes": 929169408
+          },
+          "1": {
+            "uuid": "reference-gpu-1",
+            "total_bytes": 68719476736,
+            "min_free_bytes": 647036928,
+            "max_used_bytes": 68072439808,
+            "driver_reserved_bytes": 929169408
+          },
+          "2": {
+            "uuid": "reference-gpu-2",
+            "total_bytes": 68719476736,
+            "min_free_bytes": 305201152,
+            "max_used_bytes": 68414275584,
+            "driver_reserved_bytes": 929169408
+          }
+        },
+        "covers_interval": true,
+        "all_gpus_have_256_mib": true,
+        "sampling_continuous": true,
+        "physical_free_guard_passed": true,
+        "measurement": "NVML device free bytes across all processes; 10 ms polling, per-250 ms minima",
+        "closed_sample_archive": {
+          "path": "apex-1374976-two-load-qualification-load-1-physical.jsonl",
+          "sha256": "b74abba10696ed0f24d4aecd9b97e4444771fe9f5f8aa5c6b8770bc73d9ea2e2"
+        }
+      },
+      "cache": {
+        "component_bytes": {
+          "main": 16939704320,
+          "draft": 1539973120
+        },
+        "total_bytes": 18479677440,
+        "bytes_per_token": 13440
+      },
+      "resident_decode_replay": null
+    },
+    {
+      "job_id": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212",
+      "lifecycle": {
+        "path": "apex-1374976-load2-hot-lifecycle.json",
+        "sha256": "6ebb07ee3b1cf40acf58a3c984ff06253c46c205bd75904cebff2f92d5ac54cb"
+      },
+      "qualification": {
+        "path": "apex-1374976-load2-hot-full.json",
+        "sha256": "eb0ee235db14dbe9397574bc6dd3c1ceef70ed913ca672bf11a00c861171c8b9"
+      },
+      "harness": {
+        "path": "qualify-dc9c51af5cb6254c29cc5a410b5bb6cab2b0ffa4121523773a26496cd4f2625c.py",
+        "sha256": "dc9c51af5cb6254c29cc5a410b5bb6cab2b0ffa4121523773a26496cd4f2625c"
+      },
+      "memory": {
+        "started_at": 1792138981.2206662,
+        "ended_at": 1792142377.9717762,
+        "samples": 335665,
+        "max_sample_gap_seconds": 0.13984890800202265,
+        "all_records_cover_selected_gpus": true,
+        "gpus": {
+          "0": {
+            "uuid": "reference-gpu-0",
+            "total_bytes": 68719476736,
+            "min_free_bytes": 674299904,
+            "max_used_bytes": 68045176832,
+            "driver_reserved_bytes": 929169408
+          },
+          "1": {
+            "uuid": "reference-gpu-1",
+            "total_bytes": 68719476736,
+            "min_free_bytes": 623968256,
+            "max_used_bytes": 68095508480,
+            "driver_reserved_bytes": 929169408
+          },
+          "2": {
+            "uuid": "reference-gpu-2",
+            "total_bytes": 68719476736,
+            "min_free_bytes": 284229632,
+            "max_used_bytes": 68435247104,
+            "driver_reserved_bytes": 929169408
+          }
+        },
+        "covers_interval": true,
+        "all_gpus_have_256_mib": true,
+        "sampling_continuous": true,
+        "physical_free_guard_passed": true,
+        "measurement": "NVML device free bytes across all processes; 10 ms polling, per-250 ms minima",
+        "closed_sample_archive": {
+          "path": "apex-1374976-two-load-qualification-load-2-physical.jsonl",
+          "sha256": "f61ef15e798a1f7111e677a1c6353cd621ca31507ecdf6182f363136506c3184"
+        }
+      },
+      "cache": {
+        "component_bytes": {
+          "main": 16939704320,
+          "draft": 1539973120
+        },
+        "total_bytes": 18479677440,
+        "bytes_per_token": 13440
+      },
+      "resident_decode_replay": {
+        "qualification": {
+          "path": "apex-1374976-load2-hot-resident.json",
+          "sha256": "687babd9a23a9de78c3d3d1de072321e84b85816478aed88671b5179978d473e"
+        },
+        "harness": {
+          "path": "qualify-696cbea2b4b82b2c92e42ee133dad4eb556a0ce2f1c6b50fea55e02d84056818.py",
+          "sha256": "696cbea2b4b82b2c92e42ee133dad4eb556a0ce2f1c6b50fea55e02d84056818"
+        }
+      }
+    }
+  ],
+  "baseline_performance": {
+    "path": "apex-original-refreshed-baseline.json",
+    "sha256": "bd04bf75daf0567ccc71c277eedfcbfabfe5e970ec5b67cbbb38f9a4bb6b47e7"
+  },
+  "physical_sample_source": "apex-split-v2-physical-vram.jsonl",
+  "memory_evidence": "Closed numeric per-load sample archives with SHA256; source stream continues independently",
+  "performance_input_identity_policy": "Fixed synthetic identities per prompt target, concurrency and lane across independent loads",
+  "performance_comparison": {
+    "timing": "Backend per-request completion rate; includes reasoning; not aggregate decode throughput",
+    "rows": [
+      {
+        "prompt_tokens": 2048,
+        "concurrency": 1,
+        "baseline_per_request_median_tps": 24.56,
+        "trial_per_request_median_tps": 23.7,
+        "change_percent": -3.5016286644951156,
+        "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792129755811336963"
+      },
+      {
+        "prompt_tokens": 2048,
+        "concurrency": 1,
+        "baseline_per_request_median_tps": 24.56,
+        "trial_per_request_median_tps": 37.12,
+        "change_percent": 51.14006514657981,
+        "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212"
+      },
+      {
+        "prompt_tokens": 2048,
+        "concurrency": 4,
+        "baseline_per_request_median_tps": 17.215,
+        "trial_per_request_median_tps": 19.045,
+        "change_percent": 10.630264304385717,
+        "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792129755811336963"
+      },
+      {
+        "prompt_tokens": 2048,
+        "concurrency": 4,
+        "baseline_per_request_median_tps": 17.215,
+        "trial_per_request_median_tps": 23.6,
+        "change_percent": 37.089747313389495,
+        "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212"
+      },
+      {
+        "prompt_tokens": 32768,
+        "concurrency": 1,
+        "baseline_per_request_median_tps": 32.65,
+        "trial_per_request_median_tps": 32.93,
+        "change_percent": 0.8575803981623276,
+        "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792129755811336963"
+      },
+      {
+        "prompt_tokens": 32768,
+        "concurrency": 1,
+        "baseline_per_request_median_tps": 32.65,
+        "trial_per_request_median_tps": 33.96,
+        "change_percent": 4.012251148545176,
+        "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212"
+      },
+      {
+        "prompt_tokens": 32768,
+        "concurrency": 4,
+        "baseline_per_request_median_tps": 22.744999999999997,
+        "trial_per_request_median_tps": 21.4,
+        "change_percent": -5.9133875577049855,
+        "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792129755811336963"
+      },
+      {
+        "prompt_tokens": 32768,
+        "concurrency": 4,
+        "baseline_per_request_median_tps": 22.744999999999997,
+        "trial_per_request_median_tps": 20.005000000000003,
+        "change_percent": -12.046603649153642,
+        "trial_job": "apex-abliterated-exl3-mtp1-tp3-1792138981600051212"
+      }
+    ]
+  },
+  "model_input_output_retained": false
+}
